@@ -1,10 +1,9 @@
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-    }
-}
-rootProject.name = "INTQ"
+include ':debug_mode'
 include ':app'
+rootProject.name='INTQ'
+include ':common'
+include ':open_login'
+include ':open_main'
+include ':open_im'
+include ':open_push'
+include ':open_user'

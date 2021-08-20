@@ -1,0 +1,49 @@
+{
+  "bean": [
+    {
+      "title": "main",
+      "description": "首页模块"
+    },
+    {
+      "title": "login",
+      "description": "登录模块"
+    },
+    {
+      "title": "push",
+      "description": "推送模块"
+    },
+    {
+      "title": "user",
+      "description": "用户信息模块"
+    },
+    {
+      "title": "common",
+      "description": "公共基础包",
+      "sub": [
+        {
+          "title": "http",
+          "description": "http网络工具"
+        },
+        {
+          "title": "sql",
+          "description": "数据库",
+          "sub": []
+        },
+        {
+          "title": "control",
+          "description": "控制层",
+          "sub": []
+        },
+        {
+          "title": "log",
+          "description": "日志工具"
+        }
+      ]
+    },
+    {
+      "title": "debug",
+      "description": "debug调试",
+      "sub": []
+    }
+  ]
+}

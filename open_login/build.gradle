@@ -1,0 +1,26 @@
+apply from: '../module.gradle'
+
+android {
+
+    //组件化运行和总包运行建议使用不同的AndroidManifest文件；
+    //如果使用默认的AndroidManifest.xml，则去掉下面代码
+    sourceSets {
+        main {
+            if (!allPackage) {
+                manifest.srcFile 'src/test/AndroidManifest.xml'
+            }
+        }
+    }
+}
+
+constant {
+    enable false//不进行编译
+    moduleName "common"//生成新代码存放在的moduleName
+    packageName "com.vc.wd.common.util"//生成的新代码放在哪个包下
+    className "Constant"//生成的常量类名
+    fieldMap = [
+            ACTIVITY_URL_LOGIN   : "/login/LoginActivity",
+            ACTIVITY_URL_REGISTER: "/login/RegisterActivity",
+            ACTIVITY_URL_WELCOME : "/login/WelcomeActivity"
+    ]//属性参数
+}

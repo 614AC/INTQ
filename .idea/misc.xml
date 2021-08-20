@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_add_circle.xml" value="0.2" />
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_main_view_pager.xml" value="0.16" />
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/circle_image_item.xml" value="0.33" />
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/circle_item.xml" value="0.5" />
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/frag_circle.xml" value="0.25" />
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/frag_main.xml" value="0.25" />
+        <entry key="..\:/code/java/intq/open_main/src/main/res/layout/frag_test.xml" value="0.25" />
+      </map>
+    </option>
   </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

@@ -1,0 +1,44 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.vc.constant'
+
+android {
+
+    compileSdkVersion SDK_VERSION.compileSdkVersion
+    defaultConfig {
+        minSdkVersion SDK_VERSION.minSdkVersion
+        targetSdkVersion SDK_VERSION.targetSdkVersion
+        versionCode active.versionCode
+        versionName active.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures{
+        dataBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+    api project(path: ':common')
+}

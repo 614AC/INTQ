@@ -12,4 +12,16 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+/app/objectbox-models/default.json
+/app/objectbox-models/default.json.bak
+/.idea/gradle.xml
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties
+/gradlew
+/gradlew.bat
+/.idea/misc.xml
+/.idea/codeStyles/Project.xml
+/.idea/runConfigurations.xml
+/.idea/vcs.xml
+/.idea/jarRepositories.xml
+/.idea/
