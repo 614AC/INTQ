@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.vc.wd.login.vm.LoginViewModel" />
+            type="com.example.intq.login.vm.LoginViewModel" />
     </data>
 
     <RelativeLayout
