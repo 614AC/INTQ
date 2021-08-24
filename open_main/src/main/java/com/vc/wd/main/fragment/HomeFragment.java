@@ -1,24 +1,23 @@
 package com.vc.wd.main.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.util.Log;
-import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.AlphaAnimation;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.vc.wd.common.bean.Course;
 import com.vc.wd.common.core.WDFragment;
 
-import com.vc.wd.main.activity.MainActivity;
+import com.vc.wd.common.util.Constant;
 import com.vc.wd.main.adapter.HomeTabAdapter;
 import com.vc.wd.main.R;
 import com.vc.wd.main.vm.HomeViewModel;
@@ -44,6 +43,12 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragmentHomeBinding>
     @Override
     protected void initView(Bundle bundle) {
         mTabAdapter = new HomeTabAdapter(getChildFragmentManager());
+        viewModel.courseList.observe(this, new Observer<List<Course>>() {
+            @Override
+            public void onChanged(List<Course> courses) {
+                mTabAdapter.setList(courses);
+            }
+        });
 
         binding.innerViewPager.setAdapter(mTabAdapter);
         binding.tabItems.setupWithViewPager(binding.innerViewPager);
@@ -63,6 +68,15 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragmentHomeBinding>
 
             @Override
             public void onButtonClicked(int buttonCode) {
+            }
+        });
+
+        binding.tabConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putIntArray("courseIndices", Course.course2Integer(getFragViewModel().courseList.getValue()));
+                intentForResultByRouter(Constant.ACTIVITY_URL_TAB_CONFIG, bundle, Constant.REQ_TAB_CONFIG);
             }
         });
     }
@@ -112,31 +126,11 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragmentHomeBinding>
         view.startAnimation(alphaAnimation);
     }
 
-//        viewModel.bannerData.observe(this, new Observer<List<Banner>>() {
-//            @Override
-//            public void onChanged(List<Banner> banners) {
-//                mBannerAdapter.updateData(banners);
-//            }
-//        });
-//
-//        viewModel.homeListData.observe(this, new Observer<HomeList>() {
-//            @Override
-//            public void onChanged(HomeList data) {
-//                mHotAdapter.addAll(data.getRxxp().getCommodityList());
-//                mFashionAdapter.addAll(data.getMlss().getCommodityList());
-//                mLifeAdapter.addAll(data.getPzsh().getCommodityList());
-//                mHotAdapter.notifyDataSetChanged();
-//                mFashionAdapter.notifyDataSetChanged();
-//                mLifeAdapter.notifyDataSetChanged();
-//            }
-//        });
-//
-//        viewModel.fragDataShare.observe(this, new Observer<Message>() {
-//            @Override
-//            public void onChanged(Message message) {
-//                if (message.what == 100) {//提示我的页面发送过来的消息，实现数据共享
-//                    UIUtils.showToastSafe((String) message.obj);
-//                }
-//            }
-//        });
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == Constant.REQ_TAB_CONFIG) {
+            getFragViewModel().courseList.setValue(Course.integer2Course(data.getIntArrayExtra("courseIndices")));
+        }
+    }
+
 }

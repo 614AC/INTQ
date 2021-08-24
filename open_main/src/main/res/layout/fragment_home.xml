@@ -8,6 +8,10 @@
         <variable
             name="vm"
             type="com.vc.wd.main.vm.HomeViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.vc.wd.main.fragment.HomeFragment" />
     </data>
 
     <RelativeLayout
@@ -39,7 +43,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="6"
                     android:gravity="center"
-                    android:text="INTQ知清倾情奉献"
+                    android:text="@string/search_title_txt"
                     android:textAlignment="center"
                     android:textColor="#fff"
                     android:textSize="17sp"
@@ -88,13 +92,13 @@
                     app:tabPaddingEnd="5dip"
                     app:tabPaddingStart="5dip" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/tab_config"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_weight="1"
-                    android:text="Button" />
+                    android:src="@drawable/ic_menu_animated" />
 
             </LinearLayout>
 

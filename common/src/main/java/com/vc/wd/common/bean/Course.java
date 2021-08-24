@@ -1,5 +1,8 @@
 package com.vc.wd.common.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Course {
     private int index;
 
@@ -18,6 +21,28 @@ public class Course {
 
     public static int getCourseNumber() {
         return NAME_ENG.length;
+    }
+
+    public static int[] course2Integer(List<Course> courseList) {
+        try {
+            int[] courseIndices = new int[courseList.size()];
+            for (int i = 0; i < courseList.size(); ++i)
+                courseIndices[i] = courseList.get(i).getIndex();
+            return courseIndices;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public static List<Course> integer2Course(int[] courseIndices) {
+        try {
+            List<Course> courseList = new ArrayList<>(courseIndices.length);
+            for (int i = 0; i < courseIndices.length; ++i)
+                courseList.add(new Course(courseIndices[i]));
+            return courseList;
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     private static int clamp(int index) {
