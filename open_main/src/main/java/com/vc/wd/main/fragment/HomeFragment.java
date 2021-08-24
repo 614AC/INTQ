@@ -1,30 +1,35 @@
 package com.vc.wd.main.fragment;
 
 import android.os.Bundle;
-import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.view.animation.AlphaAnimation;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.GridLayoutManager;
+import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.vc.wd.common.core.WDFragment;
+
+import com.vc.wd.main.activity.MainActivity;
+import com.vc.wd.main.adapter.HomeTabAdapter;
+import com.vc.wd.main.R;
+import com.vc.wd.main.vm.HomeViewModel;
+import com.vc.wd.main.databinding.FragmentHomeBinding;
 
 import com.vc.wd.common.util.UIUtils;
-import com.vc.wd.main.R;
-import com.vc.wd.main.adapter.CommodityAdpater;
-import com.vc.wd.common.bean.Banner;
-import com.vc.wd.common.bean.shop.HomeList;
-import com.vc.wd.common.core.WDFragment;
-import com.vc.wd.main.adapter.HomeBannerAdapter;
-import com.vc.wd.main.databinding.FragMainBinding;
-import com.vc.wd.common.util.recycleview.SpacingItemDecoration;
-import com.vc.wd.main.vm.HomeViewModel;
-import com.vc.wd.main.vm.MainViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends WDFragment<HomeViewModel, FragMainBinding> {
-
-    private CommodityAdpater mHotAdapter, mFashionAdapter, mLifeAdapter;
-    private HomeBannerAdapter mBannerAdapter;
+public class HomeFragment extends WDFragment<HomeViewModel, FragmentHomeBinding> {
+    private HomeTabAdapter mTabAdapter;
 
     @Override
     protected HomeViewModel initFragViewModel() {
@@ -33,73 +38,105 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragMainBinding> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.frag_main;
+        return R.layout.fragment_home;
     }
 
     @Override
     protected void initView(Bundle bundle) {
-        mHotAdapter = new CommodityAdpater(CommodityAdpater.HOT_TYPE);
-        mFashionAdapter = new CommodityAdpater(CommodityAdpater.FASHION_TYPE);
-        mLifeAdapter = new CommodityAdpater(CommodityAdpater.HOT_TYPE);
+        mTabAdapter = new HomeTabAdapter(getChildFragmentManager());
 
-        binding.hotList.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        binding.fashionList.setLayoutManager(new GridLayoutManager(getContext(), 1));
-        binding.lifeList.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-        int space = getResources().getDimensionPixelSize(R.dimen.dip_10);
-
-        binding.hotList.addItemDecoration(new SpacingItemDecoration(space));
-        binding.fashionList.addItemDecoration(new SpacingItemDecoration(space));
-        binding.lifeList.addItemDecoration(new SpacingItemDecoration(space));
-
-        binding.hotList.setAdapter(mHotAdapter);
-        binding.fashionList.setAdapter(mFashionAdapter);
-        binding.lifeList.setAdapter(mLifeAdapter);
-
-        mBannerAdapter = new HomeBannerAdapter(new ArrayList<Banner>());
-        binding.banner.setAdapter(mBannerAdapter)
-                .addBannerLifecycleObserver(this)
-                .setDelayTime(3000)
-                .setBannerGalleryMZ(20);
-
-        viewModel.bannerData.observe(this, new Observer<List<Banner>>() {
+        binding.innerViewPager.setAdapter(mTabAdapter);
+        binding.tabItems.setupWithViewPager(binding.innerViewPager);
+        reduce();
+        binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
-            public void onChanged(List<Banner> banners) {
-                mBannerAdapter.updateData(banners);
+            public void onSearchStateChanged(boolean enabled) {
+                if (enabled)
+                    expand();
+                else
+                    reduce();
             }
-        });
 
-        viewModel.homeListData.observe(this, new Observer<HomeList>() {
             @Override
-            public void onChanged(HomeList data) {
-                mHotAdapter.addAll(data.getRxxp().getCommodityList());
-                mFashionAdapter.addAll(data.getMlss().getCommodityList());
-                mLifeAdapter.addAll(data.getPzsh().getCommodityList());
-                mHotAdapter.notifyDataSetChanged();
-                mFashionAdapter.notifyDataSetChanged();
-                mLifeAdapter.notifyDataSetChanged();
+            public void onSearchConfirmed(CharSequence text) {
             }
-        });
 
-        viewModel.fragDataShare.observe(this, new Observer<Message>() {
             @Override
-            public void onChanged(Message message) {
-                if (message.what==100){//提示我的页面发送过来的消息，实现数据共享
-                    UIUtils.showToastSafe((String) message.obj);
-                }
+            public void onButtonClicked(int buttonCode) {
             }
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        binding.banner.start();
+    private void expand() {
+        //设置伸展状态时的布局
+        binding.searchBar.setHint("搜索已光翼展开");
+
+        //设置动画
+        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBar.getLayoutParams();
+
+        searchBarLayoutParams.topMargin = binding.searchTitleBar.getHeight();
+        searchBarLayoutParams.width = LayoutParams.MATCH_PARENT;
+        binding.searchBar.setLayoutParams(searchBarLayoutParams);
+        beginDelayedTransition(binding.searchBar, 0, 500);
+        beginDelayedTransition(binding.tabLayout, 0, 500);
+        beginDelayedAlphaTransition(binding.searchTitleBar, 0, 1, 500);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        binding.banner.stop();
+    private void reduce() {
+        // 设置收缩状态时的布局
+        binding.searchBar.setHint("点我搜索");
+
+        //设置动画
+        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBar.getLayoutParams();
+
+        searchBarLayoutParams.width = UIUtils.getScreenWidth(getActivity()) * 3 / 4;
+        searchBarLayoutParams.topMargin = 0;
+        binding.searchBar.setLayoutParams(searchBarLayoutParams);
+        beginDelayedTransition(binding.searchBar, 0, 500);
+        beginDelayedTransition(binding.tabLayout, 0, 500);
+        beginDelayedAlphaTransition(binding.searchTitleBar, 1, 0, 500);
     }
+
+    void beginDelayedTransition(ViewGroup view, long startDelay, long duration) {
+        AutoTransition tran = new AutoTransition();
+        tran.setStartDelay(startDelay);
+        tran.setDuration(duration);
+        TransitionManager.beginDelayedTransition(view, tran);
+    }
+
+    void beginDelayedAlphaTransition(ViewGroup view, float fromAlpha, float endAlpha,
+                                     long duration) {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(fromAlpha, endAlpha);
+        alphaAnimation.setDuration(duration);
+        alphaAnimation.setFillAfter(true);
+        view.startAnimation(alphaAnimation);
+    }
+
+//        viewModel.bannerData.observe(this, new Observer<List<Banner>>() {
+//            @Override
+//            public void onChanged(List<Banner> banners) {
+//                mBannerAdapter.updateData(banners);
+//            }
+//        });
+//
+//        viewModel.homeListData.observe(this, new Observer<HomeList>() {
+//            @Override
+//            public void onChanged(HomeList data) {
+//                mHotAdapter.addAll(data.getRxxp().getCommodityList());
+//                mFashionAdapter.addAll(data.getMlss().getCommodityList());
+//                mLifeAdapter.addAll(data.getPzsh().getCommodityList());
+//                mHotAdapter.notifyDataSetChanged();
+//                mFashionAdapter.notifyDataSetChanged();
+//                mLifeAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        viewModel.fragDataShare.observe(this, new Observer<Message>() {
+//            @Override
+//            public void onChanged(Message message) {
+//                if (message.what == 100) {//提示我的页面发送过来的消息，实现数据共享
+//                    UIUtils.showToastSafe((String) message.obj);
+//                }
+//            }
+//        });
 }

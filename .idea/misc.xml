@@ -3,6 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable/common_tab_btn_circle.xml" value="0.1921875" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable/common_tab_btn_home.xml" value="0.1921875" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable/common_tab_btn_list.xml" value="0.1921875" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable/common_tab_btn_my.xml" value="0.1921875" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable/ic_launcher_background.xml" value="0.1921875" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable/item_layer_shadow.xml" value="0.1921875" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/activity_main_view_pager.xml" value="0.1761334028139656" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/activity_set.xml" value="0.25104166666666666" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/circle_item.xml" value="0.4" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/fashion_item.xml" value="0.4439295644114921" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/frag_circle.xml" value="0.264" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/frag_main.xml" value="0.4" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/frag_test.xml" value="0.1532047941636269" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/home_tab.xml" value="0.1" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/layout/hot_item.xml" value="0.4" />
         <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_add_circle.xml" value="0.2" />
         <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_main_view_pager.xml" value="0.16" />
@@ -15,4 +32,11 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1927710843373494" />
+      </ProjectState>
+    </option>
+  </component>
 </project>

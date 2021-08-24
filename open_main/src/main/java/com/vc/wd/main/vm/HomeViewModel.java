@@ -17,16 +17,12 @@ import java.util.List;
 
 
 public class HomeViewModel extends WDFragViewModel<IMainRequest> {
-
-    public List<Course> courseList = new ArrayList<Course>();
     public MutableLiveData<List<Banner>> bannerData = new MutableLiveData<>();
     public MutableLiveData<HomeList> homeListData = new MutableLiveData<>();
 
     @Override
     protected void create() {
         super.create();
-        for (int i = 0; i < Course.TYPE.length; ++i)
-            courseList.add(new Course(i));
         request(iRequest.bannerShow(), new DataCall<List<Banner>>() {
             @Override
             public void success(List<Banner> data) {
@@ -51,5 +47,6 @@ public class HomeViewModel extends WDFragViewModel<IMainRequest> {
 
             }
         });
+
     }
 }
