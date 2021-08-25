@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/info_title"
+                android:text="个人资料"
                 android:layout_gravity="center">
 
             </TextView>
@@ -38,7 +38,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_avatar"
+                    android:text="头像"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="30dp"/>
                 <com.facebook.drawee.view.SimpleDraweeView
@@ -57,7 +57,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_username"
+                    android:text="用户名"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="30dp"/>
                 <TextView
@@ -75,7 +75,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_passwd"
+                    android:text="密码"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="30dp"/>
             </RelativeLayout>
@@ -86,7 +86,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/info_mobile"
+                    android:text="手机"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="30dp"/>
                 <TextView

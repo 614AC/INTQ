@@ -25,8 +25,7 @@ public class MeFragment extends WDFragment<UserViewModel,FragMeBinding> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-//        binding.meAvatar.setImageURI(Uri.parse(LOGIN_USER.getAvatar()));
-        binding.meUsername.setText(LOGIN_USER.getUsername());
+
     }
 
 

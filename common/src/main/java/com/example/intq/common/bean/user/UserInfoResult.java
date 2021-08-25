@@ -1,4 +1,4 @@
-package com.example.intq.common.bean;
+package com.example.intq.common.bean.user;
 
 public class UserInfoResult{
     private String userName, mobile, email, avatar;

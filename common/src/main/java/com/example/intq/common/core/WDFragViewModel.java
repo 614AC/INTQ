@@ -200,7 +200,7 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
         return new Consumer<Result>() {
             @Override
             public void accept(Result result) throws Exception {
-                if (result.getStatus().equals("0000")) {
+                if (result.getStatus().equals("200")) {
                     dataCall.success(result.getData());
                 } else {
                     dataCall.fail(new ApiException(result.getStatus(), result.getData().toString()));

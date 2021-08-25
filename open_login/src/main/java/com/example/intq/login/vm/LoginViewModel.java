@@ -1,26 +1,19 @@
 package com.example.intq.login.vm;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.intq.common.bean.BaseResult;
-import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
-import com.example.intq.common.bean.UserInfoResult;
 import com.example.intq.common.bean.user.UserLoginResult;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDApplication;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
-import com.example.intq.common.core.http.NetworkManager;
 import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.login.request.ILoginRequest;
-
-import okhttp3.RequestBody;
 
 public class LoginViewModel extends WDViewModel<ILoginRequest> {
 

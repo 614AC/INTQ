@@ -169,7 +169,6 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
                 .subscribe(getConsumer(dataCall), new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable e) throws Exception {
-                        System.out.println("Error!");
                         dataCall.fail(ApiException.handleException(e));
                     }
                 });
