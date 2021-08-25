@@ -12,9 +12,9 @@ import android.app.Application;
   */
 public interface IWDApplication {
     String[] MODULE_APP= new String[]{
-            "com.vc.wd.push.core.PushApplication",
-            "com.vc.wd.im.core.IMApplication",
-            "com.vc.wd.debug.core.DebugApplication"
+            "com.example.intq.push.core.PushApplication",
+            "com.example.intq.im.core.IMApplication",
+            "com.example.intq.debug.core.DebugApplication"
     };
     void onCreate(Application application);
 }

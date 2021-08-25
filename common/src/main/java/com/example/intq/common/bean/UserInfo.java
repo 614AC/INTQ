@@ -14,20 +14,20 @@ public class UserInfo {
     //as-signable:允许使用其他地方分配的ID，默认false代表objectbox自动生成
     @Id(assignable = true)
     long userId;
-    String headPic;
-    String nickName;
-    String phone;
+    String avatar;
+    String username;
+    String mobile;
     String sessionId;
     int sex;
 
     int status;//记录本地用户登录状态，用于直接登录和退出,1:登录，0：未登录或退出
 
-    public UserInfo(long userId, String headPic, String nickName, String phone,
+    public UserInfo(long userId, String avatar, String username, String mobile,
                     String sessionId, int sex, int status) {
         this.userId = userId;
-        this.headPic = headPic;
-        this.nickName = nickName;
-        this.phone = phone;
+        this.avatar = avatar;
+        this.username = username;
+        this.mobile = mobile;
         this.sessionId = sessionId;
         this.sex = sex;
         this.status = status;
@@ -44,28 +44,28 @@ public class UserInfo {
         this.userId = userId;
     }
 
-    public String getHeadPic() {
-        return this.headPic;
+    public String getAvatar() {
+        return this.avatar;
     }
 
-    public void setHeadPic(String headPic) {
-        this.headPic = headPic;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    public String getNickName() {
-        return this.nickName;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPhone() {
-        return this.phone;
+    public String getMobile() {
+        return this.mobile;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getSessionId() {

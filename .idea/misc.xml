@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_user/src/main/res/layout/frag_me.xml" value="0.24094202898550723" />
+        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_login/src/main/res/layout/activity_login.xml" value="0.19293478260869565" />
+        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_main/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_user/src/main/res/layout/activity_info.xml" value="0.1" />
+        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_user/src/main/res/layout/activity_me_info.xml" value="0.1" />
+        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_user/src/main/res/layout/frag_me.xml" value="0.1" />
+        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_user/src/main/res/layout/frag_me_info.xml" value="0.33" />
+        <entry key="..\:/Users/Grady/Desktop/INTQ/inq-frontend/open_user/src/main/res/layout/fragment_me_info.xml" value="0.19010416666666666" />
         <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_add_circle.xml" value="0.2" />
         <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/code/java/intq/open_main/src/main/res/layout/activity_main_view_pager.xml" value="0.16" />

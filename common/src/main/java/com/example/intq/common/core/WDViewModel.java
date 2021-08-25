@@ -10,7 +10,6 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModel;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.intq.common.bean.BDResult;
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
 import com.example.intq.common.bean.UserInfo_;
@@ -170,6 +169,7 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
                 .subscribe(getConsumer(dataCall), new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable e) throws Exception {
+                        System.out.println("Error!");
                         dataCall.fail(ApiException.handleException(e));
                     }
                 });
@@ -205,29 +205,20 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
      * @description 根据返回值{@link #getResponseType()}灵活改变Consumer或者自己直接重写都可以
      */
     protected Consumer getConsumer(final DataCall dataCall) {
-        if (getResponseType() == RESPONSE_TYPE_SDK_BD) {//如果整个项目中只有一个百度的接口，那么不建议修改基类Presenter，请重写getConsumer方法就可以。
-            return new Consumer<BDResult>() {
-                @Override
-                public void accept(BDResult result) throws Exception {
-                    if (result.getCode() == 0) {
-                        dataCall.success(result.getData());
-                    } else {
-                        dataCall.fail(new ApiException(String.valueOf(result.getCode()), result.getMsg()));
-                    }
-                }
-            };
-        } else {
-            return new Consumer<Result>() {
-                @Override
-                public void accept(Result result) throws Exception {
-                    if (result.getStatus().equals("0000")) {
-                        dataCall.success(result.getResult());
-                    } else {
-                        dataCall.fail(new ApiException(result.getStatus(), result.getMessage()));
-                    }
-                }
-            };
-        }
+        return new Consumer<Result>() {
+            @Override
+            public void accept(Result result) throws Exception {
+                System.out.println(result.getStatus());
+                System.out.println(result.getData());
+                System.out.println(result.getMsg());
+//                if (result.getStatus().equals("200")) {
+//                    dataCall.success(result.getBody());
+//                } else {
+//                    dataCall.fail(new ApiException(result.getStatus(), result.getBody().toString()));
+//                }
+                dataCall.success(result.getData());
+            }
+        };
     }
 
     public MutableLiveData<Boolean> getDialog() {

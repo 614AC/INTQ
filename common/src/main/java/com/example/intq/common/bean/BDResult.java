@@ -7,26 +7,20 @@ package com.example.intq.common.bean;
  * date 2020/5/28 1:42 PM
  */
 public class BDResult<T> {
-    int code;
-    String msg;
+    int status;
     T data;
 
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMsg(){
+        return data.toString();
     }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
     public T getData() {
         return data;
     }

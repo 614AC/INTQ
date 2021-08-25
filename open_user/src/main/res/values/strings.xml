@@ -6,4 +6,9 @@
     <string name="history">浏览历史</string>
     <string name="setting">设置</string>
     <string name="quit">退出登录</string>
+    <string name="info_title">个人信息</string>
+    <string name="info_avatar">头像</string>
+    <string name="info_username">用户名</string>
+    <string name="info_passwd">密码</string>
+    <string name="info_mobile">手机</string>
 </resources>

@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.intq.common.bean.BDResult;
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
 import com.example.intq.common.bean.UserInfo_;
@@ -197,29 +196,18 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
      * @description 根据返回值{@link #getResponseType()}灵活改变Consumer或者自己直接重写都可以
      */
     protected Consumer getConsumer(final DataCall dataCall) {
-        if (getResponseType() == RESPONSE_TYPE_SDK_BD) {//如果整个项目中只有一个百度的接口，那么不建议修改基类Presenter，请重写getConsumer方法就可以。
-            return new Consumer<BDResult>() {
-                @Override
-                public void accept(BDResult result) throws Exception {
-                    if (result.getCode() == 0) {
-                        dataCall.success(result.getData());
-                    } else {
-                        dataCall.fail(new ApiException(String.valueOf(result.getCode()), result.getMsg()));
-                    }
+
+        return new Consumer<Result>() {
+            @Override
+            public void accept(Result result) throws Exception {
+                if (result.getStatus().equals("0000")) {
+                    dataCall.success(result.getData());
+                } else {
+                    dataCall.fail(new ApiException(result.getStatus(), result.getData().toString()));
                 }
-            };
-        } else {
-            return new Consumer<Result>() {
-                @Override
-                public void accept(Result result) throws Exception {
-                    if (result.getStatus().equals("0000")) {
-                        dataCall.success(result.getResult());
-                    } else {
-                        dataCall.fail(new ApiException(result.getStatus(), result.getMessage()));
-                    }
-                }
-            };
-        }
+            }
+        };
+
     }
 
     public MutableLiveData<Boolean> getDialog() {

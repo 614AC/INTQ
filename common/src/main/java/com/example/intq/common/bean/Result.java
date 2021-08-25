@@ -8,13 +8,11 @@ package com.example.intq.common.bean;
  */
 public class Result<T>  {
     String status;
-    String message;
-    T result;
-    String headPath;
+    T data;
+    String msg;
 
-    public Result(String status, String message) {
+    public Result(String status) {
         this.status = status;
-        this.message = message;
     }
 
     public String getStatus() {
@@ -25,27 +23,19 @@ public class Result<T>  {
         this.status = status;
     }
 
-    public String getMessage() {
-        return message;
+    public T getData() {
+        return data;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setData(T data) {
+        this.data = data;
     }
 
-    public T getResult() {
-        return result;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setResult(T result) {
-        this.result = result;
-    }
-
-    public String getHeadPath() {
-        return headPath;
-    }
-
-    public void setHeadPath(String headPath) {
-        this.headPath = headPath;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

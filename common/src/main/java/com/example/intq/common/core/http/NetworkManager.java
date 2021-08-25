@@ -30,7 +30,7 @@ public class NetworkManager {
     private static NetworkManager instance;
 
     //这个是模仿应用多模块采用不同的域名，域名配置参见config.gradle
-    private Retrofit app_retrofit, baidu_retrofit;
+    private Retrofit app_retrofit;
 
     private NetworkManager() {
         init();
@@ -63,19 +63,9 @@ public class NetworkManager {
                 .addConverterFactory(GsonConverterFactory.create())//响应结果的解析器，包含gson，xml，protobuf
                 .build();
 
-        //这个是模仿应用多模块采用不同的域名，域名配置参见config.gradle
-        baidu_retrofit = new Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(BuildConfig.BAIDU_URL)//base_url:http+域名
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用Rxjava对回调数据进行处理
-                .addConverterFactory(GsonConverterFactory.create())//响应结果的解析器，包含gson，xml，protobuf
-                .build();
     }
 
     public <T> T create(int requestType, final Class<T> service) {
-        if (requestType == WDViewModel.REQUEST_TYPE_SDK_BD) {//如果请求百度SDK的接口
-            return baidu_retrofit.create(service);
-        }
         return app_retrofit.create(service);
     }
 

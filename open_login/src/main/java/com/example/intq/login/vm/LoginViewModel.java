@@ -1,11 +1,16 @@
 package com.example.intq.login.vm;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.intq.common.bean.BaseResult;
+import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
+import com.example.intq.common.bean.UserInfoResult;
+import com.example.intq.common.bean.user.UserLoginResult;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDApplication;
 import com.example.intq.common.core.WDViewModel;
@@ -20,7 +25,7 @@ import okhttp3.RequestBody;
 public class LoginViewModel extends WDViewModel<ILoginRequest> {
 
     public ObservableField<Boolean> remPas = new ObservableField<>();
-    public ObservableField<String> mobile = new ObservableField<>();
+    public ObservableField<String> userName = new ObservableField<>();
     public ObservableField<String> pas = new ObservableField<>();
     public MutableLiveData<Boolean> pasVis = new MutableLiveData<>();
 
@@ -34,8 +39,8 @@ public class LoginViewModel extends WDViewModel<ILoginRequest> {
         boolean rem = WDApplication.getShare().getBoolean("remPas", true);
         if (rem) {
             remPas.set(rem);
-            mobile.set(WDApplication.getShare().getString("mobile", ""));
-            pas.set(WDApplication.getShare().getString("pas", ""));
+            userName.set(WDApplication.getShare().getString("userName", ""));
+            pas.set(WDApplication.getShare().getString("password", ""));
         }
     }
 
@@ -44,29 +49,29 @@ public class LoginViewModel extends WDViewModel<ILoginRequest> {
     }
 
     public void login() {
-        String m = mobile.get();
+        String m = userName.get();
         String p = pas.get();
-        if (TextUtils.isEmpty(m)) {
-            UIUtils.showToastSafe("请输入正确的手机号");
+        if (TextUtils.isEmpty(m) || m == null || m.length() > 16) {
+            UIUtils.showToastSafe("请输入正确的用户名");
             return;
         }
-        if (TextUtils.isEmpty(p)) {
+        if (TextUtils.isEmpty(p) || p == null || p.length() < 6 || p.length() > 16) {
             UIUtils.showToastSafe("请输入密码");
             return;
         }
         if (remPas.get()) {
-            WDApplication.getShare().edit().putString("mobile", m)
-                    .putString("pas", p).commit();
+            WDApplication.getShare().edit().putString("userName", m)
+                    .putString("password", p).commit();
         }
         dialog.setValue(true);
 
-        RequestBody body = NetworkManager.convertJsonBody(new String[]{"phone", "pwd"}, new String[]{m, p});
-        request(iRequest.login(body), new DataCall<UserInfo>() {
+        request(iRequest.login(m, p), new DataCall<UserLoginResult>() {
             @Override
-            public void success(UserInfo result) {
+            public void success(UserLoginResult result) {
                 dialog.setValue(false);
-                result.setStatus(1);//设置登录状态，保存到数据库
-                userInfoBox.put(result);
+                System.out.println(result.getToken());
+//                result.setStatus(1);//设置登录状态，保存到数据库
+//                userInfoBox.put(result);
                 intentByRouter(Constant.ACTIVITY_URL_MAIN);
                 finish();
             }
