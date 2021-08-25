@@ -39,14 +39,14 @@ ext {
     //建议用来记录不会因为发布分支改变的参数
     SDK_VERSION = [
             compileSdkVersion: 29,
-            minSdkVersion    : 16,//4.0.3
+            minSdkVersion    : 26,//4.0.3
             targetSdkVersion : 29
     ]
 
     //全部都打包，如果只运行模块，请改为false；true则所有模块都参与打包
     allPackage = true
     //需要运行的组件，当allPackage为false的时候，此变量生效，模块名参照settings.gradle中的
-    needPackage = ["open_main"]
+    needPackage = ["open_main", "open_common", "open_user", "open_login"]
 
     //组件和全量包都会优先判断此变量中的模块，如果配置了，此模块不参与打包
     ignorePackage = []

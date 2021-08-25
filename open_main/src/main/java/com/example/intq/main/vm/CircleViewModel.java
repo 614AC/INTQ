@@ -33,22 +33,22 @@ public class CircleViewModel extends WDFragViewModel<IMainRequest> {
             circlePage++;
         }
         circleRunning = true;
-        request(iRequest.findCircleList(LOGIN_USER.getUserId()
-                ,LOGIN_USER.getSessionId(),circlePage,20),
-                new DataCall<List<Circle>>(){
-
-                    @Override
-                    public void success(List<Circle> data) {
-                        circleRunning = false;
-                        circleData.setValue(data);
-                    }
-
-                    @Override
-                    public void fail(ApiException data) {
-                        circleRunning = false;
-                        circleData.setValue(null);
-                    }
-                });
+//        request(iRequest.findCircleList(LOGIN_USER.getUserId()
+//                ,LOGIN_USER.getSessionId(),circlePage,20),
+//                new DataCall<List<Circle>>(){
+//
+//                    @Override
+//                    public void success(List<Circle> data) {
+//                        circleRunning = false;
+//                        circleData.setValue(data);
+//                    }
+//
+//                    @Override
+//                    public void fail(ApiException data) {
+//                        circleRunning = false;
+//                        circleData.setValue(null);
+//                    }
+//                });
     }
 
     public boolean isCircleRunning() {
@@ -60,17 +60,17 @@ public class CircleViewModel extends WDFragViewModel<IMainRequest> {
     }
 
     public void reqeustGreatCircle(final int position, final Circle circle) {
-        request(iRequest.addCircleGreat(LOGIN_USER.getUserId(), LOGIN_USER.getSessionId(), circle.getId()),
-                new DataCall() {
-                    @Override
-                    public void success(Object data) {
-                        circleGreat.setValue(new Object[]{position,circle});
-                    }
-
-                    @Override
-                    public void fail(ApiException data) {
-                        circleGreat.setValue(null);
-                    }
-                });
+//        request(iRequest.addCircleGreat(LOGIN_USER.getUserId(), LOGIN_USER.getSessionId(), circle.getId()),
+//                new DataCall() {
+//                    @Override
+//                    public void success(Object data) {
+//                        circleGreat.setValue(new Object[]{position,circle});
+//                    }
+//
+//                    @Override
+//                    public void fail(ApiException data) {
+//                        circleGreat.setValue(null);
+//                    }
+//                });
     }
 }

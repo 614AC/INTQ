@@ -208,15 +208,11 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
         return new Consumer<Result>() {
             @Override
             public void accept(Result result) throws Exception {
-                System.out.println(result.getStatus());
-                System.out.println(result.getData());
-                System.out.println(result.getMsg());
-//                if (result.getStatus().equals("200")) {
-//                    dataCall.success(result.getBody());
-//                } else {
-//                    dataCall.fail(new ApiException(result.getStatus(), result.getBody().toString()));
-//                }
-                dataCall.success(result.getData());
+                if (result.getStatus().equals("200")) {
+                    dataCall.success(result.getData());
+                } else {
+                    dataCall.fail(new ApiException(result.getStatus(), result.getMsg()));
+                }
             }
         };
     }

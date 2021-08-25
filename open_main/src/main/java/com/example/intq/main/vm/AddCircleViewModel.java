@@ -32,20 +32,20 @@ public class AddCircleViewModel extends WDViewModel<IMainRequest> {
                                 file));
             }
         }
-        request(iRequest.releaseCircle(LOGIN_USER.getUserId(),
-                LOGIN_USER.getSessionId(),builder.build()),
-                new DataCall() {
-            @Override
-            public void success(Object data) {
-                forResult.setValue(null);
-                finish();
-            }
-
-            @Override
-            public void fail(ApiException e) {
-                UIUtils.showToastSafe(e.getCode()+"  "+e.getDisplayMessage());
-            }
-        });
+//        request(iRequest.releaseCircle(LOGIN_USER.getUserId(),
+//                LOGIN_USER.getSessionId(),builder.build()),
+//                new DataCall() {
+//            @Override
+//            public void success(Object data) {
+//                forResult.setValue(null);
+//                finish();
+//            }
+//
+//            @Override
+//            public void fail(ApiException e) {
+//                UIUtils.showToastSafe(e.getCode()+"  "+e.getDisplayMessage());
+//            }
+//        });
     }
 
 }

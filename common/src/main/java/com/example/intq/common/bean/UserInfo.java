@@ -12,36 +12,27 @@ import io.objectbox.annotation.Id;
 @Entity
 public class UserInfo {
     //as-signable:允许使用其他地方分配的ID，默认false代表objectbox自动生成
-    @Id(assignable = true)
+    @Id(assignable = false)
     long userId;
     String avatar;
     String username;
     String mobile;
-    String sessionId;
-    int sex;
+    String email;
+    String token;
 
     int status;//记录本地用户登录状态，用于直接登录和退出,1:登录，0：未登录或退出
 
-    public UserInfo(long userId, String avatar, String username, String mobile,
-                    String sessionId, int sex, int status) {
-        this.userId = userId;
+    public UserInfo(String avatar, String username, String mobile, String email, String token,
+                    int status) {
         this.avatar = avatar;
         this.username = username;
         this.mobile = mobile;
-        this.sessionId = sessionId;
-        this.sex = sex;
+        this.email = email;
+        this.token = token;
         this.status = status;
     }
 
     public UserInfo() {
-    }
-
-    public long getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getAvatar() {
@@ -68,20 +59,12 @@ public class UserInfo {
         this.mobile = mobile;
     }
 
-    public String getSessionId() {
-        return this.sessionId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public int getSex() {
-        return this.sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getStatus() {
@@ -92,5 +75,15 @@ public class UserInfo {
         this.status = status;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
 }

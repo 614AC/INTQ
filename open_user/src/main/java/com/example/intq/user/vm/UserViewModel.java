@@ -30,7 +30,7 @@ public class UserViewModel extends WDFragViewModel<Void> {
     }
 
     public void logout() {
-        userInfoBox.remove(LOGIN_USER.getUserId());
+        userInfoBox.remove(LOGIN_USER);
 
         intentByRouter(Constant.ACTIVITY_URL_LOGIN);
         finish();//本页面关闭

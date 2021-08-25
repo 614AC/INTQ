@@ -69,9 +69,8 @@ public class LoginViewModel extends WDViewModel<ILoginRequest> {
             @Override
             public void success(UserLoginResult result) {
                 dialog.setValue(false);
-                System.out.println(result.getToken());
-//                result.setStatus(1);//设置登录状态，保存到数据库
-//                userInfoBox.put(result);
+                UserInfo userInfo = new UserInfo(null, null, null, null, result.getToken(), 1);
+                userInfoBox.put(userInfo);
                 intentByRouter(Constant.ACTIVITY_URL_MAIN);
                 finish();
             }

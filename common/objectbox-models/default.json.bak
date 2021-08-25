@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:1918397186535782234",
-      "lastPropertyId": "10:34623176615356793",
+      "lastPropertyId": "11:2790825817277440688",
       "name": "UserInfo",
       "properties": [
         {
@@ -39,6 +39,11 @@
         {
           "id": "10:34623176615356793",
           "name": "mobile",
+          "type": 9
+        },
+        {
+          "id": "11:2790825817277440688",
+          "name": "sessionId",
           "type": 9
         }
       ],
