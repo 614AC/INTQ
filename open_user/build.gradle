@@ -9,3 +9,7 @@ constant {
             FRAGMENT_URL_ME: "/user/MeFragment"
     ]//属性参数
 }
+
+dependencies {
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+}

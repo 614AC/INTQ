@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingDefaultResource">
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="vm"
-            type="com.example.intq.user.vm.UserViewModel" />
+            type="com.example.intq.user.vm.MeInfoViewModel" />
     </data>
 
     <LinearLayout
@@ -48,7 +47,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="30dp"
-                    fresco:roundAsCircle="true" />
+                    fresco:roundAsCircle="true"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -66,36 +65,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="30dp"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="密码"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="30dp"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="30dp"/>
-                <TextView
-                    android:id="@+id/me_mobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="30dp"/>
+                    android:layout_marginEnd="30dp"
+                    android:text="@={vm.userName}"/>
             </RelativeLayout>
         </LinearLayout>
 

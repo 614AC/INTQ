@@ -1,31 +1,23 @@
-package com.example.intq.user.fragment;
+package com.example.intq.user.activity;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.ImageView;
 
-import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.Observer;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.bumptech.glide.Glide;
-import com.example.intq.common.core.WDFragment;
+import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.user.R;
-import com.example.intq.user.databinding.FragMeBinding;
+import com.example.intq.user.databinding.ActivityMeInfoBinding;
+import com.example.intq.user.vm.MeInfoViewModel;
 import com.example.intq.user.vm.UserViewModel;
 
-@Route(path = Constant.FRAGMENT_URL_ME)
-public class MeFragment extends WDFragment<UserViewModel,FragMeBinding> {
-
-    @Override
-    protected UserViewModel initFragViewModel() {
-        return new UserViewModel();
-    }
-
+@Route(path = Constant.ACTIVITY_URL_ME_INFO)
+public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBinding> {
     @Override
     protected int getLayoutId() {
-        return R.layout.frag_me;
+        return R.layout.activity_me_info;
     }
 
     @Override
@@ -38,6 +30,4 @@ public class MeFragment extends WDFragment<UserViewModel,FragMeBinding> {
             }
         });
     }
-
-
 }

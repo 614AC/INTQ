@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 
-public interface IUserInfoRequest {
+public interface IUserRequest {
     /**
      * UserInfo
      * @header token
