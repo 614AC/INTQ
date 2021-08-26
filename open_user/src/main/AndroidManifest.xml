@@ -4,5 +4,8 @@
     <application>
         <activity android:name=".activity.MeInfoActivity" />
         <activity android:name=".activity.EditUserNameActivity" />
+        <activity android:name=".activity.EditEmailActivity" />
+        <activity android:name=".activity.EditPwdActivity" />
+        <activity android:name=".activity.MeSafetyActivity" />
     </application>
 </manifest>

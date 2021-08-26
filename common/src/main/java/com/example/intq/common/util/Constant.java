@@ -29,6 +29,9 @@ public class Constant {
     public final static String FRAGMENT_URL_ME = "/user/MeFragment";
     public final static String ACTIVITY_URL_ME_INFO = "/user/MeInfoActivity";
     public final static String ACTIVITY_URL_EDIT_USER_NAME = "/user/EditUserNameActivity";
+    public final static String ACTIVITY_URL_EDIT_EMAIL = "/user/EditEmailActivity";
+    public final static String ACTIVITY_URL_ME_SAFETY = "/user/MeSafetyActivity";
+    public final static String ACTIVITY_URL_EDIT_PWD = "/user/EditPwdActivity";
     public final static String ACTIVITY_URL_ME_STAR = "/user/MeStarActivity";
     public final static String ACTIVITY_URL_ME_HISTORY = "/user/MeHistoryActivity";
 

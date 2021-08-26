@@ -56,6 +56,10 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
         intentByRouter(Constant.ACTIVITY_URL_ME_INFO);
     }
 
+    public void meSafety(){
+        intentByRouter(Constant.ACTIVITY_URL_ME_SAFETY);
+    }
+
     public void setting() {
         intentByRouter(Constant.ACTIVITY_URL_SET);
     }

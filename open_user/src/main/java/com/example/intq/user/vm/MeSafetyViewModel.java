@@ -11,21 +11,17 @@ import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.user.request.IUserRequest;
 
-public class MeInfoViewModel extends WDViewModel<IUserRequest> {
+public class MeSafetyViewModel extends WDViewModel<IUserRequest> {
 
-    public ObservableField<String> userName = new ObservableField<>();
-    public MutableLiveData<String> avatar = new MutableLiveData<>();
-    public ObservableField<String> email = new ObservableField<>();
+    public ObservableField<String> mobile = new ObservableField<>();
 
     @Override
     protected void create(){
         super.create();
-        if(LOGIN_USER.getUsername() == null){
+        if(LOGIN_USER.getMobile() == null){
             updateInfo();
         }
-        userName.set(LOGIN_USER.getUsername());
-        avatar.setValue(LOGIN_USER.getAvatar());
-        email.set(LOGIN_USER.getEmail());
+        mobile.set(LOGIN_USER.getMobile());
 
     }
 
@@ -33,13 +29,8 @@ public class MeInfoViewModel extends WDViewModel<IUserRequest> {
         request(iRequest.getUserInfo(LOGIN_USER.getToken()), new DataCall<UserInfoResult>() {
             @Override
             public void success(UserInfoResult data) {
-                LOGIN_USER.setAvatar(data.getAvatar());
-                LOGIN_USER.setUsername(data.getUserName());
                 LOGIN_USER.setMobile(data.getMobile());
-                LOGIN_USER.setEmail(data.getEmail());
-                userName.set(LOGIN_USER.getUsername());
-                avatar.setValue(LOGIN_USER.getAvatar());
-                email.set(LOGIN_USER.getEmail());
+                mobile.set(LOGIN_USER.getMobile());
             }
 
             @Override
@@ -49,11 +40,12 @@ public class MeInfoViewModel extends WDViewModel<IUserRequest> {
         });
     }
 
-    public void editUserName(){
+    public void editPwd(){
+        intentByRouter(Constant.ACTIVITY_URL_EDIT_PWD);
+    }
+
+    public void editMobile(){
         intentByRouter(Constant.ACTIVITY_URL_EDIT_USER_NAME);
     }
 
-    public void editEmail(){
-        intentByRouter(Constant.ACTIVITY_URL_EDIT_EMAIL);
-    }
 }
