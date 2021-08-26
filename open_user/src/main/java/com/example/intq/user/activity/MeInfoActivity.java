@@ -11,10 +11,10 @@ import com.example.intq.common.util.Constant;
 import com.example.intq.user.R;
 import com.example.intq.user.databinding.ActivityMeInfoBinding;
 import com.example.intq.user.vm.MeInfoViewModel;
-import com.example.intq.user.vm.UserViewModel;
 
 @Route(path = Constant.ACTIVITY_URL_ME_INFO)
 public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBinding> {
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_me_info;
@@ -30,4 +30,11 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
             }
         });
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        viewModel.updateInfo();
+    }
+
 }
