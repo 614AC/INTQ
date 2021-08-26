@@ -32,6 +32,7 @@ public class Constant {
     public final static String ACTIVITY_URL_EDIT_EMAIL = "/user/EditEmailActivity";
     public final static String ACTIVITY_URL_ME_SAFETY = "/user/MeSafetyActivity";
     public final static String ACTIVITY_URL_EDIT_PWD = "/user/EditPwdActivity";
+    public final static String ACTIVITY_URL_EDIT_MOBILE = "/user/EditMobileActivity";
     public final static String ACTIVITY_URL_ME_STAR = "/user/MeStarActivity";
     public final static String ACTIVITY_URL_ME_HISTORY = "/user/MeHistoryActivity";
 

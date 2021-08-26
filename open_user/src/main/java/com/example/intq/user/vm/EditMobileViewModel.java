@@ -1,5 +1,6 @@
 package com.example.intq.user.vm;
 
+import androidx.annotation.UiThread;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,13 +14,11 @@ import com.example.intq.common.util.UIUtils;
 import com.example.intq.user.request.IUserRequest;
 import com.google.gson.internal.LinkedTreeMap;
 
-import java.util.regex.Pattern;
-
 import okhttp3.RequestBody;
 
-public class EditEmailViewModel extends WDViewModel<IUserRequest> {
+public class EditMobileViewModel extends WDViewModel<IUserRequest> {
 
-    public ObservableField<String> email = new ObservableField<>();
+    public ObservableField<String> mobile = new ObservableField<>();
 
     @Override
     protected void create(){
@@ -28,8 +27,8 @@ public class EditEmailViewModel extends WDViewModel<IUserRequest> {
             request(iRequest.getUserInfo(LOGIN_USER.getToken()), new DataCall<UserInfoResult>() {
                 @Override
                 public void success(UserInfoResult data) {
-                    LOGIN_USER.setEmail(data.getEmail());
-                    email.set(LOGIN_USER.getEmail());
+                    LOGIN_USER.setMobile(data.getMobile());
+                    mobile.set(LOGIN_USER.getMobile());
                 }
 
                 @Override
@@ -38,19 +37,19 @@ public class EditEmailViewModel extends WDViewModel<IUserRequest> {
                 }
             });
         }
-        email.set(LOGIN_USER.getEmail());
+        mobile.set(LOGIN_USER.getEmail());
     }
 
-    public void editEmail(){
-        if(email.get() == null || !Pattern.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", email.get())){
-            UIUtils.showToastSafe("请输入合法邮箱");
+    public void editMobile(){
+        if(mobile.get() == null || mobile.get().length() > 11){
+            UIUtils.showToastSafe("请输入合法手机号");
             return;
         }
-        RequestBody body = NetworkManager.convertJsonBody(new String[]{"email"}, new String[]{email.get()});
+        RequestBody body = NetworkManager.convertJsonBody(new String[]{"mobile"}, new String[]{mobile.get()});
         request(iRequest.changeinfo(body, LOGIN_USER.getToken()), new DataCall<LinkedTreeMap>() {
             @Override
             public void success(LinkedTreeMap data) {
-                UIUtils.showToastSafe("修改邮箱成功");
+                UIUtils.showToastSafe("修改手机成功");
                 finish();
             }
 
@@ -61,3 +60,4 @@ public class EditEmailViewModel extends WDViewModel<IUserRequest> {
         });
     }
 }
+

@@ -30,7 +30,7 @@
                 android:id="@+id/old"
                 android:layout_width="340dp"
                 android:layout_height="40dp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="原密码"
                 android:text="@={vm.oldPwd}"/>
@@ -52,7 +52,7 @@
                 android:id="@+id/pwd"
                 android:layout_width="340dp"
                 android:layout_height="40dp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="新密码"
                 android:text="@={vm.pwd}"/>
@@ -74,7 +74,7 @@
                 android:id="@+id/pwd_rpt"
                 android:layout_width="340dp"
                 android:layout_height="40dp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="确认新密码"
                 android:text="@={vm.pwdRpt}"/>

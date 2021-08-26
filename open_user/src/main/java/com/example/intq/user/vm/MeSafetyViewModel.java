@@ -45,7 +45,7 @@ public class MeSafetyViewModel extends WDViewModel<IUserRequest> {
     }
 
     public void editMobile(){
-        intentByRouter(Constant.ACTIVITY_URL_EDIT_USER_NAME);
+        intentByRouter(Constant.ACTIVITY_URL_EDIT_MOBILE);
     }
 
 }
