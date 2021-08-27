@@ -26,10 +26,10 @@ public class EditUserNameViewModel extends WDViewModel<IUserRequest> {
             request(iRequest.getUserInfo(LOGIN_USER.getToken()), new DataCall<UserInfoResult>() {
                 @Override
                 public void success(UserInfoResult data) {
-                    LOGIN_USER.setAvatar(data.getAvatar());
                     LOGIN_USER.setUsername(data.getUserName());
                     LOGIN_USER.setMobile(data.getMobile());
                     LOGIN_USER.setEmail(data.getEmail());
+                    userInfoBox.put(LOGIN_USER);
                     userName.set(LOGIN_USER.getUsername());
                 }
 

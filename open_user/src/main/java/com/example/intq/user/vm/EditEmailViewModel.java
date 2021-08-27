@@ -29,6 +29,7 @@ public class EditEmailViewModel extends WDViewModel<IUserRequest> {
                 @Override
                 public void success(UserInfoResult data) {
                     LOGIN_USER.setEmail(data.getEmail());
+                    userInfoBox.put(LOGIN_USER);
                     email.set(LOGIN_USER.getEmail());
                 }
 

@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import androidx.core.content.FileProvider;
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.Observer;
 
@@ -14,6 +15,8 @@ import com.example.intq.common.util.Constant;
 import com.example.intq.user.R;
 import com.example.intq.user.databinding.FragMeBinding;
 import com.example.intq.user.vm.UserViewModel;
+
+import java.io.File;
 
 @Route(path = Constant.FRAGMENT_URL_ME)
 public class MeFragment extends WDFragment<UserViewModel,FragMeBinding> {
@@ -33,11 +36,22 @@ public class MeFragment extends WDFragment<UserViewModel,FragMeBinding> {
         viewModel.avatar.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if(s != null)
+                try {
                     binding.meAvatar.setImageURI(Uri.parse(s));
+                }catch (Exception e){
+                    File head = new File(getActivity().getFilesDir(), "head.jpg");
+                    if(head.exists()){
+                        binding.meAvatar.setImageURI(FileProvider.getUriForFile(getActivity().getApplicationContext(), "com.example.intq.fileprovider",head ));
+                    }
+                }
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.updateInfo();
+    }
 
 }

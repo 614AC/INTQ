@@ -20,13 +20,12 @@ public class MeInfoViewModel extends WDViewModel<IUserRequest> {
     @Override
     protected void create(){
         super.create();
-        if(LOGIN_USER.getUsername() == null){
-            updateInfo();
-        }
         userName.set(LOGIN_USER.getUsername());
         avatar.setValue(LOGIN_USER.getAvatar());
         email.set(LOGIN_USER.getEmail());
-
+        if(LOGIN_USER.getUsername() == null){
+            updateInfo();
+        }
     }
 
     public void updateInfo(){
@@ -37,6 +36,7 @@ public class MeInfoViewModel extends WDViewModel<IUserRequest> {
                 LOGIN_USER.setUsername(data.getUserName());
                 LOGIN_USER.setMobile(data.getMobile());
                 LOGIN_USER.setEmail(data.getEmail());
+                userInfoBox.put(LOGIN_USER);
                 userName.set(LOGIN_USER.getUsername());
                 avatar.setValue(LOGIN_USER.getAvatar());
                 email.set(LOGIN_USER.getEmail());

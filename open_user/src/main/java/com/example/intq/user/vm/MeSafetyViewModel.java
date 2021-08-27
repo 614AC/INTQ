@@ -30,6 +30,7 @@ public class MeSafetyViewModel extends WDViewModel<IUserRequest> {
             @Override
             public void success(UserInfoResult data) {
                 LOGIN_USER.setMobile(data.getMobile());
+                userInfoBox.put(LOGIN_USER);
                 mobile.set(LOGIN_USER.getMobile());
             }
 

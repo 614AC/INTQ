@@ -1,5 +1,7 @@
 package com.example.intq.common.bean;
 
+import android.graphics.Bitmap;
+
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
