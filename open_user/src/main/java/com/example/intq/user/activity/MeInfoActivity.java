@@ -1,6 +1,7 @@
 package com.example.intq.user.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,8 +42,14 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
         viewModel.avatar.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if (s != null)
+                try {
                     binding.meAvatar.setImageURI(Uri.parse(s));
+                }catch (Exception e){
+                    File head = new File(getFilesDir(), "head.jpg");
+                    if(head.exists()){
+                        binding.meAvatar.setImageURI(FileProvider.getUriForFile(getApplicationContext(), "com.example.intq.fileprovider", head));
+                    }
+                }
             }
         });
         findViewById(R.id.avatar_layout).setOnClickListener(new View.OnClickListener() {
@@ -67,6 +74,15 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
                 mAvatarDialog.hide();
             }
         });
+        view.findViewById(R.id.avatar_album).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent1, 1);
+                mAvatarDialog.dismiss();
+            }
+        });
         mAvatarDialog.setContentView(view);
     }
 
@@ -74,6 +90,11 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
     protected void onResume() {
         super.onResume();
         viewModel.updateInfo();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration configuration){
+        mAvatarDialog.hide();
     }
 
     public void showDialog() {
@@ -103,7 +124,6 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
  * 上传服务器代码
  */
                         setPicToView(head);// 保存在SD卡中
-//                        iv_photo.setImageBitmap(head);// 用ImageView显示出来
                     }
                 }
                 break;
@@ -141,7 +161,8 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
         FileOutputStream b = null;
         File file = new File(path);
         file.mkdirs();// 创建文件夹
-        String fileName = path + "head.jpg";// 图片名字
+        String fileName = path + "/head.jpg";// 图片名字
+        System.out.println(fileName);
         try {
             b = new FileOutputStream(fileName);
             mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
