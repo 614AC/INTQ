@@ -73,9 +73,34 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:3016089594444627829",
+      "lastPropertyId": "3:5607769863443915929",
+      "name": "QAChat",
+      "properties": [
+        {
+          "id": "1:6838490285756293658",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6303869591787321555",
+          "name": "question",
+          "type": 1,
+          "flags": 2
+        },
+        {
+          "id": "3:5607769863443915929",
+          "name": "content",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:2555095662947319643",
+  "lastEntityId": "4:3016089594444627829",
   "lastIndexId": "2:6891132687101871970",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

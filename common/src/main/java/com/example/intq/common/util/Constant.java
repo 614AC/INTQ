@@ -19,6 +19,7 @@ public class Constant {
     //-----------open_main---------
 
     public final static String ACTIVITY_URL_MAIN = "/main/MainActivity";
+    public final static String ACTIVITY_URL_QA = "/main/QAActivity";
     public final static String ACTIVITY_URL_ADD_CIRCLE = "/main/AddCircleActivity";
     public final static String ACTIVITY_URL_SET = "/main/SetActivity";
 

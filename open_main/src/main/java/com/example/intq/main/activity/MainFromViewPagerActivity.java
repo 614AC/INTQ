@@ -20,6 +20,7 @@ import com.example.intq.main.R;
 import com.example.intq.main.databinding.ActivityMainViewPagerBinding;
 import com.example.intq.main.fragment.CircleFragment;
 import com.example.intq.main.fragment.HomeFragment;
+import com.example.intq.main.fragment.MultiToolFragment;
 import com.example.intq.main.fragment.TestFragment;
 import com.example.intq.main.vm.MainFromViewPagerViewModel;
 
@@ -35,7 +36,7 @@ public class MainFromViewPagerActivity extends WDActivity<MainFromViewPagerViewM
     private HomeFragment homeFragment;
     private CircleFragment circleFragment;
     private TestFragment carFragment;
-    private TestFragment orderFragment;
+    private MultiToolFragment multiToolFragment;
     private WDFragment meFragment;
     private Fragment currentFragment;
     private Map<Integer, Integer> idsMap;
@@ -50,7 +51,7 @@ public class MainFromViewPagerActivity extends WDActivity<MainFromViewPagerViewM
         homeFragment = new HomeFragment();
         circleFragment = new CircleFragment();
         carFragment = new TestFragment();
-        orderFragment = new TestFragment();
+        multiToolFragment = new MultiToolFragment();
         meFragment = (WDFragment) ARouter.getInstance().build(Constant.FRAGMENT_URL_ME).navigation();
         if (meFragment != null) {//加载组件之后再赋值
             viewModel.addFragViewModel(meFragment.getFragViewModel());
@@ -89,7 +90,7 @@ public class MainFromViewPagerActivity extends WDActivity<MainFromViewPagerViewM
                         currentFragment = carFragment;
                         break;
                     case 3:
-                        currentFragment = orderFragment;
+                        currentFragment = multiToolFragment;
                         break;
                     case 4:
                         currentFragment = meFragment;
