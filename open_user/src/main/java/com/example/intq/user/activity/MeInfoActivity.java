@@ -44,6 +44,8 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
             public void onChanged(String s) {
                 try {
                     binding.meAvatar.setImageURI(Uri.parse(s));
+                    if(head != null)
+                        setPicToView(head);// 保存在SD卡中
                 }catch (Exception e){
                     File head = new File(getFilesDir(), "head.jpg");
                     if(head.exists()){
@@ -63,7 +65,7 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
         view.findViewById(R.id.avatar_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File head = new File(getFilesDir(), "head.jpg");
+                File head = new File(getFilesDir(), "head_cache.jpg");
                 if(!head.getParentFile().exists())
                     head.getParentFile().mkdirs();
                 Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -112,7 +114,7 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
-                    cropPhoto(FileProvider.getUriForFile(this, "com.example.intq.fileprovider", new File(getFilesDir(), "head.jpg")));// 裁剪图片
+                    cropPhoto(FileProvider.getUriForFile(this, "com.example.intq.fileprovider", new File(getFilesDir(), "head_cache.jpg")));// 裁剪图片
                 }
                 break;
             case 3:
@@ -120,10 +122,7 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
                     Bundle extras = data.getExtras();
                     head = extras.getParcelable("data");
                     if (head != null) {
-/**
- * 上传服务器代码
- */
-                        setPicToView(head);// 保存在SD卡中
+                        viewModel.editAvatar(head);
                     }
                 }
                 break;
