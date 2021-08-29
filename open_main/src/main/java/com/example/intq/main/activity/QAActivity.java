@@ -49,7 +49,6 @@ public class QAActivity extends WDActivity<QAViewModel, ActivityQABinding> {
         viewModel.qaChat.observe(this, new Observer<QAChat>() {
             @Override
             public void onChanged(QAChat qaChat) {
-                System.out.println("changed!");
                 qaAdapter.add(qaChat);
                 qaAdapter.notifyDataSetChanged();
             }

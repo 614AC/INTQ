@@ -1,13 +1,12 @@
 package com.example.intq.common.bean.user;
 
 public class UserInfoResult{
-    private String userName, mobile, email, avatar;
+    private String userName, mobile, email;
 
-    public UserInfoResult(String userName, String mobile, String email, String avatar) {
+    public UserInfoResult(String userName, String mobile, String email) {
         this.userName = userName;
         this.mobile = mobile;
         this.email = email;
-        this.avatar = avatar;
     }
 
     public String getUserName() {
@@ -20,9 +19,5 @@ public class UserInfoResult{
 
     public String getEmail() {
         return email;
-    }
-
-    public String getAvatar() {
-        return avatar;
     }
 }

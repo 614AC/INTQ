@@ -3,6 +3,7 @@ package com.example.intq.main.request;
 import com.example.intq.common.bean.Banner;
 import com.example.intq.common.bean.Circle;
 import com.example.intq.common.bean.Result;
+import com.example.intq.common.bean.question.SolveResult;
 import com.example.intq.common.bean.shop.HomeList;
 
 import java.util.List;
@@ -64,4 +65,10 @@ public interface IMainRequest {
     Observable<Result> releaseCircle(@Header("userId") long userId,
                                      @Header("sessionId") String sessionId,
                                      @Body MultipartBody body);
+
+    /**
+     * 知识问答
+     */
+    @POST("question/solve")
+    Observable<Result<SolveResult>> solve(@Query("question") String question, @Query("course") String course);
 }
