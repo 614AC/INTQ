@@ -1,6 +1,7 @@
 package com.example.intq.user.request;
 
 import com.example.intq.common.bean.Result;
+import com.example.intq.common.bean.user.AvatarResult;
 import com.example.intq.common.bean.user.UserInfoResult;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -23,4 +24,10 @@ public interface IUserRequest {
 
     @POST("user/changeinfo")
     Observable<Result<LinkedTreeMap>> changeinfo(@Body RequestBody body, @Header("token") String token);
+
+    @GET("user/avatar")
+    Observable<Result<AvatarResult>> avatar(@Header("token") String token);
+
+    @POST("user/changeavatar")
+    Observable<Result<AvatarResult>> changeAvatar(@Header("token") String token, @Body RequestBody body);
 }

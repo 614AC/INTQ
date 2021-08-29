@@ -5,6 +5,7 @@ import android.os.Message;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.intq.common.bean.user.AvatarResult;
 import com.example.intq.common.bean.user.UserInfoResult;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDFragViewModel;
@@ -26,7 +27,9 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
         if(LOGIN_USER.getUsername() == null){
             updateInfo();
         }
-
+        if(LOGIN_USER.getAvatar() == null){
+            updateAvatar();
+        }
     }
 
     public void updateInfo(){
@@ -38,12 +41,27 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
                 LOGIN_USER.setEmail(data.getEmail());
                 userInfoBox.put(LOGIN_USER);
                 userName.set(LOGIN_USER.getUsername());
-                avatar.setValue(LOGIN_USER.getAvatar());
             }
 
             @Override
             public void fail(ApiException e) {
                 UIUtils.showToastSafe(e.getCode() + " " + e.getDisplayMessage());
+            }
+        });
+    }
+
+    public void updateAvatar(){
+        request(iRequest.avatar(LOGIN_USER.getToken()), new DataCall<AvatarResult>() {
+            @Override
+            public void success(AvatarResult data) {
+                LOGIN_USER.setAvatar(data.getUrl());
+                userInfoBox.put(LOGIN_USER);
+                avatar.setValue(LOGIN_USER.getAvatar());
+            }
+
+            @Override
+            public void fail(ApiException data) {
+
             }
         });
     }

@@ -52,6 +52,7 @@ public class MeFragment extends WDFragment<UserViewModel,FragMeBinding> {
     public void onResume() {
         super.onResume();
         viewModel.updateInfo();
+        viewModel.updateAvatar();
     }
 
 }
