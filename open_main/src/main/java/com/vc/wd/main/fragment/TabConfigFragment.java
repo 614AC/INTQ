@@ -19,25 +19,24 @@ package com.vc.wd.main.fragment;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.RadioGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+<<<<<<< Updated upstream:open_main/src/main/java/com/vc/wd/main/fragment/TabConfigFragment.java
+=======
+import com.example.intq.common.core.WDFragment;
+import com.example.intq.main.databinding.FragTabConfigBinding;
+>>>>>>> Stashed changes:open_main/src/main/java/com/example/intq/main/fragment/TabConfigFragment.java
 import com.google.android.material.snackbar.Snackbar;
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.decoration.ItemShadowDecorator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+<<<<<<< Updated upstream:open_main/src/main/java/com/vc/wd/main/fragment/TabConfigFragment.java
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.vc.wd.common.core.WDFragment;
 import com.vc.wd.main.R;
@@ -46,8 +45,15 @@ import com.vc.wd.main.adapter.TabConfigAdapter;
 import com.vc.wd.main.databinding.FragmentTabConfigBinding;
 import com.vc.wd.main.utils.TabConfigDataProvider;
 import com.vc.wd.main.vm.EmptyFragmentViewModel;
+=======
+import com.example.intq.main.R;
+import com.example.intq.main.activity.TabConfigActivity;
+import com.example.intq.main.adapter.TabConfigAdapter;
+import com.example.intq.main.utils.TabConfigDataProvider;
+import com.example.intq.main.vm.EmptyFragmentViewModel;
+>>>>>>> Stashed changes:open_main/src/main/java/com/example/intq/main/fragment/TabConfigFragment.java
 
-public class TabConfigFragment extends WDFragment<EmptyFragmentViewModel, FragmentTabConfigBinding> {
+public class TabConfigFragment extends WDFragment<EmptyFragmentViewModel, FragTabConfigBinding> {
     private RecyclerView mView;
     private RecyclerView.LayoutManager mLayoutManager;
     private TabConfigAdapter mTabsAdapter;
@@ -65,7 +71,7 @@ public class TabConfigFragment extends WDFragment<EmptyFragmentViewModel, Fragme
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_tab_config;
+        return R.layout.frag_tab_config;
     }
 
     @Override

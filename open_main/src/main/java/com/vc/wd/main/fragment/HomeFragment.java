@@ -13,6 +13,7 @@ import android.view.animation.AlphaAnimation;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
+<<<<<<< Updated upstream:open_main/src/main/java/com/vc/wd/main/fragment/HomeFragment.java
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.vc.wd.common.bean.Course;
 import com.vc.wd.common.core.WDFragment;
@@ -24,10 +25,21 @@ import com.vc.wd.main.vm.HomeViewModel;
 import com.vc.wd.main.databinding.FragmentHomeBinding;
 
 import com.vc.wd.common.util.UIUtils;
+=======
+import com.example.intq.common.bean.Course;
+import com.example.intq.common.util.Constant;
+import com.example.intq.main.databinding.FragHomeBinding;
+import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.example.intq.main.adapter.HomeTabAdapter;
+import com.example.intq.main.R;
+import com.example.intq.main.vm.HomeViewModel;
+import com.example.intq.common.util.UIUtils;
+import com.example.intq.common.core.WDFragment;
+>>>>>>> Stashed changes:open_main/src/main/java/com/example/intq/main/fragment/HomeFragment.java
 
 import java.util.List;
 
-public class HomeFragment extends WDFragment<HomeViewModel, FragmentHomeBinding> {
+public class HomeFragment extends WDFragment<HomeViewModel, FragHomeBinding> {
     private HomeTabAdapter mTabAdapter;
 
     @Override
@@ -37,7 +49,7 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragmentHomeBinding>
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.frag_home;
     }
 
     @Override
@@ -132,5 +144,4 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragmentHomeBinding>
             getFragViewModel().courseList.setValue(Course.integer2Course(data.getIntArrayExtra("courseIndices")));
         }
     }
-
 }
