@@ -1,14 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vc.wd.main" >
+    package="com.example.intq.main" >
     <application>
-        <activity android:name="com.vc.wd.main.activity.MainActivity">
+<<<<<<< HEAD
+        <activity android:name="com.example.intq.main.activity.MainFromViewPagerActivity">
+=======
+        <activity android:name="com.example.intq.main.activity.MainActivity">
+>>>>>>> 8a3137819fb6e379dc4b903630ca8173867d8c9f
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.vc.wd.main.activity.SetActivity"/>
-        <activity android:name="com.vc.wd.main.activity.AddCircleActivity"/>
+        <activity android:name="com.example.intq.main.activity.SetActivity"/>
+        <activity android:name="com.example.intq.main.activity.AddCircleActivity"/>
     </application>
 </manifest>

@@ -3,9 +3,15 @@ apply from: '../module.gradle'
 constant {
     enable false//不进行编译
     moduleName "common"//生成新代码存放在的moduleName
-    packageName "com.vc.wd.common.util"//生成的新代码放在哪个包下
+    packageName "com.example.intq.common.util"//生成的新代码放在哪个包下
     className "Constant"//生成的常量类名
     fieldMap = [
             FRAGMENT_URL_ME: "/user/MeFragment"
     ]//属性参数
+}
+
+dependencies {
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation "com.google.android.material:material:1.1.0-alpha04"
+
 }

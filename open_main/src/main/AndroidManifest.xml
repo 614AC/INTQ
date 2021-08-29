@@ -1,9 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vc.wd.main" >
+    package="com.example.intq.main">
+
     <application>
-        <activity android:name="com.vc.wd.main.activity.MainActivity"/>
-        <activity android:name="com.vc.wd.main.activity.MainFromViewPagerActivity"/>
-        <activity android:name="com.vc.wd.main.activity.SetActivity"/>
-        <activity android:name="com.vc.wd.main.activity.AddCircleActivity"/>
+        <activity android:name="com.example.intq.main.activity.MainFromViewPagerActivity" />
+        <activity android:name="com.example.intq.main.activity.TabConfigActivity" />
+        <activity android:name="com.example.intq.main.activity.SetActivity" />
+        <activity android:name="com.example.intq.main.activity.AddCircleActivity" />
+        <activity android:name=".activity.QAActivity" />
     </application>
+
 </manifest>

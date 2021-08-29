@@ -13,7 +13,7 @@ android {
 
         //上面注释
         manifestPlaceholders = [
-                appName : active.appName
+                appName: active.appName
         ]
 
         javaCompileOptions {
@@ -32,7 +32,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
     }
     compileOptions {
@@ -42,8 +42,4 @@ android {
     lintOptions {
         abortOnError false
     }
-}
-
-dependencies {
-
 }

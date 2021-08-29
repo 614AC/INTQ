@@ -4,6 +4,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.intq.main.vm.EmptyViewModel" />
     </data>
 
     <RelativeLayout
@@ -24,11 +29,11 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="aaa"
+            android:layout_alignBottom="@+id/image"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@+id/image"
-            android:layout_alignBottom="@+id/image"
+            android:text="aaa"
             android:textColor="@color/commdity_price_color"
             android:textSize="14sp" />
 
@@ -36,11 +41,11 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_alignTop="@+id/image"
-            android:layout_toRightOf="@+id/image"
             android:layout_above="@+id/price"
+            android:layout_alignTop="@+id/image"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/image"
             android:text="aaa"
             android:textColor="@color/commdity_text_color"
             android:textSize="12sp" />
