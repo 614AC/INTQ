@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">JetpackMVVM</string>
     <string name="search_title_txt">INTQ知清倾情奉献</string>
+
+    <string name="tab_config_title">您的标签编辑</string>
+    <string name="tab_config_enabled">拖动排序</string>
+    <string name="tab_config_disabled">更多学科</string>
+    <string name="tab_config_hint">长按进行拖动</string>
+    <string name="tab_config_switch">替换模式</string>
 </resources>
