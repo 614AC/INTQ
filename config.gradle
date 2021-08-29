@@ -3,40 +3,31 @@ ext {
     //开发-分支
     dev = [
             branch : "dev",
-            applicationId    : "com.vc.wd.dev",
+            applicationId    : "com.example.intq.dev",
             versionCode      : 2,
             versionName      : "2.1dev",
-            appName : "商城dev",
-            serverUrl : "http://mobile.bwstudent.com/small/",
-            baiduUrl : "http://www.baidu.com/api/v2/"
-//            im_key : "1111kkkkkk",
-//            push_key : "1111ppppp"
+            appName : "知清dev",
+            serverUrl : "http://47.93.21.175:5000/api/",
     ]
 
     //测试-分支
     beta = [
             branch : "beta",
-            applicationId    : "com.vc.wd.beta",
+            applicationId    : "com.example.intq.beta",
             versionCode      : 2,
             versionName      : "2.1beta",
-            appName : "商城beta",
-            serverUrl : "http://mobile.bwstudent.com/small/",
-            baiduUrl : "http://www.baidu.com/api/v2/"
-//            im_key : "2222kkkkkk",
-//            push_key : "2222ppppp"
+            appName : "知清beta",
+            serverUrl : "http://47.93.21.175:5000/api/",
     ]
 
     //发布版上线-分支
     release = [
             branch : "release",
-            applicationId    : "com.vc.wd",
+            applicationId    : "com.example.intq",
             versionCode      : 1,
             versionName      : "1.0",
-            appName : "商城release",
-            serverUrl : "http://mobile.bwstudent.com/small/",
-            baiduUrl : "http://www.baidu.com/api/v1/"
-//            im_key : "3333kkkkkk",
-//            push_key : "3333ppppp"
+            appName : "知清release",
+            serverUrl : "http://47.93.21.175:5000/api/",
     ]
 
     //①方便自定义各种常量，统一项目中配置输出
@@ -48,14 +39,14 @@ ext {
     //建议用来记录不会因为发布分支改变的参数
     SDK_VERSION = [
             compileSdkVersion: 29,
-            minSdkVersion    : 15,//4.0.3
+            minSdkVersion    : 26,//4.0.3
             targetSdkVersion : 29
     ]
 
     //全部都打包，如果只运行模块，请改为false；true则所有模块都参与打包
     allPackage = true
     //需要运行的组件，当allPackage为false的时候，此变量生效，模块名参照settings.gradle中的
-    needPackage = ["open_main"]
+    needPackage = ["open_main", "open_common", "open_user", "open_login"]
 
     //组件和全量包都会优先判断此变量中的模块，如果配置了，此模块不参与打包
     ignorePackage = []
