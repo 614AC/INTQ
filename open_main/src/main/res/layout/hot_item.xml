@@ -4,13 +4,18 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.intq.main.vm.EmptyViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/item_layer_shadow"
+        android:orientation="vertical"
         android:padding="10dp">
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -25,10 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="aaa"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="aaa"
             android:textColor="@color/commdity_text_color"
             android:textSize="12sp" />
 

@@ -1,1 +1,1 @@
--keep class com.vc.wd.common.core.WDApplication
+-keep class com.example.intq.common.core.WDApplication

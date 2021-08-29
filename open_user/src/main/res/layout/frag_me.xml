@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="vm"
-            type="com.vc.wd.user.vm.UserViewModel" />
+            type="com.example.intq.user.vm.UserViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/me_bg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:minHeight="150dp" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -26,7 +20,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/line1"
@@ -39,12 +33,12 @@
                     android:paddingBottom="50dp">
 
                     <TextView
-                        android:id="@+id/me_nickname"
+                        android:id="@+id/me_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="60dp"
                         android:gravity="center"
-                        android:text="名字"
+                        android:text="@={vm.userName}"
                         android:textColor="@color/commdity_text_color"
                         android:textSize="14sp" />
 
@@ -54,31 +48,55 @@
                         android:layout_height="24dp"
                         android:layout_marginLeft="24dp"
                         android:layout_marginTop="70dp"
-                        android:layout_marginRight="24dp">
+                        android:layout_marginRight="24dp"
+                        android:onClick="@{()->vm.meInfo()}">
 
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_alignParentLeft="true"
-                            android:src="@drawable/my_icon_information_n" />
+                            android:src="@drawable/my_icon_information_n"
+                            android:layout_alignParentStart="true"
+                            android:contentDescription="个人资料" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="44dp"
                             android:text="个人资料"
                             android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="44dp" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="44dp"
-                            android:background="#ededed" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/me_safety"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginRight="24dp"
+                        android:onClick="@{() -> vm.meSafety()}">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/my_icon_circle_n"
+                            android:contentDescription="安全设置" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="44dp"
+                            android:text="安全设置"
+                            android:textColor="@color/commdity_text_color"
+                            android:textSize="14sp" />
 
                     </RelativeLayout>
 
@@ -93,26 +111,19 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:src="@drawable/my_icon_circle_n" />
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/my_icon_circle_n"
+                            android:contentDescription="我的收藏" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="44dp"
-                            android:text="我的圈子"
+                            android:layout_marginStart="44dp"
+                            android:text="我的收藏"
                             android:textColor="@color/commdity_text_color"
                             android:textSize="14sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="44dp"
-                            android:background="#ededed" />
 
                     </RelativeLayout>
 
@@ -127,94 +138,19 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:src="@drawable/my_icon_foot_n" />
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/my_icon_foot_n"
+                            android:contentDescription="浏览历史" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="44dp"
-                            android:text="我的足迹"
+                            android:layout_marginStart="44dp"
+                            android:text="浏览历史"
                             android:textColor="@color/commdity_text_color"
                             android:textSize="14sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="44dp"
-                            android:background="#ededed" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/me_wallet"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginRight="24dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:src="@drawable/my_icon_wallet_n" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="44dp"
-                            android:text="我的钱包"
-                            android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="44dp"
-                            android:background="#ededed" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/me_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginRight="24dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:src="@drawable/my_icon_address_n" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="44dp"
-                            android:text="我的收货地址"
-                            android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="44dp"
-                            android:background="#ededed" />
 
                     </RelativeLayout>
 
@@ -230,26 +166,19 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:src="@drawable/my_icon_wallet_n" />
+                            android:layout_alignParentStart="true"
+                            android:src="@drawable/my_icon_wallet_n"
+                            android:contentDescription="设置" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="44dp"
+                            android:layout_marginStart="44dp"
                             android:text="设置"
                             android:textColor="@color/commdity_text_color"
                             android:textSize="14sp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="44dp"
-                            android:background="#ededed" />
 
                     </RelativeLayout>
 
@@ -274,8 +203,7 @@
                     android:layout_alignTop="@+id/line1"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="-40dp"
-                    android:onClick="@{()->vm.dataShare()}"
-                    fresco:roundAsCircle="true" />
+                    fresco:roundAsCircle="true"/>
 
             </RelativeLayout>
         </ScrollView>

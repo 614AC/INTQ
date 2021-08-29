@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.intq.user.vm.EditPwdViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/user_name_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="修改密码" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/old"
+                android:layout_width="340dp"
+                android:layout_height="40dp"
+                android:inputType="textPassword"
+                android:layout_marginStart="20dp"
+                android:hint="原密码"
+                android:text="@={vm.oldPwd}"/>
+            <ImageView
+                android:id="@+id/login_old_eye"
+                android:layout_width="22dp"
+                android:layout_height="13dp"
+                android:onClick="@{() -> vm.oldVisibility()}"
+                android:src="@drawable/login_icon_eye_n" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/pwd"
+                android:layout_width="340dp"
+                android:layout_height="40dp"
+                android:inputType="textPassword"
+                android:layout_marginStart="20dp"
+                android:hint="新密码"
+                android:text="@={vm.pwd}"/>
+            <ImageView
+                android:id="@+id/login_pwd_eye"
+                android:layout_width="22dp"
+                android:layout_height="13dp"
+                android:onClick="@{() -> vm.pwdVisibility()}"
+                android:src="@drawable/login_icon_eye_n" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/pwd_rpt"
+                android:layout_width="340dp"
+                android:layout_height="40dp"
+                android:inputType="textPassword"
+                android:layout_marginStart="20dp"
+                android:hint="确认新密码"
+                android:text="@={vm.pwdRpt}"/>
+            <ImageView
+                android:id="@+id/login_pwdRpt_eye"
+                android:layout_width="22dp"
+                android:layout_height="13dp"
+                android:onClick="@{() -> vm.pwdRptVisibility()}"
+                android:src="@drawable/login_icon_eye_n" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/user_name_btn"
+            android:layout_width="300dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> vm.editPwd()}"
+            android:text="确认" />
+    </LinearLayout>
+
+
+</layout>

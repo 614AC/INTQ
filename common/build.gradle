@@ -11,7 +11,6 @@ android {
         versionName active.versionName
 
         buildConfigField('String',"SERVER_URL","\"${active.serverUrl}\"")
-        buildConfigField('String',"BAIDU_URL","\"${active.baiduUrl}\"")
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -80,6 +79,8 @@ dependencies {
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
     //工具类
     api 'com.blankj:utilcodex:1.30.5'
+
+    implementation 'com.alibaba:fastjson:1.2.69'
 }
 
 apply plugin: 'io.objectbox'

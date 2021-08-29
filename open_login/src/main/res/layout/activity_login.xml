@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.vc.wd.login.vm.LoginViewModel" />
+            type="com.example.intq.login.vm.LoginViewModel" />
     </data>
 
     <RelativeLayout
@@ -36,15 +36,15 @@
                     android:src="@drawable/login_icon_phone_n" />
 
                 <EditText
-                    android:id="@+id/login_mobile"
+                    android:id="@+id/login_userName"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:textSize="18sp"
-                    android:text="@={vm.mobile}"
-                    android:inputType="number"
+                    android:text="@={vm.userName}"
+                    android:inputType="text"
                     android:layout_marginLeft="20dp"
                     android:textColor="@android:color/white"
-                    android:hint="手机号"
+                    android:hint="用户名"
                     android:textColorHint="@android:color/white"
                     android:background="@android:color/transparent" />
             </LinearLayout>

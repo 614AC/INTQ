@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths xmlns:android="http://schemas.android.com/apk/res/android">
+        <root-path
+            name="camera_photos"
+            path=""/>
+        <files-path
+            name="files"
+            path="images/" />
+        <external-path
+            name="external"
+            path="." />
+    </paths>
+</resources>
