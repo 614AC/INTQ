@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.vc.wd.common.bean.Course;
 import com.vc.wd.common.core.WDActivity;
 import com.vc.wd.common.core.WDFragment;
 import com.vc.wd.common.util.Constant;
@@ -141,6 +142,7 @@ public class MainFromViewPagerActivity extends WDActivity<MainFromViewPagerViewM
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        circleFragment.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constant.REQ_TAB_CONFIG)
+            homeFragment.onActivityResult(requestCode, resultCode, data);
     }
 }

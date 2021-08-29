@@ -48,7 +48,7 @@ ext {
     //建议用来记录不会因为发布分支改变的参数
     SDK_VERSION = [
             compileSdkVersion: 29,
-            minSdkVersion    : 15,//4.0.3
+            minSdkVersion    : 26,
             targetSdkVersion : 29
     ]
 

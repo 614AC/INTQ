@@ -21,6 +21,7 @@ public class Constant {
     public final static String ACTIVITY_URL_MAIN = "/main/MainActivity";
     public final static String ACTIVITY_URL_ADD_CIRCLE = "/main/AddCircleActivity";
     public final static String ACTIVITY_URL_SET = "/main/SetActivity";
+    public final static String ACTIVITY_URL_TAB_CONFIG = "/main/TabConfigActivity";
 
 
     //-----------open_main---------
@@ -34,4 +35,7 @@ public class Constant {
     public final static String ACTIVITY_URL_DEBUG = "/debug/DebugActivity";
 
     //-----------open_debug---------
+
+    //-----------request_code---------
+    public final static int REQ_TAB_CONFIG = 0;
 }
