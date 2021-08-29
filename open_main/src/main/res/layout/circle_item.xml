@@ -5,7 +5,7 @@
     <data>
         <variable
             name="imageAdapter"
-            type="com.vc.wd.main.adapter.ImageAdapter" />
+            type="com.example.intq.main.adapter.ImageAdapter" />
         <variable
             name="layoutManager"
             type="androidx.recyclerview.widget.GridLayoutManager" />

@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="com.vc.wd.main.vm.EmptyViewModel" />
+            type="com.example.intq.main.vm.EmptyViewModel" />
     </data>
 
     <LinearLayout

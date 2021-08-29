@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vc.wd.debug">
+    package="com.example.intq.debug">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <application>
-        <activity android:name="com.vc.wd.debug.activity.DebugActivity" />
+        <activity android:name="com.example.intq.debug.activity.DebugActivity" />
     </application>
 </manifest>
