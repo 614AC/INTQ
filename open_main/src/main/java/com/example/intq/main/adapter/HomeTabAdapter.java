@@ -13,10 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeTabAdapter extends FragmentPagerAdapter {
+    private List<HomeTabFragment> mFragments = new ArrayList<>();
     private List<Course> mCourseList = new ArrayList<>();
 
     public HomeTabAdapter(FragmentManager fm) {
         super(fm);
+        for (int i = 0; i < Course.getCourseNumber(); ++i) {
+            HomeTabFragment fragment = new HomeTabFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("courseIndex", i);
+            fragment.setArguments(bundle);
+            mFragments.add(fragment);
+            mCourseList.add((new Course(i)));
+        }
     }
 
     public void setList(List<Course> data) {
@@ -27,11 +36,7 @@ public class HomeTabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        HomeTabFragment fragment = new HomeTabFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("courseIndex", mCourseList.get(position).getIndex());
-        fragment.setArguments(bundle);
-        return fragment;
+        return mFragments.get(position);
     }
 
     @Override
