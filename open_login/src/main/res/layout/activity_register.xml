@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="vm"
             type="com.example.intq.login.vm.RegisterViewModel" />
@@ -10,7 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_bg">
+        android:background="@drawable/logo"
+        android:scaleType="centerCrop">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,6 +143,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
+
                 <TextView
                     android:id="@+id/login_text"
                     android:layout_width="wrap_content"
@@ -148,10 +151,10 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical|right"
+                    android:onClick="@{()->vm.login()}"
                     android:text="已有账户？立即登录"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:onClick="@{()->vm.login()}"/>
+                    android:textSize="14sp" />
             </RelativeLayout>
 
         </LinearLayout>

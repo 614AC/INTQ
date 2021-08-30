@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Victor/.gradle/caches/transforms-3/b7ef6d1e411ec40b0a88424765d097a3/transformed/jetified-MaterialSearchBar-0.8.5/res/drawable-mdpi-v4/ic_back_animated.xml" value="0.17569444444444443" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_login/src/main/res/drawable/login_btn_bg.xml" value="0.16041666666666668" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_login/src/main/res/layout/activity_login.xml" value="0.18835482610394685" />
+        <entry key="..\:/Users/Victor/repos/inq-frontend/open_login/src/main/res/layout/activity_register.xml" value="0.18835482610394685" />
         <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable-xhdpi/material_shadow_z1.xml" value="0.22109375" />
         <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable-xhdpi/material_shadow_z3.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/Victor/repos/inq-frontend/open_main/src/main/res/drawable/common_tab_btn_circle.xml" value="0.1921875" />
