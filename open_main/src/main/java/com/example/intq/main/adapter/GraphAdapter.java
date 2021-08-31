@@ -2,7 +2,7 @@
 //
 //import androidx.databinding.ViewDataBinding;
 //
-//import com.example.intq.common.bean.Instance;
+//import com.example.intq.common.bean.instance.Instance;
 //import com.example.intq.common.core.WDRecyclerAdapter;
 //import com.example.intq.main.R;
 //import com.example.intq.main.databinding.FragGraphBinding;

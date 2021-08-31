@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.intq.common.bean.Instance;
+import com.example.intq.common.bean.instance.Instance;
 import com.example.intq.common.core.WDFragment;
 import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.main.R;

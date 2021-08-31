@@ -22,7 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 @Route(path = Constant.ACTIVITY_URL_INSTANCE)
 public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInstanceBinding> {
 
-    private final String[] titles = {"列表", "图示"};
+    private final String[] titles = {"属性", "知识图谱"};
     private InstanceGraphFragment GraphFragment;
     private InstanceListFragment ListFragment;
 

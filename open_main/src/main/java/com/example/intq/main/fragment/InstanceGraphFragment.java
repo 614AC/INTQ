@@ -11,11 +11,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.intq.common.bean.Instance;
+import com.example.intq.common.bean.instance.ContentNode;
+import com.example.intq.common.bean.instance.ContentResult;
+import com.example.intq.common.bean.instance.Instance;
+import com.example.intq.common.bean.instance.PropertyResult;
 import com.example.intq.common.core.WDFragment;
-import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.main.R;
 import com.example.intq.main.adapter.InstanceAdapter;
 import com.example.intq.main.databinding.FragGraphBinding;
@@ -49,11 +50,6 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
         }
     };
 
-//    public InstanceGraphFragment() {}
-//    public InstanceGraphFragment(CirclePeopleView p) {
-//        this.peopleView = p;
-//    }
-
     @Override
     protected InstanceItemViewModel initFragViewModel() {
         return new InstanceItemViewModel();
@@ -66,15 +62,6 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        adapter = new InstanceAdapter();
-
-        viewModel.InstanceList.observe(this, new Observer<List<com.example.intq.common.bean.Instance>>() {
-            @Override
-            public void onChanged(List<Instance> Entities) {
-                adapter.addAll(Entities);
-                adapter.notifyDataSetChanged();
-            }
-        });
     }
 
     @Override
@@ -82,7 +69,7 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
         super.onCreate(savedInstanceState);
         mContext = this.getContext();
 //        this.init();
-        this.loadData();
+        this.initData();
     }
 
     @Nullable
@@ -91,29 +78,53 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
 
         View graph = inflater.inflate(R.layout.frag_graph, container, false);
         peopleView = graph.findViewById(R.id.layout_cricle_people);
-//        sq.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MainActivity ma = (MainActivity) getActivity();
-//                ma.setTabSelection(2);
-//            }
-//        });
-        return graph;
+        adapter = new InstanceAdapter();
 
+        viewModel.InstanceList.observe(this, new Observer<List<Instance>>() {
+            @Override
+            public void onChanged(List<Instance> Entities) {
+                adapter.addAll(Entities);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        viewModel.contentResultMutableLiveData.observe(this, new Observer<List<ContentNode>>() {
+            @Override
+            public void onChanged(List<ContentNode> contentResult) {
+                loadData();
+            }
+        });
+        return graph;
+    }
+
+    private void initData() {
+        try {
+            childSub = "张三";
+            Message msg = Message.obtain();
+            msg.what = 222;
+            handler.sendMessage(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadData() {
         try {
+            List<ContentNode> nodes = viewModel.contentResultMutableLiveData.getValue();
             childSub = "张三";
-            JSONObject object = new JSONObject(Contant.json);
-            JSONArray array = object.getJSONArray("nodes");
-            System.out.println(array.length());
+//            JSONObject object = new JSONObject(Contant.json);
+//            JSONArray array = object.getJSONArray("nodes");
             Instance personBean = null;
-            for (int i = 0; i < array.length(); i++) {
+            for (int i = 0; i < nodes.size(); i++) {
                 personBean = new Instance();
-                JSONObject data = array.getJSONObject(i);
-                personBean.setName(data.getString("name"));
-                personBean.setSymbolSize(data.getInt("symbolSize"));
+                ContentNode node = nodes.get(i);
+                if (node.getObject() != null) {
+                    personBean.setName(node.getObject_label());
+                }
+                else {
+                    personBean.setName(node.getSubject_label());
+                }
+                personBean.setSymbolSize(1);
+                personBean.setPredicate_label(node.getPredicate_label());
                 lists.add(personBean);
             }
             System.out.println("......");
@@ -122,7 +133,7 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
             Message msg = Message.obtain();
             msg.what = 222;
             handler.sendMessage(msg);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

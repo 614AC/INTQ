@@ -2,8 +2,18 @@ package com.example.intq.main.vm;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.intq.common.bean.Instance;
+import com.example.intq.common.bean.QAChat;
+import com.example.intq.common.bean.instance.ContentNode;
+import com.example.intq.common.bean.instance.ContentResult;
+import com.example.intq.common.bean.instance.InstInfoResult;
+import com.example.intq.common.bean.instance.Instance;
+import com.example.intq.common.bean.instance.PropertyNode;
+import com.example.intq.common.bean.instance.PropertyResult;
+import com.example.intq.common.bean.question.SolveResult;
+import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDFragViewModel;
+import com.example.intq.common.core.exception.ApiException;
+import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.request.IMainRequest;
 
 import java.util.ArrayList;
@@ -13,6 +23,10 @@ import java.util.List;
 public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
 
     public MutableLiveData<List<Instance>> InstanceList = new MutableLiveData<>();
+    public MutableLiveData<List<PropertyNode>> propertyResultMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<List<ContentNode>> contentResultMutableLiveData = new MutableLiveData<>();
+    public String queryInstance = "李白";
+    public String queryCourse = "chinese";
 //    public MutableLiveData<List<Instance>> EntityGraph = new MutableLiveData<>();
 
     @Override
@@ -21,12 +35,26 @@ public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
         ArrayList<Instance> a = new ArrayList<>();
         a.add(new Instance("aaa", 1));
         a.add(new Instance("bbb", 2));
-//        ArrayList<Instance> b = new ArrayList<>();
-//        b.add(new Instance(1,"c","c"));
-//        b.add(new Instance(1,"d","d"));
 
 
         InstanceList.setValue(a);
-//        EntityGraph.setValue(b);
+        request(iRequest.getInstanceInfo(this.queryInstance, this.queryCourse), new DataCall<InstInfoResult>() {
+            @Override
+            public void success(InstInfoResult data) {
+//                System.out.println(",,,,,,,");
+//                System.out.println(data.getInstInfo().getLabel());
+//                System.out.println(data.getInstInfo().getContent().toString());
+//                System.out.println(",,,,,,,");
+//                System.out.println(data.getProperty().toString());
+                propertyResultMutableLiveData.setValue(data.getInstInfo().getProperty());
+                contentResultMutableLiveData.setValue(data.getInstInfo().getContent());
+                System.out.println(contentResultMutableLiveData.getValue().get(0).getPredicate());
+            }
+
+            @Override
+            public void fail(ApiException data) {
+                UIUtils.showToastSafe("网络连接失败，请检查网络连接");
+            }
+        });
     }
 }
