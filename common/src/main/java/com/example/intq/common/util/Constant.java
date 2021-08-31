@@ -23,6 +23,7 @@ public class Constant {
     public final static String ACTIVITY_URL_ADD_CIRCLE = "/main/AddCircleActivity";
     public final static String ACTIVITY_URL_SET = "/main/SetActivity";
     public final static String ACTIVITY_URL_TAB_CONFIG = "/main/TabConfigActivity";
+    public final static String ACTIVITY_URL_SEARCH = "/main/SearchActivity";
 
 
     //-----------open_main---------
@@ -47,4 +48,5 @@ public class Constant {
 
     //-----------request_code---------
     public final static int REQ_TAB_CONFIG = 0;
+    public final static int REQ_SEARCH_KEYWORD = 0;
 }

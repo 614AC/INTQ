@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -48,8 +49,16 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragHomeBinding> {
             }
         });
 
+        //Tab相关设置
         binding.innerViewPager.setAdapter(mTabAdapter);
         binding.tabItems.setupWithViewPager(binding.innerViewPager);
+        //Tab编辑导航
+        binding.tabConfig.setOnClickListener(v -> {
+            Bundle bundle1 = new Bundle();
+            bundle1.putIntArray("courseIndices", Course.course2Integer(getFragViewModel().courseList.getValue()));
+            intentForResultByRouter(Constant.ACTIVITY_URL_TAB_CONFIG, bundle1, Constant.REQ_TAB_CONFIG);
+        });
+        //搜索栏设置
         reduce();
         binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
@@ -62,19 +71,15 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragHomeBinding> {
 
             @Override
             public void onSearchConfirmed(CharSequence text) {
+                if (text != null && text.length() > 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putCharSequence("keyword", text);
+                    intentByRouter(Constant.ACTIVITY_URL_SEARCH, bundle);
+                }
             }
 
             @Override
             public void onButtonClicked(int buttonCode) {
-            }
-        });
-
-        binding.tabConfig.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putIntArray("courseIndices", Course.course2Integer(getFragViewModel().courseList.getValue()));
-                intentForResultByRouter(Constant.ACTIVITY_URL_TAB_CONFIG, bundle, Constant.REQ_TAB_CONFIG);
             }
         });
     }

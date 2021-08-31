@@ -3,11 +3,12 @@
     package="com.example.intq.main">
 
     <application>
-        <activity android:name="com.example.intq.main.activity.MainFromViewPagerActivity" />
-        <activity android:name="com.example.intq.main.activity.TabConfigActivity" />
-        <activity android:name="com.example.intq.main.activity.SetActivity" />
-        <activity android:name="com.example.intq.main.activity.AddCircleActivity" />
+        <activity android:name=".activity.MainFromViewPagerActivity" />
+        <activity android:name=".activity.TabConfigActivity" />
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.AddCircleActivity" />
         <activity android:name=".activity.QAActivity" />
+        <activity android:name=".activity.SearchActivity" />
     </application>
 
 </manifest>

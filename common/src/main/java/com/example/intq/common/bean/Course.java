@@ -45,7 +45,7 @@ public class Course {
         }
     }
 
-    private static int clamp(int index) {
+    public static int clamp(int index) {
         return (index < 0) ? 0 : (index >= getCourseNumber() ? getCourseNumber() - 1 : index);
     }
 
