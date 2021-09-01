@@ -47,5 +47,10 @@ public class InstanceListFragment extends WDFragment<InstanceItemViewModel, Frag
                 adapter.notifyDataSetChanged();
             }
         });
+
+        System.out.println("frag -> " + getArguments().getString("inst_name"));
+        viewModel.queryInstance.setValue(getArguments().getString("inst_name"));
+        viewModel.queryCourse.setValue(getArguments().getString("course"));
+        viewModel.getData();
     }
 }

@@ -25,20 +25,12 @@ public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
     public MutableLiveData<List<Instance>> InstanceList = new MutableLiveData<>();
     public MutableLiveData<List<PropertyNode>> propertyResultMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<List<ContentNode>> contentResultMutableLiveData = new MutableLiveData<>();
-    public String queryInstance = "李白";
-    public String queryCourse = "chinese";
+    public MutableLiveData<String> queryInstance = new MutableLiveData<>();
+    public MutableLiveData<String> queryCourse = new MutableLiveData<>();
 //    public MutableLiveData<List<Instance>> EntityGraph = new MutableLiveData<>();
 
-    @Override
-    protected void create() {
-        super.create();
-        ArrayList<Instance> a = new ArrayList<>();
-        a.add(new Instance("aaa", 1));
-        a.add(new Instance("bbb", 2));
-
-
-        InstanceList.setValue(a);
-        request(iRequest.getInstanceInfo(this.queryInstance, this.queryCourse), new DataCall<InstInfoResult>() {
+    public void getData(){
+        request(iRequest.getInstanceInfo(this.queryInstance.getValue(), this.queryCourse.getValue()), new DataCall<InstInfoResult>() {
             @Override
             public void success(InstInfoResult data) {
                 propertyResultMutableLiveData.setValue(data.getInstInfo().getProperty());
