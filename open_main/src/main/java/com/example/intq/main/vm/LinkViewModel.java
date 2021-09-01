@@ -3,10 +3,8 @@ package com.example.intq.main.vm;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.intq.common.bean.QAChat;
 import com.example.intq.common.bean.instance.Link;
 import com.example.intq.common.bean.instance.LinkInstanceResult;
-import com.example.intq.common.bean.question.SolveResult;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
@@ -23,22 +21,22 @@ public class LinkViewModel extends WDViewModel<IMainRequest> {
     public ObservableField<Integer> courseId = new ObservableField<>();
     public ObservableField<String> context = new ObservableField<>();
     public MutableLiveData<List<Link>> links = new MutableLiveData<>();
-    public ObservableField<Boolean> enabled = new ObservableField<>(true);
+    public MutableLiveData<Boolean> enabled = new MutableLiveData<>(true);
 
     public void link(){
-        if(enabled.get()){
-            enabled.set(false);
+        if(enabled.getValue()){
+            enabled.setValue(false);
             RequestBody body = NetworkManager.convertJsonBody(new String[]{"course", "context"}, new String[]{courseMapping[courseId.get()], context.get()});
             request(iRequest.getLinkInstance(body), new DataCall<LinkInstanceResult>() {
                 @Override
                 public void success(LinkInstanceResult data) {
-                    links.setValue(data.getResults());
+                    links.setValue(data.getLinkInstance());
                 }
 
                 @Override
                 public void fail(ApiException data) {
                     UIUtils.showToastSafe("网络连接失败，请检查网络连接");
-                    enabled.set(true);
+                    enabled.setValue(true);
                 }
             });
         }

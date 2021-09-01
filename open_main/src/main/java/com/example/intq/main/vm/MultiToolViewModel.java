@@ -11,6 +11,6 @@ public class MultiToolViewModel extends WDFragViewModel<IMainRequest> {
     }
 
     public void gotoLink(){
-        intentByRouter(Constant.ACTIVITY_URL_QA);
+        intentByRouter(Constant.ACTIVITY_URL_LINK);
     }
 }

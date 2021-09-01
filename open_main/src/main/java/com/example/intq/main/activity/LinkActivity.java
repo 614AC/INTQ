@@ -3,6 +3,7 @@ package com.example.intq.main.activity;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,17 +15,13 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.example.intq.common.bean.QAChat;
 import com.example.intq.common.bean.instance.Link;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.R;
-import com.example.intq.main.adapter.QAAdapter;
 import com.example.intq.main.databinding.ActivityLinkBinding;
-import com.example.intq.main.databinding.ActivityQABinding;
 import com.example.intq.main.vm.LinkViewModel;
-import com.example.intq.main.vm.QAViewModel;
 
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_q_a;
+        return R.layout.activity_link;
     }
 
     @Override
@@ -54,6 +51,13 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
 
         //将adapter 添加到spinner中
         spinner.setAdapter(adapter);
+
+        viewModel.enabled.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                findViewById(R.id.link_text).setEnabled(aBoolean);
+            }
+        });
 
         viewModel.links.observe(this, new Observer<List<Link>>() {
             @Override
@@ -85,7 +89,8 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
                 }
                 if(lastEnd < context.length())
                     textView.append(context.substring(lastEnd));
-                viewModel.enabled.set(true);
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
+                viewModel.enabled.setValue(true);
             }
         });
     }

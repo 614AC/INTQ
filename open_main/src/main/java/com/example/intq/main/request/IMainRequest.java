@@ -51,7 +51,7 @@ public interface IMainRequest {
     @GET("instance/info")
     Observable<Result<InstInfoResult>> getInstanceInfo(@Query("instName") String instName, @Query("course") String course);
 
-    @POST("instance/link")
+    @POST("instance/linkinstance")
     Observable<Result<LinkInstanceResult>> getLinkInstance(@Body RequestBody body);
 
 }

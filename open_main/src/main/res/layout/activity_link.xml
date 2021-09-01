@@ -57,14 +57,13 @@
             </RelativeLayout>
 
             <EditText
-                android:id="@+id/et_chat_message"
+                android:id="@+id/link_contexte"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:textSize="14sp"
                 android:padding="8dp"
-                android:enabled="@={vm.enabled}"
                 android:text="@={vm.context}"/>
 
         </LinearLayout>
