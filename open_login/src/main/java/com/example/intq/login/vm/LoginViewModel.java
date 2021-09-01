@@ -11,9 +11,13 @@ import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDApplication;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
+import com.example.intq.common.core.http.NetworkManager;
 import com.example.intq.common.util.Constant;
+import com.example.intq.common.util.MD5Utils;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.login.request.ILoginRequest;
+
+import okhttp3.RequestBody;
 
 public class LoginViewModel extends WDViewModel<ILoginRequest> {
 
@@ -58,7 +62,8 @@ public class LoginViewModel extends WDViewModel<ILoginRequest> {
         }
         dialog.setValue(true);
 
-        request(iRequest.login(m, p), new DataCall<UserLoginResult>() {
+        RequestBody info = NetworkManager.convertJsonBody(new String[]{"userName", "password"}, new String[]{m, MD5Utils.md5(p)});
+        request(iRequest.login(info), new DataCall<UserLoginResult>() {
             @Override
             public void success(UserLoginResult result) {
                 dialog.setValue(false);

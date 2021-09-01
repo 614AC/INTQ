@@ -8,11 +8,15 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
+import com.example.intq.common.core.http.NetworkManager;
+import com.example.intq.common.util.MD5Utils;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.login.request.ILoginRequest;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.Objects;
+
+import okhttp3.RequestBody;
 
 public class RegisterViewModel extends WDViewModel<ILoginRequest> {
     public ObservableField<String> userName = new ObservableField<>();
@@ -46,7 +50,8 @@ public class RegisterViewModel extends WDViewModel<ILoginRequest> {
 
         dialog.setValue(true);
 
-        request(iRequest.register(m, p), new DataCall<LinkedTreeMap>() {
+        RequestBody info = NetworkManager.convertJsonBody(new String[]{"userName", "password"}, new String[]{m, MD5Utils.md5(p)});
+        request(iRequest.register(info), new DataCall<LinkedTreeMap>() {
 
             @Override
             public void success(LinkedTreeMap data) {
