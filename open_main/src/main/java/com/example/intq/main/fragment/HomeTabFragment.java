@@ -1,23 +1,25 @@
 package com.example.intq.main.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.lifecycle.Observer;
 
 import com.example.intq.common.bean.Course;
+import com.example.intq.common.bean.instance.InstList;
+import com.example.intq.common.bean.instance.InstListNode;
 import com.example.intq.common.core.WDFragment;
+import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.R;
 import com.example.intq.main.databinding.FragHomeTabBinding;
-import com.example.intq.main.vm.HomeViewModel;
+import com.example.intq.main.vm.HomeTabViewModel;
 
-public class HomeTabFragment extends WDFragment<HomeViewModel, FragHomeTabBinding> {
+public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBinding> {
     private int mCourseIndex;
     private int mCnt;
 
     @Override
-    protected HomeViewModel initFragViewModel() {
-        return new HomeViewModel();
+    protected HomeTabViewModel initFragViewModel() {
+        return new HomeTabViewModel();
     }
 
     @Override
@@ -29,22 +31,34 @@ public class HomeTabFragment extends WDFragment<HomeViewModel, FragHomeTabBindin
     protected void initView(Bundle bundle) {
         bundle = getArguments();
         mCourseIndex = bundle.getInt("courseIndex");
-        String text = Course.getNameChi(mCourseIndex) + "\n";
-        for (int i = 0; i < 6; ++i)
-            text += text;
-        binding.txtContent.setText(text);
+        viewModel.searching.observe(this, searching -> {
+            if (!searching)
+                binding.homeTabRefresh.setRefreshing(false);
+        });
+        viewModel.randomInstList.observe(this, new Observer<InstList>() {
+            @Override
+            public void onChanged(InstList instList) {
+                String show = Course.getNameChi(mCourseIndex) + "\n";
+                if (instList == null) {
+                    UIUtils.showToastSafe("网络错误~");
+                    show += "空空如也";
+                } else {
+                    for (InstListNode node : instList.getInstList())
+                        show += String.format("label:%s\nuri:%s\n",
+                                node.getLabel(), node.getUri());
+                }
+                binding.txtContent.setText(show);
+            }
+        });
 
         binding.homeTabRefresh.setOnRefreshListener(() -> {
-            String oldText = (String) binding.txtContent.getText();
-            binding.txtContent.setText(++mCnt + oldText);
-
-            // Do async call or whatever to get the new data
-            // Update your data e.g:
-            //    - RecylerView: update the data in your adapter and call 'notifyDataSetChanged'
-            //    - fixed views: update the field
-            // Call `pullToRefresh.setRefreshing(false);`
-            new Handler().postDelayed(() -> binding.homeTabRefresh.setRefreshing(false), 5000);
-
+            refresh();
         });
+        refresh();
+    }
+
+    private void refresh() {
+        binding.homeTabRefresh.setRefreshing(true);
+        viewModel.updateRandomInstList(20, Course.getNameEng(mCourseIndex));
     }
 }

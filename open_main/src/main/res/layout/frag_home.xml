@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.intq.main.vm.HomeViewModel" />
+            type="com.example.intq.main.vm.HomeTabViewModel" />
 
         <variable
             name="fragment"

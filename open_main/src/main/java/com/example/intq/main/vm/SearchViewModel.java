@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 public class SearchViewModel extends WDViewModel<ISearchRequest> {
     private final Logger logger = Logger.createLogger(getClass());
 
-    public MutableLiveData<InstList> instLabelList = new MutableLiveData<>();
+    public MutableLiveData<InstList> instList = new MutableLiveData<>();
     public MutableLiveData<Boolean> searching = new MutableLiveData<>();
     private static long searchMillis;
 
@@ -33,19 +33,19 @@ public class SearchViewModel extends WDViewModel<ISearchRequest> {
         super.create();
     }
 
-    public void updateInstLabelList(int offset, int limit, String sort, String key, String course) {
+    public void updateInstList(int offset, int limit, String sort, String key, String course) {
         searching.setValue(true);
         logger.d("Searching state: " + searching.getValue() + "[starting]");
         searchMillis = System.currentTimeMillis();
-        new Handler().postDelayed(() -> request(iRequest.getInstLabelList(LOGIN_USER.getToken(),
+        request(iRequest.getInstList(LOGIN_USER.getToken(),
                 offset, limit, sort, key, course), new DataCall<InstList>() {
             @Override
             public void success(InstList data) {
                 searching.setValue(false);
                 searchMillis = System.currentTimeMillis() - searchMillis;
-                instLabelList.setValue(data);
+                instList.setValue(data);
                 logger.d("Searching state: " + searching.getValue() + "[success]");
-                logger.d("Searching result: " + instLabelList.getValue());
+                logger.d("Searching result: " + instList.getValue());
             }
 
             @Override
@@ -56,8 +56,7 @@ public class SearchViewModel extends WDViewModel<ISearchRequest> {
                 logger.d("Error code:" + data.getCode());
                 logger.d("Error msg:" + data.getMessage());
             }
-        }), 2000);
-
+        });
     }
 
     public float getSearchSec() {

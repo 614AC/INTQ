@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -17,21 +15,21 @@ import androidx.lifecycle.Observer;
 import com.example.intq.common.bean.Course;
 import com.example.intq.common.util.Constant;
 import com.example.intq.main.databinding.FragHomeBinding;
+import com.example.intq.main.vm.HomeTabViewModel;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.example.intq.main.adapter.HomeTabAdapter;
 import com.example.intq.main.R;
-import com.example.intq.main.vm.HomeViewModel;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.common.core.WDFragment;
 
 import java.util.List;
 
-public class HomeFragment extends WDFragment<HomeViewModel, FragHomeBinding> {
+public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> {
     private HomeTabAdapter mTabAdapter;
 
     @Override
-    protected HomeViewModel initFragViewModel() {
-        return new HomeViewModel();
+    protected HomeTabViewModel initFragViewModel() {
+        return new HomeTabViewModel();
     }
 
     @Override

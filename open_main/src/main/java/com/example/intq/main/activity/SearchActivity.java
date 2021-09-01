@@ -53,7 +53,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                 binding.searchLoading.smoothToHide();
             }
         });
-        viewModel.instLabelList.observe(this, new Observer<InstList>() {
+        viewModel.instList.observe(this, new Observer<InstList>() {
             @Override
             public void onChanged(InstList instList) {
                 String toastInfo = "";
@@ -111,7 +111,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
     }
 
     public boolean search(CharSequence keyword) {
-        viewModel.updateInstLabelList(0, 100, "name",
+        viewModel.updateInstList(0, 100, "name",
                 keyword.toString(), Course.getNameEng(0));
         return true;
     }

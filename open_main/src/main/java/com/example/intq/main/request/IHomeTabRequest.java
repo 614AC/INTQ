@@ -4,20 +4,16 @@ import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.instance.InstList;
 
 import io.reactivex.Observable;
-
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
 
-public interface ISearchRequest {
+public interface IHomeTabRequest {
 
-    @GET("instance/list")
-    Observable<Result<InstList>> getInstList(
+    @GET("instance/randomlist")
+    Observable<Result<InstList>> getRandomInstList(
             @Header("token") String token,
-            @Query("offset") int offset,
             @Query("limit") int limit,
-            @Query("sort") String sort,
-            @Query("key") String key,
             @Query("course") String course
     );
 }
