@@ -1,5 +1,7 @@
 package com.example.intq.main.vm;
 
+import android.os.Bundle;
+
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
@@ -9,6 +11,7 @@ import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
 import com.example.intq.common.core.http.NetworkManager;
+import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.request.IMainRequest;
 
@@ -41,5 +44,12 @@ public class LinkViewModel extends WDViewModel<IMainRequest> {
             });
         }
 
+    }
+
+    public void turnToInstance(String instName){
+        Bundle bundle = new Bundle();
+        bundle.putString("inst_name", instName);
+        bundle.putString("course", courseMapping[courseId.get()]);
+        intentByRouter(Constant.ACTIVITY_URL_INSTANCE, bundle);
     }
 }
