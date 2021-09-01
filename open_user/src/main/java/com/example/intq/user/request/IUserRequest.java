@@ -1,6 +1,7 @@
 package com.example.intq.user.request;
 
 import com.example.intq.common.bean.Result;
+import com.example.intq.common.bean.instance.StarInstResult;
 import com.example.intq.common.bean.user.AvatarResult;
 import com.example.intq.common.bean.user.UserInfoResult;
 import com.google.gson.internal.LinkedTreeMap;
@@ -12,6 +13,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface IUserRequest {
     /**
@@ -30,4 +32,7 @@ public interface IUserRequest {
 
     @POST("user/changeavatar")
     Observable<Result<AvatarResult>> changeAvatar(@Header("token") String token, @Body RequestBody body);
+
+    @GET("user/starred/inst")
+    Observable<Result<StarInstResult>> getStarredInstList(@Header("token") String token, @Query("offset") Integer offset, @Query("limit") Integer limit);
 }
