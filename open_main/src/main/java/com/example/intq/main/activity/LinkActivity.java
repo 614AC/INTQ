@@ -80,7 +80,7 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
                     spannableString.setSpan(new ClickableSpan() {
                         @Override
                         public void onClick(@NonNull View view) {
-                            viewModel.turnToInstance(l.getEntity());
+                            viewModel.turnToInstance(l.getEntity(), l.getEntity_url());
                         }
                     }, 0, sub.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                     textView.append(spannableString);
