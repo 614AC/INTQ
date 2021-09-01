@@ -8,6 +8,7 @@
         <activity android:name="com.example.intq.main.activity.SetActivity" />
         <activity android:name="com.example.intq.main.activity.AddCircleActivity" />
         <activity android:name=".activity.QAActivity" />
+        <activity android:name=".activity.InstanceActivity" />
     </application>
 
 </manifest>

@@ -92,6 +92,13 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
     protected void onResume() {
         super.onResume();
         viewModel.updateInfo();
+        viewModel.updateAvatar();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mAvatarDialog.dismiss();
+        super.onDestroy();
     }
 
     @Override
