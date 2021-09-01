@@ -16,8 +16,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/search_layout"
@@ -54,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
                 app:mt_maxSuggestionsCount="10"
                 app:mt_searchIconDrawable="@drawable/common_nav_btn_search_n"
                 app:mt_speechMode="false" />

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.intq.main.vm.EmptyViewModel" />
+            type="com.example.intq.main.vm.SearchViewModel" />
     </data>
 
     <RelativeLayout
@@ -25,10 +25,28 @@
             app:mt_searchIconDrawable="@drawable/common_nav_btn_search_n"
             app:mt_speechMode="false" />
 
-        <TextView
-            android:id="@+id/search_text_display"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/search_bar" />
+            android:layout_below="@id/search_bar">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/search_loading"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:visibility="visible"
+                app:indicatorName="BallPulseIndicator" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/search_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

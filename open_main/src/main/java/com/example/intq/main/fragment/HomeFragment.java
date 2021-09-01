@@ -95,7 +95,7 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragHomeBinding> {
         searchBarLayoutParams.width = LayoutParams.MATCH_PARENT;
         binding.searchBar.setLayoutParams(searchBarLayoutParams);
         beginDelayedTransition(binding.searchBar, 0, 500);
-        beginDelayedTransition(binding.tabLayout, 0, 500);
+        beginDelayedTransition(binding.tabLayout, 0, 600);
         beginDelayedAlphaTransition(binding.searchTitleBar, 0, 1, 500);
     }
 
@@ -110,7 +110,7 @@ public class HomeFragment extends WDFragment<HomeViewModel, FragHomeBinding> {
         searchBarLayoutParams.topMargin = 0;
         binding.searchBar.setLayoutParams(searchBarLayoutParams);
         beginDelayedTransition(binding.searchBar, 0, 500);
-        beginDelayedTransition(binding.tabLayout, 0, 500);
+        beginDelayedTransition(binding.tabLayout, 0, 600);
         beginDelayedAlphaTransition(binding.searchTitleBar, 1, 0, 500);
     }
 

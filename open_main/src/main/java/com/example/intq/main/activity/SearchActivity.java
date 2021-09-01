@@ -2,29 +2,41 @@ package com.example.intq.main.activity;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.Handler;
 import android.os.Message;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 
+import androidx.lifecycle.Observer;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.example.intq.common.bean.Circle;
+import com.example.intq.common.bean.Course;
+import com.example.intq.common.bean.instance.InstList;
+import com.example.intq.common.bean.instance.InstListNode;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.R;
 import com.example.intq.main.databinding.ActivitySearchBinding;
-import com.example.intq.main.vm.EmptyViewModel;
+import com.example.intq.main.vm.SearchViewModel;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Route(path = Constant.ACTIVITY_URL_SEARCH)
-public class SearchActivity extends WDActivity<EmptyViewModel, ActivitySearchBinding> {
-
+public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBinding> {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_search;
@@ -32,7 +44,36 @@ public class SearchActivity extends WDActivity<EmptyViewModel, ActivitySearchBin
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        search(getIntent().getCharSequenceExtra("keyword"));
+        viewModel.searching.observe(this, searching -> {
+            if (searching) {
+                binding.searchDisplay.setVisibility(View.INVISIBLE);
+                binding.searchLoading.show();
+            } else {
+                binding.searchDisplay.setVisibility(View.VISIBLE);
+                binding.searchLoading.smoothToHide();
+            }
+        });
+        viewModel.instLabelList.observe(this, new Observer<InstList>() {
+            @Override
+            public void onChanged(InstList instList) {
+                String toastInfo = "";
+                String show = "";
+                if (instList == null) {
+                    toastInfo = "没有找到相关实体~";
+                    show = "空空如也";
+                } else {
+                    toastInfo = String.format("搜索到%d个相关实体\n耗时%fs",
+                            instList.getInstList().size(), viewModel.getSearchSec());
+                    for (InstListNode node : instList.getInstList())
+                        show += String.format("label:%s\ncategory:%s\nuri:%s\n",
+                                node.getLabel(), node.getCategory(), node.getUri());
+                }
+                UIUtils.showToastSafe(toastInfo);
+                binding.searchDisplay.setText(show);
+            }
+        });
+        //加载设置
+        binding.searchLoading.getIndicator().setColor(R.color.colorPrimary);
         //搜索栏设置
         reduce();
         binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
@@ -47,17 +88,31 @@ public class SearchActivity extends WDActivity<EmptyViewModel, ActivitySearchBin
             @Override
             public void onSearchConfirmed(CharSequence text) {
                 if (text != null && text.length() > 0)
-                    binding.searchTextDisplay.setText(text);
+                    search(text);
             }
 
             @Override
             public void onButtonClicked(int buttonCode) {
             }
         });
+
+        CharSequence keyword = Objects.requireNonNull(getIntent().getCharSequenceExtra("keyword"));
+        binding.searchBar.setText(keyword.toString());
+        binding.searchBar.getSearchEditText().setSelection(keyword.length());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.searchBar.openSearch();
+                //等效于点击搜索按钮
+                binding.searchBar.onEditorAction(null, 0, null);
+            }
+        }, 80);
+
     }
 
     public boolean search(CharSequence keyword) {
-        binding.searchTextDisplay.setText(keyword);
+        viewModel.updateInstLabelList(0, 100, "name",
+                keyword.toString(), Course.getNameEng(0));
         return true;
     }
 
@@ -73,9 +128,6 @@ public class SearchActivity extends WDActivity<EmptyViewModel, ActivitySearchBin
     }
 
     private void reduce() {
-        // 设置收缩状态时的布局
-        binding.searchBar.setHint("点我搜索");
-
         //设置动画
         MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBar.getLayoutParams();
 
