@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomeTabAdapter extends FragmentPagerAdapter {
-    private List<HomeTabFragment> mFragments = new ArrayList<>();
-    private List<Course> mCourseList = new ArrayList<>();
+    public List<HomeTabFragment> mFragments = new ArrayList<>();
+    public List<Course> mCourseList = new ArrayList<>();
 
     private void add(int cId) {
         cId = Course.clamp(cId);

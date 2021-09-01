@@ -3,6 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="transparentBlack">#96000000</color>
 
     <color name="bg_item_normal_state">#fff0f0f0</color>
     <color name="bg_item_dragging_state">#ffffdddd</color>

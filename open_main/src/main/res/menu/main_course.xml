@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/chinese"
+        android:title="@string/chinese" />
+    <item
+        android:id="@+id/english"
+        android:title="@string/english" />
+    <item
+        android:id="@+id/math"
+        android:title="@string/math" />
+    <item
+        android:id="@+id/physics"
+        android:title="@string/physics" />
+    <item
+        android:id="@+id/chemistry"
+        android:title="@string/chemistry" />
+    <item
+        android:id="@+id/biology"
+        android:title="@string/biology" />
+    <item
+        android:id="@+id/history"
+        android:title="@string/history" />
+    <item
+        android:id="@+id/geo"
+        android:title="@string/geo" />
+    <item
+        android:id="@+id/politics"
+        android:title="@string/politics" />
+</menu>

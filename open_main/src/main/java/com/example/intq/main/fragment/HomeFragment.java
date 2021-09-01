@@ -16,6 +16,9 @@ import com.example.intq.common.bean.Course;
 import com.example.intq.common.util.Constant;
 import com.example.intq.main.databinding.FragHomeBinding;
 import com.example.intq.main.vm.HomeTabViewModel;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayout.Tab;
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.example.intq.main.adapter.HomeTabAdapter;
 import com.example.intq.main.R;
@@ -26,6 +29,7 @@ import java.util.List;
 
 public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> {
     private HomeTabAdapter mTabAdapter;
+    private int mCurrentIndex;
 
     @Override
     protected HomeTabViewModel initFragViewModel() {
@@ -39,6 +43,7 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
 
     @Override
     protected void initView(Bundle bundle) {
+        //Adapter
         mTabAdapter = new HomeTabAdapter(getChildFragmentManager());
         viewModel.courseList.observe(this, new Observer<List<Course>>() {
             @Override
@@ -46,7 +51,22 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
                 mTabAdapter.setList(courses);
             }
         });
+        binding.tabItems.addOnTabSelectedListener(new OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(Tab tab) {
+                mCurrentIndex = tab.getPosition();
+            }
 
+            @Override
+            public void onTabUnselected(Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(Tab tab) {
+
+            }
+        });
         //Tab相关设置
         binding.innerViewPager.setAdapter(mTabAdapter);
         binding.tabItems.setupWithViewPager(binding.innerViewPager);
@@ -72,6 +92,7 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
                 if (text != null && text.length() > 0) {
                     Bundle bundle = new Bundle();
                     bundle.putCharSequence("keyword", text);
+                    bundle.putCharSequence("course", Course.getNameEng(mCurrentIndex));
                     intentByRouter(Constant.ACTIVITY_URL_SEARCH, bundle);
                 }
             }

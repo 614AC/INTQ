@@ -1,20 +1,33 @@
 package com.example.intq.main.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.intq.common.bean.Course;
-import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.InstListNode;
+import com.example.intq.common.bean.instance.InstSearch;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
@@ -22,11 +35,20 @@ import com.example.intq.main.R;
 import com.example.intq.main.databinding.ActivitySearchBinding;
 import com.example.intq.main.vm.SearchViewModel;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.mancj.materialsearchbar.MaterialSearchBar.OnSearchActionListener;
+import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 
 import java.util.Objects;
 
+import javax.annotation.Nullable;
+
 @Route(path = Constant.ACTIVITY_URL_SEARCH)
 public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBinding> {
+    private MaterialSearchBar mSearchBar;
+    private PopupMenu mCourseMenu;
+    private EditText mSearchEdit;
+    private MutableLiveData<CharSequence> mCurrentCourse = new MutableLiveData<>();
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_search;
@@ -44,37 +66,75 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                     binding.searchDisplay.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(() -> {
                         binding.searchLoading.smoothToHide();
-                    }, 470);
+                    }, 1000);
                 }
             }
         });
-        viewModel.instList.observe(this, new Observer<InstList>() {
-            @Override
-            public void onChanged(InstList instList) {
-                String toastInfo = "";
-                String show = "";
-                if (instList == null || instList.getInstList().size() == 0) {
-                    toastInfo = "没有找到相关实体~";
-                    show = "空空如也";
-                } else {
-                    toastInfo = String.format("搜索到%d个相关实体,耗时%.2fs",
-                            instList.getInstList().size(), viewModel.getSearchSec());
-                    for (InstListNode node : instList.getInstList())
-                        show += String.format("label:%s\ncategory:%s\nuri:%s\n",
-                                node.getLabel(), node.getCategory(), node.getUri());
-                }
-                UIUtils.showToastSafe(toastInfo);
-                binding.searchDisplay.setText(show);
+        viewModel.instList.observe(this, instList -> {
+            String toastInfo = "";
+            String show = "";
+            if (instList == null || instList.getInstList().size() == 0) {
+                toastInfo = "没有找到相关实体~";
+                show = "空空如也";
+            } else {
+                toastInfo = String.format("搜索到%d个相关实体,耗时%.2fs",
+                        instList.getInstList().size(), viewModel.getSearchSec());
+                for (InstListNode node : instList.getInstList())
+                    show += String.format("label:%s\ncategory:%s\nuri:%s\n",
+                            node.getLabel(), node.getCategory(), node.getUri());
             }
+            UIUtils.showToastSafe(toastInfo);
+            binding.searchDisplay.setText(show);
+        });
+        mCurrentCourse.observe(this, (charSequence) -> {
+            String show = String.format("搜索学科:%s", Course.eng2Chi(charSequence.toString()));
+            binding.searchDisplayHead.setText(show);
         });
         //加载设置
-        binding.searchLoading.getIndicator().
-
-                setColor(R.color.colorPrimary);
-
+        binding.searchLoading.getIndicator().setColor(R.color.colorPrimary);
         //搜索栏设置
+        mSearchBar = binding.searchBar;
+        mSearchBar.setSpeechMode(false);
+        mSearchBar.setNavButtonEnabled(true);
+        mSearchBar.setMaxSuggestionCount(viewModel.MAX_SUGGESTIONS);
+        //restore last queries from disk
+        viewModel.loadLastSearches();
+        //setup menu and OnMenuItemClickListener
+        mCourseMenu = new PopupMenu(this, findViewById(R.id.mt_nav));
+        mCourseMenu.setOnMenuItemClickListener(item -> {
+            CharSequence title = item.getTitle();
+            mCurrentCourse.setValue(Course.chi2Eng(title.toString()));
+            return true;
+        });
+        mCourseMenu.inflate(R.menu.main_course);
+        mCourseMenu.setGravity(Gravity.LEFT);
+        mSearchBar.setCardViewElevation(10);
+        mSearchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + mSearchBar.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+        });
+
+        binding.searchButton.setOnClickListener(v -> {
+            if (mSearchBar.isSearchOpened())
+                search(mSearchBar.getText(), mCurrentCourse.getValue(), false);
+            else
+                mSearchBar.openSearch();
+        });
+
         reduce();
-        binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+        OnSearchActionListener searchActionListener = new OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
                 if (enabled)
@@ -85,60 +145,103 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
 
             @Override
             public void onSearchConfirmed(CharSequence text) {
-                if (text != null && text.length() > 0)
-                    search(text);
+                search(text, mCurrentCourse.getValue(), false);
             }
 
             @Override
             public void onButtonClicked(int buttonCode) {
+                switch (buttonCode) {
+                    case MaterialSearchBar.BUTTON_NAVIGATION:
+                        mCourseMenu.show();
+                        break;
+                    case MaterialSearchBar.BUTTON_SPEECH:
+                        break;
+                    case MaterialSearchBar.BUTTON_BACK:
+                        mSearchBar.closeSearch();
+                        break;
+                }
+            }
+        };
+        mSearchBar.setOnSearchActionListener(searchActionListener);
+        Intent intent = getIntent();
+        CharSequence keyword = Objects.requireNonNull(intent.getCharSequenceExtra("keyword"));
+        mCurrentCourse.setValue(Objects.requireNonNull(intent.getCharSequenceExtra("course")));
+        mSearchBar.setText(keyword.toString());
+        mSearchEdit = mSearchBar.getSearchEditText();
+        mSearchEdit.setSelection(keyword.length());
+        mSearchEdit.setOnEditorActionListener((v, actionId, event) -> {
+            searchActionListener.onSearchConfirmed(mSearchEdit.getText());
+            return true;
+        });
+        mSearchBar.setSuggestionsClickListener(new SuggestionsAdapter.OnItemViewClickListener() {
+            @Override
+            public void OnItemClickListener(int position, View v) {
+                if (v.getTag() instanceof String) {
+                    String[] courseWithKeyword = ((String) v.getTag()).split("]");
+                    String course = Course.chi2Eng(courseWithKeyword[0].substring(1));
+                    String keyword = courseWithKeyword[1].trim();
+                    mCurrentCourse.setValue(course);
+                    new Handler().postDelayed(() -> {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(mSearchEdit, InputMethodManager.SHOW_IMPLICIT);
+                    }, 10);
+                    mSearchEdit.requestFocus();
+                    mSearchEdit.setText(keyword);
+                    mSearchEdit.setSelection(keyword.length());
+                }
+            }
+
+            @Override
+            public void OnItemDeleteListener(int position, View v) {
+                if (v.getTag() instanceof String) {
+                    viewModel.deleteLastSearch(position);
+                    mSearchBar.updateLastSuggestions(Objects.requireNonNull(viewModel.getLastKeywords()));
+                }
             }
         });
-
-        CharSequence keyword = Objects.requireNonNull(getIntent().getCharSequenceExtra("keyword"));
-        binding.searchBar.setText(keyword.toString());
-        binding.searchBar.getSearchEditText().
-
-                setSelection(keyword.length());
-        new
-
-                Handler().
-
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.searchBar.openSearch();
-                        //等效于点击搜索按钮
-                        binding.searchBar.onEditorAction(null, 0, null);
-                    }
-                }, 80);
-
+        search(keyword, mCurrentCourse.getValue(), true);
     }
 
-    public boolean search(CharSequence keyword) {
-        viewModel.updateInstList(0, 100, "name",
-                keyword.toString(), Course.getNameEng(0));
-        return true;
+    /**
+     * null默认采用搜索框的字符串作为关键字
+     *
+     * @param keyword
+     * @return
+     */
+    public boolean search(@NonNull CharSequence keyword, @NonNull CharSequence course, boolean forceSearch) {
+        keyword = keyword.toString().trim();
+        if (keyword.length() > 0) {
+            InstSearch query = new InstSearch(0, 100, "name", keyword.toString(), course.toString());
+            if (forceSearch || viewModel.worthSearch(query)) {
+                viewModel.updateInstList(query);
+                viewModel.addLastSearch(query);
+            }
+            mSearchBar.hideSuggestionsList();
+            mSearchBar.closeSearch();
+            mSearchBar.setPlaceHolder(keyword);
+            return true;
+        }
+        return false;
     }
 
     private void expand() {
-        //设置伸展状态时的布局
-        binding.searchBar.setHint("搜索已光翼展开");
-
+        mSearchBar.updateLastSuggestions(Objects.requireNonNull(viewModel.getLastKeywords()));
+        binding.searchFrame.setBackgroundColor(getColor(R.color.transparentBlack));
         //设置动画
-        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBar.getLayoutParams();
-        searchBarLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        binding.searchBar.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.searchBar, 0, 500);
+        MarginLayoutParams mSearchBarLayoutParams = (MarginLayoutParams) mSearchBar.getLayoutParams();
+        mSearchBarLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        mSearchBar.setLayoutParams(mSearchBarLayoutParams);
+        beginDelayedTransition(mSearchBar, 0, 500);
     }
 
     private void reduce() {
-        //设置动画
-        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBar.getLayoutParams();
+        binding.searchFrame.setBackgroundColor(getColor(R.color.white));
 
-        searchBarLayoutParams.width = UIUtils.getScreenWidth(this) * 3 / 4;
-        searchBarLayoutParams.topMargin = 0;
-        binding.searchBar.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.searchBar, 0, 500);
+        //设置动画
+        MarginLayoutParams mSearchBarLayoutParams = (MarginLayoutParams) mSearchBar.getLayoutParams();
+        mSearchBarLayoutParams.width = UIUtils.getScreenWidth(this) * 3 / 4;
+        mSearchBar.setLayoutParams(mSearchBarLayoutParams);
+        beginDelayedTransition(mSearchBar, 0, 500);
     }
 
     void beginDelayedTransition(ViewGroup view, long startDelay, long duration) {
@@ -151,29 +254,33 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            binding.searchBar.closeSearch();
+            mSearchBar.closeSearch();
             finish();
             return true;
         }
         return super.dispatchKeyEvent(event);
     }
 
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        searchBar = (MaterialSearchBar) findViewById(R.id.searchBar);
-//        searchBar.setHint("Custom hint");
-//        searchBar.setSpeechMode(true);
-//        //enable searchbar callbacks
-//        searchBar.setOnSearchActionListener(this);
-//        //restore last queries from disk
-//        lastSearches = loadSearchSuggestionFromDisk();
-//        searchBar.setLastSuggestions(list);
-//        //Inflate menu and setup OnMenuItemClickListener
-//        searchBar.inflateMenu(R.menu.main);
-//        searchBar.getMenu().setOnMenuItemClickListener(this);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_course, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
