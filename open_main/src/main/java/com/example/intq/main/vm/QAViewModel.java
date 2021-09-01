@@ -14,7 +14,7 @@ import com.example.intq.main.request.IMainRequest;
 import java.util.Observable;
 
 public class QAViewModel extends WDViewModel<IMainRequest> {
-    private final String[] courseMapping = {"chinese", "math", "english", "physics", "chemistry", "biology", "politics", "history", "geometry"};
+    private final String[] courseMapping = {"chinese", "math", "english", "physics", "chemistry", "biology", "politics", "history", "geo"};
     public ObservableField<Integer> courseId = new ObservableField<>();
     public ObservableField<String> inputQuestion = new ObservableField<>();
     public MutableLiveData<QAChat> qaChat = new MutableLiveData<>();
