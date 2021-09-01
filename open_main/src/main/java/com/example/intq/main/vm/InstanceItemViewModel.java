@@ -41,14 +41,8 @@ public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
         request(iRequest.getInstanceInfo(this.queryInstance, this.queryCourse), new DataCall<InstInfoResult>() {
             @Override
             public void success(InstInfoResult data) {
-//                System.out.println(",,,,,,,");
-//                System.out.println(data.getInstInfo().getLabel());
-//                System.out.println(data.getInstInfo().getContent().toString());
-//                System.out.println(",,,,,,,");
-//                System.out.println(data.getProperty().toString());
                 propertyResultMutableLiveData.setValue(data.getInstInfo().getProperty());
                 contentResultMutableLiveData.setValue(data.getInstInfo().getContent());
-                System.out.println(contentResultMutableLiveData.getValue().get(0).getPredicate());
             }
 
             @Override

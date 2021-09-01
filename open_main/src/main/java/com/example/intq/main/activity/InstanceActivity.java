@@ -1,6 +1,7 @@
 package com.example.intq.main.activity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +20,13 @@ import com.example.intq.main.view.CirclePeopleView;
 import com.example.intq.main.vm.InstanceViewModel;
 import com.google.android.material.tabs.TabLayout;
 
+import org.w3c.dom.Text;
+
 @Route(path = Constant.ACTIVITY_URL_INSTANCE)
 public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInstanceBinding> {
 
     private final String[] titles = {"属性", "知识图谱"};
+    private final String inst_name = "李白";
     private InstanceGraphFragment GraphFragment;
     private InstanceListFragment ListFragment;
 
@@ -35,7 +39,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     protected void initView(Bundle savedInstanceState) {
         TabLayout tabLayout = findViewById(R.id.inst_tab);
         ViewPager viewPager = findViewById(R.id.inst_pager);
-//        CirclePeopleView peopleView = findViewById(R.id.layout_cricle_people);
+        TextView tv = findViewById(R.id.inst_name);
+        tv.setText(this.inst_name);
 
         GraphFragment = new InstanceGraphFragment();
         ListFragment = new InstanceListFragment();

@@ -19,9 +19,13 @@
             android:layout_height="100dp">
 
             <TextView
+                android:id="@+id/inst_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="#1c0d1a"
                 android:text="实体列表">
 
             </TextView>

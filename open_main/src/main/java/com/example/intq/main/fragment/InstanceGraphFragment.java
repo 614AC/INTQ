@@ -78,15 +78,6 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
 
         View graph = inflater.inflate(R.layout.frag_graph, container, false);
         peopleView = graph.findViewById(R.id.layout_cricle_people);
-        adapter = new InstanceAdapter();
-
-        viewModel.InstanceList.observe(this, new Observer<List<Instance>>() {
-            @Override
-            public void onChanged(List<Instance> Entities) {
-                adapter.addAll(Entities);
-                adapter.notifyDataSetChanged();
-            }
-        });
         viewModel.contentResultMutableLiveData.observe(this, new Observer<List<ContentNode>>() {
             @Override
             public void onChanged(List<ContentNode> contentResult) {
