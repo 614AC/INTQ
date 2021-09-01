@@ -41,6 +41,7 @@ public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStar
         viewModel.instanceStarList.observe(this, new Observer<List<StarItem>>() {
             @Override
             public void onChanged(List<StarItem> starItems) {
+                adapter.clear();
                 adapter.addAll(starItems);
                 adapter.notifyDataSetChanged();
             }
