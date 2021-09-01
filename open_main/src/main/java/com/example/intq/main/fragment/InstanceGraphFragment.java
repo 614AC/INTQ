@@ -69,6 +69,12 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
         super.onCreate(savedInstanceState);
         mContext = this.getContext();
 //        this.init();
+        childSub = getArguments().getString("inst_name");
+        System.out.println("frag -> " + childSub);
+        viewModel.queryInstance.setValue(childSub);
+        viewModel.queryCourse.setValue(getArguments().getString("course"));
+        viewModel.queryUri.setValue(getArguments().getString("uri"));
+        viewModel.getData();
         this.initData();
     }
 
@@ -89,7 +95,6 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
 
     private void initData() {
         try {
-            childSub = "张三";
             Message msg = Message.obtain();
             msg.what = 222;
             handler.sendMessage(msg);
@@ -101,7 +106,6 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
     private void loadData() {
         try {
             List<ContentNode> nodes = viewModel.contentResultMutableLiveData.getValue();
-            childSub = "张三";
 //            JSONObject object = new JSONObject(Contant.json);
 //            JSONArray array = object.getJSONArray("nodes");
             Instance personBean = null;

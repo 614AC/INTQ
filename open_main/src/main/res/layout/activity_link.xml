@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.intq.main.vm.LinkViewModel" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:text="知识链接"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#c2c2c2"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:padding="16dp" >
+
+            <TextView
+                android:id="@+id/link_text"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal" >
+
+                <Spinner
+                    android:id="@+id/course_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:selectedItemPosition="@={vm.courseId}"/>
+
+                <Button
+                    android:id="@+id/btn_chat_message_send"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="64dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="4dp"
+                    android:onClick="@{() -> vm.link()}"/>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/link_contexte"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:text="@={vm.context}"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

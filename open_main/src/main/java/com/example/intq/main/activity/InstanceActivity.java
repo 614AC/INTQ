@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
@@ -26,9 +27,15 @@ import org.w3c.dom.Text;
 public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInstanceBinding> {
 
     private final String[] titles = {"属性", "知识图谱"};
-    private final String inst_name = "李白";
     private InstanceGraphFragment GraphFragment;
     private InstanceListFragment ListFragment;
+
+    @Autowired
+    public String inst_name;
+    @Autowired
+    public String course;
+    @Autowired
+    public String uri;
 
     @Override
     protected int getLayoutId() {
@@ -37,13 +44,20 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        System.out.println("activity -> " + inst_name);
         TabLayout tabLayout = findViewById(R.id.inst_tab);
         ViewPager viewPager = findViewById(R.id.inst_pager);
         TextView tv = findViewById(R.id.inst_name);
-        tv.setText(this.inst_name);
+        tv.setText(inst_name);
 
+        Bundle bundle = new Bundle();
+        bundle.putString("inst_name", inst_name);
+        bundle.putString("course", course);
+        bundle.putString("uri", uri);
         GraphFragment = new InstanceGraphFragment();
+        GraphFragment.setArguments(bundle);
         ListFragment = new InstanceListFragment();
+        ListFragment.setArguments(bundle);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull

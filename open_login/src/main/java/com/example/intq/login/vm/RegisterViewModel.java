@@ -10,6 +10,7 @@ import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
 import com.example.intq.common.core.http.NetworkManager;
 import com.example.intq.common.util.MD5Utils;
+import com.example.intq.common.util.StringUtils;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.login.request.ILoginRequest;
 import com.google.gson.internal.LinkedTreeMap;
@@ -35,12 +36,12 @@ public class RegisterViewModel extends WDViewModel<ILoginRequest> {
     public void register() {
         String m = userName.get();
         String p = pas.get();
-        if (TextUtils.isEmpty(m) || m.length() > 16) {
+        if (TextUtils.isEmpty(m) || !StringUtils.isUsernameValid(m)) {
             UIUtils.showToastSafe("请输入合法的用户名");
             return;
         }
-        if (TextUtils.isEmpty(p) || p.length() < 6 || p.length() > 16) {
-            UIUtils.showToastSafe("请输入密码");
+        if (TextUtils.isEmpty(p) || !StringUtils.isPasswordValid(p)) {
+            UIUtils.showToastSafe("请输入合法密码");
             return;
         }
         if (!Objects.equals(pas.get(), pasRpt.get())) {

@@ -21,22 +21,49 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:onClick="@{() -> vm.gotoQA()}">
+            android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="5dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="知识问答"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:onClick="@{() -> vm.gotoQA()}">
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="知识问答"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:onClick="@{() -> vm.gotoLink()}">
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="知识链接"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 </layout>

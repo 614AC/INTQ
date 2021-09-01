@@ -3,9 +3,12 @@ package com.example.intq.main.request;
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.instance.InstInfoResult;
 import com.example.intq.common.bean.instance.InstList;
+import com.example.intq.common.bean.instance.LinkInstanceResult;
 import com.example.intq.common.bean.question.SolveResult;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -47,5 +50,8 @@ public interface IMainRequest {
      */
     @GET("instance/info")
     Observable<Result<InstInfoResult>> getInstanceInfo(@Query("instName") String instName, @Query("course") String course);
+
+    @POST("instance/linkinstance")
+    Observable<Result<LinkInstanceResult>> getLinkInstance(@Body RequestBody body);
 
 }

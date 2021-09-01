@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.intq.common.bean.InstInfo;
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
 import com.example.intq.common.bean.UserInfo_;
@@ -57,6 +58,8 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
     protected Box<UserInfo> userInfoBox;
     protected UserInfo LOGIN_USER;
 
+    protected Box<InstInfo> instInfoBox;
+
     protected R iRequest;
 
     public WDFragViewModel() {
@@ -81,6 +84,7 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
         LOGIN_USER = userInfoBox.query()
                 .equal(UserInfo_.status, 1)
                 .build().findUnique();
+        instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

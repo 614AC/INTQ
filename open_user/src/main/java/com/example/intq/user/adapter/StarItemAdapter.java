@@ -16,6 +16,6 @@ public class StarItemAdapter extends WDRecyclerAdapter<StarItem> {
     @Override
     protected void bindView(ViewDataBinding binding, StarItem item, int position) {
         LayoutStarItemBinding binding1 = (LayoutStarItemBinding) binding;
-        binding1.starTitle.setText(item.getTitle());
+        binding1.starTitle.setText(item.getLabel());
     }
 }

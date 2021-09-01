@@ -9,6 +9,7 @@
         <activity android:name=".activity.QAActivity" />
         <activity android:name=".activity.InstanceActivity" />
         <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.LinkActivity" />
     </application>
 
 </manifest>
