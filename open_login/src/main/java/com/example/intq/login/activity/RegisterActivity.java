@@ -32,5 +32,15 @@ public class RegisterActivity extends WDActivity<RegisterViewModel, ActivityRegi
                 }
             }
         });
+        viewModel.pasRptVis.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {//密码显示，则隐藏
+                    binding.loginPasRpt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {//密码隐藏则显示
+                    binding.loginPasRpt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+            }
+        });
     }
 }
