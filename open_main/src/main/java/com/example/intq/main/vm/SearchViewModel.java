@@ -43,6 +43,7 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
             public void fail(ApiException data) {
                 searching.setValue(false);
                 searchMillis = System.currentTimeMillis() - searchMillis;
+                instList.setValue(null);
                 logger.d("Searching state: " + searching.getValue() + "[failed]");
                 logger.d("Error code:" + data.getCode());
                 logger.d("Error msg:" + data.getMessage());

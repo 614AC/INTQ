@@ -34,13 +34,18 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        viewModel.searching.observe(this, searching -> {
-            if (searching) {
-                binding.searchDisplay.setVisibility(View.INVISIBLE);
-                binding.searchLoading.show();
-            } else {
-                binding.searchDisplay.setVisibility(View.VISIBLE);
-                binding.searchLoading.smoothToHide();
+        viewModel.searching.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean searching) {
+                if (searching) {
+                    binding.searchDisplay.setVisibility(View.INVISIBLE);
+                    binding.searchLoading.smoothToShow();
+                } else {
+                    binding.searchDisplay.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(() -> {
+                        binding.searchLoading.smoothToHide();
+                    }, 470);
+                }
             }
         });
         viewModel.instList.observe(this, new Observer<InstList>() {
@@ -48,11 +53,11 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             public void onChanged(InstList instList) {
                 String toastInfo = "";
                 String show = "";
-                if (instList == null) {
+                if (instList == null || instList.getInstList().size() == 0) {
                     toastInfo = "没有找到相关实体~";
                     show = "空空如也";
                 } else {
-                    toastInfo = String.format("搜索到%d个相关实体\n耗时%fs",
+                    toastInfo = String.format("搜索到%d个相关实体,耗时%.2fs",
                             instList.getInstList().size(), viewModel.getSearchSec());
                     for (InstListNode node : instList.getInstList())
                         show += String.format("label:%s\ncategory:%s\nuri:%s\n",
@@ -63,7 +68,10 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             }
         });
         //加载设置
-        binding.searchLoading.getIndicator().setColor(R.color.colorPrimary);
+        binding.searchLoading.getIndicator().
+
+                setColor(R.color.colorPrimary);
+
         //搜索栏设置
         reduce();
         binding.searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
@@ -88,15 +96,21 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
 
         CharSequence keyword = Objects.requireNonNull(getIntent().getCharSequenceExtra("keyword"));
         binding.searchBar.setText(keyword.toString());
-        binding.searchBar.getSearchEditText().setSelection(keyword.length());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                binding.searchBar.openSearch();
-                //等效于点击搜索按钮
-                binding.searchBar.onEditorAction(null, 0, null);
-            }
-        }, 80);
+        binding.searchBar.getSearchEditText().
+
+                setSelection(keyword.length());
+        new
+
+                Handler().
+
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.searchBar.openSearch();
+                        //等效于点击搜索按钮
+                        binding.searchBar.onEditorAction(null, 0, null);
+                    }
+                }, 80);
 
     }
 

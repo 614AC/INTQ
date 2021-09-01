@@ -39,7 +39,7 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
             @Override
             public void onChanged(InstList instList) {
                 String show = Course.getNameChi(mCourseIndex) + "\n";
-                if (instList == null) {
+                if (instList == null || instList.getInstList().size() == 0) {
                     UIUtils.showToastSafe("网络错误~");
                     show += "空空如也";
                 } else {
