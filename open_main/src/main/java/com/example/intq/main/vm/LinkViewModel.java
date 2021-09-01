@@ -46,10 +46,11 @@ public class LinkViewModel extends WDViewModel<IMainRequest> {
 
     }
 
-    public void turnToInstance(String instName){
+    public void turnToInstance(String instName, String uri){
         Bundle bundle = new Bundle();
         bundle.putString("inst_name", instName);
         bundle.putString("course", courseMapping[courseId.get()]);
+        bundle.putString("uri", uri);
         intentByRouter(Constant.ACTIVITY_URL_INSTANCE, bundle);
     }
 }

@@ -34,6 +34,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     public String inst_name;
     @Autowired
     public String course;
+    @Autowired
+    public String uri;
 
     @Override
     protected int getLayoutId() {
@@ -51,6 +53,7 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         Bundle bundle = new Bundle();
         bundle.putString("inst_name", inst_name);
         bundle.putString("course", course);
+        bundle.putString("uri", uri);
         GraphFragment = new InstanceGraphFragment();
         GraphFragment.setArguments(bundle);
         ListFragment = new InstanceListFragment();

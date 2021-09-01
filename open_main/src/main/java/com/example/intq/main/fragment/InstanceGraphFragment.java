@@ -73,6 +73,7 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
         System.out.println("frag -> " + childSub);
         viewModel.queryInstance.setValue(childSub);
         viewModel.queryCourse.setValue(getArguments().getString("course"));
+        viewModel.queryUri.setValue(getArguments().getString("uri"));
         viewModel.getData();
         this.initData();
     }
