@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.example.intq.main.vm.HomeViewModel" />
+            type="com.example.intq.main.vm.HomeTabViewModel" />
 
         <variable
             name="fragment"
@@ -32,7 +32,7 @@
                 <TextView
                     android:id="@+id/search_title_txt"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:background="#fff"
                     android:gravity="center"
                     android:text="@string/search_title_txt"
@@ -53,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
                 app:mt_maxSuggestionsCount="10"
                 app:mt_searchIconDrawable="@drawable/common_nav_btn_search_n"
                 app:mt_speechMode="false" />

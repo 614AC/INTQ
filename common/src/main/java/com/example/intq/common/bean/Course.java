@@ -8,7 +8,7 @@ public class Course {
 
     private static final String[] NAME_ENG = new String[]{"chinese", "english", "math", "physics",
             "chemistry", "biology", "history", "geo", "politics"};
-    private static final String[] NAME_CHI = new String[]{"中文", "英语", "数学", "物理",
+    private static final String[] NAME_CHI = new String[]{"语文", "英语", "数学", "物理",
             "化学", "生物", "历史", "地理", "政治"};
 
     public static String getNameEng(int index) {
@@ -45,7 +45,7 @@ public class Course {
         }
     }
 
-    private static int clamp(int index) {
+    public static int clamp(int index) {
         return (index < 0) ? 0 : (index >= getCourseNumber() ? getCourseNumber() - 1 : index);
     }
 

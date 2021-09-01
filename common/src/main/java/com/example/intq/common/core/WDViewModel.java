@@ -56,7 +56,7 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     public MutableLiveData<Message> fragDataShare = new MutableLiveData<>();
 
     protected Box<UserInfo> userInfoBox;
-    protected UserInfo LOGIN_USER;
+    protected static UserInfo LOGIN_USER;
 
     protected R iRequest;
 
@@ -207,6 +207,8 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
         return new Consumer<Result>() {
             @Override
             public void accept(Result result) throws Exception {
+                logger.d("Result class:" + result.getData().getClass());
+                logger.d("Result data:" + result.getData());
                 if (result.getStatus().equals("200")) {
                     dataCall.success(result.getData());
                 } else {
