@@ -22,6 +22,38 @@ public class StringUtils {
     }
 
     /**
+     * 验证用户名
+     * @param username
+     * @return [0-9a-zA-Z_]{1, 16}
+     */
+    public static boolean isUsernameValid(String username){
+        try {
+            Pattern p = Pattern
+                    .compile("^[0-9a-zA-Z_]{1,16}$");
+            Matcher m = p.matcher(username);
+            return m.matches();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    /**
+     * 验证密码
+     * @param password
+     * @return [0-9a-zA-Z_]{1, 16}
+     */
+    public static boolean isPasswordValid(String password){
+        try {
+            Pattern p = Pattern
+                    .compile("^[0-9a-zA-Z_]{6,16}$");
+            Matcher m = p.matcher(password);
+            return m.matches();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    /**
      * 验证手机号码
      *
      * @param mobiles
