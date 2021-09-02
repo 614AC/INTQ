@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@android:color/holo_purple"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/link_camera"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="拍照"/>
+
+        <Button
+            android:id="@+id/link_album"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="从相册选取" />
+    </LinearLayout>
+</layout>

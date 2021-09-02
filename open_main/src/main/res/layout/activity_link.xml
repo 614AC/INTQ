@@ -30,30 +30,55 @@
             <TextView
                 android:id="@+id/link_text"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"/>
+                android:layout_height="300dp"
+                android:background="@drawable/text_view_round"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:background="@drawable/text_view_little_round"
+                android:gravity="center_vertical">
 
                 <Spinner
                     android:id="@+id/course_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
-                    android:selectedItemPosition="@={vm.courseId}"/>
+                    android:selectedItemPosition="@={vm.courseId}" />
 
-                <Button
-                    android:id="@+id/btn_chat_message_send"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="64dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_height="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="4dp"
-                    android:onClick="@{() -> vm.link()}"/>
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn_choose_hand"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/icon_pencil"
+                        android:layout_marginEnd="15dp"/>
+
+                    <Button
+                        android:id="@+id/btn_choose_general"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/icon_word"
+                        android:layout_marginEnd="15dp"/>
+
+                    <Button
+                        android:id="@+id/btn_chat_message_send"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/icon_send"
+                        android:onClick="@{() -> vm.link()}"/>
+                </LinearLayout>
+
             </RelativeLayout>
 
             <EditText

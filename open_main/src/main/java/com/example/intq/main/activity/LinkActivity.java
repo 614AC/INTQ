@@ -1,16 +1,25 @@
 package com.example.intq.main.activity;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.FileProvider;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -22,7 +31,9 @@ import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.R;
 import com.example.intq.main.databinding.ActivityLinkBinding;
 import com.example.intq.main.vm.LinkViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.File;
 import java.util.List;
 
 @Route(path = Constant.ACTIVITY_URL_LINK)
@@ -32,6 +43,9 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
     private TextView textView;
+
+    BottomSheetDialog mAvatarDialog;
+    Bitmap head;
 
     @Override
     protected int getLayoutId() {
@@ -93,5 +107,114 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
                 viewModel.enabled.setValue(true);
             }
         });
+
+        findViewById(R.id.btn_choose_hand).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.recognizeType.setValue(0);
+                mAvatarDialog.show();
+            }
+        });
+        findViewById(R.id.btn_choose_general).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.recognizeType.setValue(1);
+                mAvatarDialog.show();
+            }
+        });
+        mAvatarDialog = new BottomSheetDialog(this);
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_choose_from, null, false);
+        view.findViewById(R.id.link_camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                File head = new File(getFilesDir(), "link_cache.jpg");
+                if(!head.getParentFile().exists())
+                    head.getParentFile().mkdirs();
+                Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent2.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent2.putExtra(MediaStore.EXTRA_OUTPUT,
+                        FileProvider.getUriForFile(LinkActivity.this, "com.example.intq.fileprovider", head));
+                startActivityForResult(intent2, 2);// 采用ForResult打开
+                mAvatarDialog.hide();
+            }
+        });
+        view.findViewById(R.id.link_album).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(Intent.ACTION_PICK, null);
+                intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent1, 1);
+                mAvatarDialog.dismiss();
+            }
+        });
+        mAvatarDialog.setContentView(view);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mAvatarDialog.dismiss();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    cropPhoto(data.getData());// 裁剪图片
+                }
+                break;
+            case 2:
+                if (resultCode == RESULT_OK) {
+                    cropPhoto(FileProvider.getUriForFile(this, "com.example.intq.fileprovider", new File(getFilesDir(), "link_cache.jpg")));// 裁剪图片
+                }
+                break;
+            case 3:
+                File tmp = new File(getFilesDir(), "link_tmp_crop.jpg");
+                if(tmp.exists()){
+                    head = BitmapFactory.decodeFile(tmp.getPath());
+                    if (head != null) {
+                        viewModel.recognizeFrom(head);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 调用系统的裁剪功能
+     *
+     * @param uri
+     */
+    public void cropPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+
+        File tmp = new File(getFilesDir(), "link_tmp_crop.jpg");
+        Uri out = FileProvider.getUriForFile(LinkActivity.this, "com.example.intq.fileprovider", tmp);
+
+        grantUriPermission(getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        grantUriPermission(getPackageName(), uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        grantUriPermission(getPackageName(), out, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        grantUriPermission(getPackageName(), out, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+        intent.putExtra("crop", "true");
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, out);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+
+        //将存储图片的uri读写权限授权给剪裁工具应用
+        List<ResolveInfo> resInfoList = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            grantUriPermission(packageName, out, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
+
+        startActivityForResult(intent, 3);
     }
 }
