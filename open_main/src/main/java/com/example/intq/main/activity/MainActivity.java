@@ -55,21 +55,22 @@ public class MainActivity extends WDActivity<MainFromViewPagerViewModel, Activit
 
         idsMap = new LinkedHashMap<>();
         idsMap.put(0, R.id.home_btn);
-        idsMap.put(1, R.id.circle_btn);
-        idsMap.put(2, R.id.cart_btn);
-        idsMap.put(3, R.id.list_btn);
-        idsMap.put(4, R.id.me_btn);
+//        idsMap.put(1, R.id.circle_btn);
+//        idsMap.put(2, R.id.cart_btn);
+        idsMap.put(1, R.id.list_btn);
+        idsMap.put(2, R.id.me_btn);
 
         idsMap.put(R.id.home_btn, 0);
-        idsMap.put(R.id.circle_btn, 1);
-        idsMap.put(R.id.cart_btn, 2);
-        idsMap.put(R.id.list_btn, 3);
-        idsMap.put(R.id.me_btn, 4);
+//        idsMap.put(R.id.circle_btn, 1);
+//        idsMap.put(R.id.cart_btn, 2);
+        idsMap.put(R.id.list_btn, 1);
+        idsMap.put(R.id.me_btn, 2);
 
         viewModel.addFragViewModel(homeFragment.getFragViewModel());
 
-//        currentFragment = homeFragment;
+        currentFragment = homeFragment;
 
+//        binding.pager.setCurrentItem(1);
         binding.pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
             @Override
@@ -78,16 +79,16 @@ public class MainActivity extends WDActivity<MainFromViewPagerViewModel, Activit
                     case 0:
                         currentFragment = homeFragment;
                         break;
+//                    case 1:
+//                        currentFragment = testFragment;
+//                        break;
+//                    case 2:
+//                        currentFragment = carFragment;
+//                        break;
                     case 1:
-                        currentFragment = testFragment;
-                        break;
-                    case 2:
-                        currentFragment = carFragment;
-                        break;
-                    case 3:
                         currentFragment = multiToolFragment;
                         break;
-                    case 4:
+                    case 2:
                         currentFragment = meFragment;
                         break;
                 }
@@ -96,7 +97,7 @@ public class MainActivity extends WDActivity<MainFromViewPagerViewModel, Activit
 
             @Override
             public int getCount() {
-                return 5;
+                return 3;
             }
         });
 

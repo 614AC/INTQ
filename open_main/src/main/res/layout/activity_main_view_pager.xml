@@ -25,14 +25,14 @@
 
         </androidx.viewpager.widget.ViewPager>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:onClick="@{() -> vm.debug()}"
-            android:text="debug设置"
-            android:visibility="@{vm.debug?View.VISIBLE:View.GONE}" />
+<!--        <Button-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:onClick="@{() -> vm.debug()}"-->
+<!--            android:text="debug设置"-->
+<!--            android:visibility="@{vm.debug?View.VISIBLE:View.GONE}" />-->
 
         <ImageView
             android:layout_width="match_parent"
@@ -47,6 +47,19 @@
             android:background="@drawable/rectangle"
             android:layout_height="90dp">
 
+<!--            <RadioButton-->
+<!--                android:id="@+id/circle_btn"-->
+<!--                style="@style/main_bottom_btn_style"-->
+<!--                android:onClick="@{vm::click}"-->
+<!--                android:drawableTop="@drawable/common_tab_btn_circle" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/cart_btn"-->
+<!--                style="@style/main_bottom_btn_style"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:onClick="@{vm::click}"-->
+<!--                android:drawableTop="@drawable/common_tab_btn_shop_cart_n" />-->
+
             <RadioButton
                 android:id="@+id/home_btn"
                 android:checked="true"
@@ -55,23 +68,11 @@
                 android:drawableTop="@drawable/common_tab_btn_home" />
 
             <RadioButton
-                android:id="@+id/circle_btn"
-                style="@style/main_bottom_btn_style"
-                android:onClick="@{vm::click}"
-                android:drawableTop="@drawable/common_tab_btn_circle" />
-
-            <RadioButton
-                android:id="@+id/cart_btn"
-                style="@style/main_bottom_btn_style"
-                android:layout_marginTop="10dp"
-                android:onClick="@{vm::click}"
-                android:drawableTop="@drawable/common_tab_btn_shop_cart_n" />
-
-            <RadioButton
                 android:id="@+id/list_btn"
                 style="@style/main_bottom_btn_style"
                 android:onClick="@{vm::click}"
-                android:drawableTop="@drawable/common_tab_btn_list" />
+                android:drawableTop="@drawable/common_tab_btn_list"
+                android:scaleType="centerInside"/>
 
             <RadioButton
                 android:id="@+id/me_btn"
