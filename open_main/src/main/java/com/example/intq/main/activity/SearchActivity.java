@@ -27,6 +27,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.intq.common.bean.Course;
 import com.example.intq.common.bean.instance.InstListNode;
 import com.example.intq.common.bean.instance.InstSearch;
@@ -63,7 +64,12 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
     protected void initView(Bundle savedInstanceState) {
         mAdapter = new ListInstanceAdapter();
         mAdapter.setOnItemClickListener((view, position) -> {
-
+            InstListNode node = mAdapter.getItem(position);
+            ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
+                    .withString("inst_name", node.getLabel())
+                    .withString("course", mCurrentCourse.getValue().toString())
+                    .withString("uri", node.getUri())
+                    .navigation();
         });
         binding.searchRecyclerView.setLayoutManager(new
 
@@ -134,24 +140,22 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         mCourseMenu.inflate(R.menu.main_course);
         mCourseMenu.setGravity(Gravity.LEFT);
         mSearchBar.setCardViewElevation(10);
-        mSearchBar.addTextChangeListener(new
+        mSearchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
-                                                 TextWatcher() {
-                                                     @Override
-                                                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                                     }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + mSearchBar.getText());
+            }
 
-                                                     @Override
-                                                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                                         Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + mSearchBar.getText());
-                                                     }
+            @Override
+            public void afterTextChanged(Editable editable) {
 
-                                                     @Override
-                                                     public void afterTextChanged(Editable editable) {
+            }
 
-                                                     }
-
-                                                 });
+        });
 
         binding.searchButton.setOnClickListener(v ->
 

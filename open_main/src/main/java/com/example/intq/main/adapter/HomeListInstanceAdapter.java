@@ -8,7 +8,7 @@ import com.example.intq.main.R;
 import com.example.intq.main.databinding.HomeListInstanceBinding;
 import com.example.intq.main.databinding.ListInstanceBinding;
 
-public class HomeListInstanceAdapter extends WDRecyclerAdapter<InstListNode> {
+public class HomeListInstanceAdapter extends ListInstanceAdapter {
     @Override
     protected int getLayoutId() {
         return R.layout.home_list_instance;

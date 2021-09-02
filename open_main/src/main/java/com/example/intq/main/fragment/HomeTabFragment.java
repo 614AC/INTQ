@@ -5,10 +5,12 @@ import android.os.Bundle;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.intq.common.bean.Course;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.InstListNode;
 import com.example.intq.common.core.WDFragment;
+import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.main.R;
@@ -35,6 +37,14 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
     @Override
     protected void initView(Bundle bundle) {
         mAdapter = new HomeListInstanceAdapter();
+        mAdapter.setOnItemClickListener((view, position) -> {
+            InstListNode node = mAdapter.getItem(position);
+            ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
+                    .withString("inst_name", node.getLabel())
+                    .withString("course", Course.getNameEng(mCourseIndex))
+                    .withString("uri", node.getUri())
+                    .navigation();
+        });
         binding.tabRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.tabRecyclerView.addItemDecoration(new SpacingItemDecoration(30));
         binding.tabRecyclerView.setAdapter(mAdapter);
