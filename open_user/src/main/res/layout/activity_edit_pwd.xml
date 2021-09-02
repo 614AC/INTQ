@@ -30,6 +30,7 @@
                 android:id="@+id/old"
                 android:layout_width="340dp"
                 android:layout_height="40dp"
+                android:textSize="16sp"
                 android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="原密码"
@@ -39,7 +40,7 @@
                 android:layout_width="22dp"
                 android:layout_height="13dp"
                 android:onClick="@{() -> vm.oldVisibility()}"
-                android:src="@drawable/login_icon_eye_n" />
+                android:src="@drawable/pass_vis_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -52,6 +53,7 @@
                 android:id="@+id/pwd"
                 android:layout_width="340dp"
                 android:layout_height="40dp"
+                android:textSize="16sp"
                 android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="新密码"
@@ -61,7 +63,7 @@
                 android:layout_width="22dp"
                 android:layout_height="13dp"
                 android:onClick="@{() -> vm.pwdVisibility()}"
-                android:src="@drawable/login_icon_eye_n" />
+                android:src="@drawable/pass_vis_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -74,6 +76,7 @@
                 android:id="@+id/pwd_rpt"
                 android:layout_width="340dp"
                 android:layout_height="40dp"
+                android:textSize="16sp"
                 android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="确认新密码"
@@ -83,13 +86,14 @@
                 android:layout_width="22dp"
                 android:layout_height="13dp"
                 android:onClick="@{() -> vm.pwdRptVisibility()}"
-                android:src="@drawable/login_icon_eye_n" />
+                android:src="@drawable/pass_vis_selector" />
         </LinearLayout>
 
         <Button
             android:id="@+id/user_name_btn"
             android:layout_width="300dp"
             android:layout_height="35dp"
+            android:background="@drawable/text_view_round"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:onClick="@{() -> vm.editPwd()}"

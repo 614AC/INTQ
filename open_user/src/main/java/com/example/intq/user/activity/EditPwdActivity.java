@@ -30,6 +30,7 @@ public class EditPwdActivity extends WDActivity<EditPwdViewModel, ActivityEditPw
                 } else {//密码隐藏则显示
                     binding.old.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
+                findViewById(R.id.login_old_eye).setActivated(aBoolean);
             }
         });
         viewModel.pwdVis.observe(this, new Observer<Boolean>() {
@@ -40,6 +41,7 @@ public class EditPwdActivity extends WDActivity<EditPwdViewModel, ActivityEditPw
                 } else {//密码隐藏则显示
                     binding.pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
+                findViewById(R.id.login_pwd_eye).setActivated(aBoolean);
             }
         });
         viewModel.pwdRptVis.observe(this, new Observer<Boolean>() {
@@ -50,6 +52,7 @@ public class EditPwdActivity extends WDActivity<EditPwdViewModel, ActivityEditPw
                 } else {//密码隐藏则显示
                     binding.pwdRpt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
+                findViewById(R.id.login_pwdRpt_eye).setActivated(aBoolean);
             }
         });
     }

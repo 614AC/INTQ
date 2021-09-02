@@ -36,7 +36,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@drawable/click_view">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -59,7 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:onClick="@{() -> vm.editMobile()}">
+                android:onClick="@{() -> vm.editMobile()}"
+                android:background="@drawable/click_view">
 
                 <TextView
                     android:layout_width="wrap_content"
