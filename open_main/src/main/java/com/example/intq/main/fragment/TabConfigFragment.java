@@ -68,19 +68,19 @@ public class TabConfigFragment extends WDFragment<EmptyFragmentViewModel, FragTa
         final GridLayoutManager gridLayoutManager =
                 new GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false);
         mLayoutManager = gridLayoutManager;
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                long id = mTabsAdapter.getItemId(position);
-                return id < 0 ? spanCount : 1;
-            }
-        });
+//        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                long id = mTabsAdapter.getItemId(position);
+//                return id < 0 ? spanCount : 1;
+//            }
+//        });
 
         // drag & drop manager
         mTabsManager = new RecyclerViewDragDropManager();
         mTabsManager.setDraggingItemShadowDrawable(
                 (NinePatchDrawable) ContextCompat.getDrawable(requireContext(), R.drawable.material_shadow_z3));
-
+        mTabsManager.setCheckCanDropEnabled(true);
 
         // Start dragging after long press
         mTabsManager.setInitiateOnLongPress(true);
@@ -125,7 +125,7 @@ public class TabConfigFragment extends WDFragment<EmptyFragmentViewModel, FragTa
                 mTabsAdapter.setItemMoveMode(mode);
 
                 Snackbar.make(getView(),
-                        "标签移动模式" + (isChecked ? "替换" : "默认"), Snackbar.LENGTH_SHORT).show();
+                        "标签移动模式:" + (isChecked ? "替换" : "默认"), Snackbar.LENGTH_SHORT).show();
             }
         });
     }

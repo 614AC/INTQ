@@ -2,6 +2,7 @@ package com.example.intq.main.fragment;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -19,10 +20,12 @@ import com.example.intq.main.adapter.ListInstanceAdapter;
 import com.example.intq.main.databinding.FragHomeTabBinding;
 import com.example.intq.main.vm.HomeTabViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBinding> {
     private HomeListInstanceAdapter mAdapter;
-    private int mCourseIndex;
-    private int mCnt;
+    private MutableLiveData<Integer> mCourseIndex = new MutableLiveData<>();
 
     @Override
     protected HomeTabViewModel initFragViewModel() {
@@ -41,7 +44,7 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
             InstListNode node = mAdapter.getItem(position);
             ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
                     .withString("inst_name", node.getLabel())
-                    .withString("course", Course.getNameEng(mCourseIndex))
+                    .withString("course", Course.getNameEng(mCourseIndex.getValue()))
                     .withString("uri", node.getUri())
                     .navigation();
         });
@@ -50,10 +53,12 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
         binding.tabRecyclerView.setAdapter(mAdapter);
 
         bundle = getArguments();
-        mCourseIndex = bundle.getInt("courseIndex");
+        mCourseIndex.setValue(bundle.getInt("courseIndex"));
+        mCourseIndex.observe(this, (courseIndex) -> {
+            refresh();
+        });
         viewModel.searching.observe(this, searching -> {
-            if (!searching)
-                binding.homeTabRefresh.setRefreshing(false);
+            binding.homeTabRefresh.setRefreshing(searching);
         });
         viewModel.randomInstList.observe(this, new Observer<InstList>() {
             @Override
@@ -75,8 +80,23 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
         refresh();
     }
 
+    public void setCourseIndex(int index) {
+        int oldIndex = -1;
+        try {
+            oldIndex = mCourseIndex.getValue();
+        } catch (Exception e) {
+        }
+        if (oldIndex != index) {
+            List<InstListNode> node = new ArrayList<>();
+            node.add(new InstListNode("空空如也", "搜索", ""));
+            InstList instList = new InstList(node);
+            viewModel.randomInstList.setValue(instList);
+
+            mCourseIndex.setValue(index);
+        }
+    }
+
     private void refresh() {
-        binding.homeTabRefresh.setRefreshing(true);
-        viewModel.updateRandomInstList(20, Course.getNameEng(mCourseIndex));
+        viewModel.updateRandomInstList(20, Course.getNameEng(mCourseIndex.getValue()));
     }
 }
