@@ -28,7 +28,6 @@ import org.w3c.dom.Text;
 public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInstanceBinding> {
 
     private final String[] titles = {"属性", "知识图谱", "相关试题"};
-    private final String inst_name = "李白";
     private InstanceGraphFragment GraphFragment;
     private InstanceListFragment ListFragment;
     private ExerciseFragment ExerciseFragment;
@@ -60,7 +59,9 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         GraphFragment = new InstanceGraphFragment();
         GraphFragment.setArguments(bundle);
         ListFragment = new InstanceListFragment();
+        ListFragment.setArguments(bundle);
         ExerciseFragment = new ExerciseFragment();
+        ExerciseFragment.setArguments(bundle);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull

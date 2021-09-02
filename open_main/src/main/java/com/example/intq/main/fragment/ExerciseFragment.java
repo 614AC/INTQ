@@ -58,7 +58,6 @@ public class ExerciseFragment extends WDFragment<ExerciseViewModel, FragExercise
 
         View exercise = inflater.inflate(R.layout.frag_exercise, container, false);
         mExpandableListView = exercise.findViewById(R.id.act_main_expandable_list_view);
-
         viewModel.exerciseNodes.observe(this, new Observer<List<ExerciseNode>>() {
             @Override
             public void onChanged(List<ExerciseNode> content) {
@@ -66,6 +65,14 @@ public class ExerciseFragment extends WDFragment<ExerciseViewModel, FragExercise
             }
         });
         return mExpandableListView;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        System.out.println("frag -> " + getArguments().getString("inst_name"));
+        viewModel.instName.setValue(getArguments().getString("inst_name"));
+        viewModel.getData();
     }
 
     @Override

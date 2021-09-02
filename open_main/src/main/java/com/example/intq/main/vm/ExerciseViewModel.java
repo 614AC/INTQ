@@ -19,14 +19,12 @@ import java.util.List;
 
 public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
     public MutableLiveData<List<ExerciseNode>> exerciseNodes = new MutableLiveData<>();
-    public String instName = "苏轼";
+    public MutableLiveData<String> instName = new MutableLiveData<>();
     public static final String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h"};
     public static final String[] capitalAlphabet = {"A", "B", "C", "D", "E", "F", "G", "H"};
     public static final String alphabetString = "ABCDEFGH";
-    @Override
-    protected void create() {
-        super.create();
-        request(iRequest.getExercise(this.instName), new DataCall<ExerciseList>() {
+    public void getData() {
+        request(iRequest.getExercise(this.instName.getValue()), new DataCall<ExerciseList>() {
             @Override
             public void success(ExerciseList data) {
                 List<ExerciseNode> ens = new ArrayList<>();
