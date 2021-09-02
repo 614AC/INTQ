@@ -18,6 +18,7 @@ import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -61,8 +62,15 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
     @Override
     protected void initView(Bundle savedInstanceState) {
         mAdapter = new ListInstanceAdapter();
-        binding.searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        binding.searchRecyclerView.addItemDecoration(new SpacingItemDecoration(30));
+        mAdapter.setOnItemClickListener((view, position) -> {
+
+        });
+        binding.searchRecyclerView.setLayoutManager(new
+
+                LinearLayoutManager(this));
+        binding.searchRecyclerView.addItemDecoration(new
+
+                SpacingItemDecoration(30));
         binding.searchRecyclerView.setAdapter(mAdapter);
 
         viewModel.searching.observe(this, new Observer<Boolean>() {
@@ -79,7 +87,9 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                 }
             }
         });
-        viewModel.instList.observe(this, instList -> {
+        viewModel.instList.observe(this, instList ->
+
+        {
             String toastInfo = "";
             mAdapter.clear();
             if (instList == null || instList.getInstList().size() == 0) {
@@ -93,12 +103,16 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             mAdapter.notifyDataSetChanged();
             UIUtils.showToastSafe(toastInfo);
         });
-        mCurrentCourse.observe(this, (charSequence) -> {
+        mCurrentCourse.observe(this, (charSequence) ->
+
+        {
             String show = String.format("搜索学科:%s", Course.eng2Chi(charSequence.toString()));
             binding.searchDisplayHead.setText(show);
         });
         //加载设置
-        binding.searchLoading.getIndicator().setColor(R.color.colorPrimary);
+        binding.searchLoading.getIndicator().
+
+                setColor(R.color.colorPrimary);
         //搜索栏设置
         mSearchBar = binding.searchBar;
         mSearchBar.setSpeechMode(false);
@@ -107,8 +121,12 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         //restore last queries from disk
         viewModel.loadLastSearches();
         //setup menu and OnMenuItemClickListener
-        mCourseMenu = new PopupMenu(this, findViewById(R.id.mt_nav));
-        mCourseMenu.setOnMenuItemClickListener(item -> {
+        mCourseMenu = new
+
+                PopupMenu(this, findViewById(R.id.mt_nav));
+        mCourseMenu.setOnMenuItemClickListener(item ->
+
+        {
             CharSequence title = item.getTitle();
             mCurrentCourse.setValue(Course.chi2Eng(title.toString()));
             return true;
@@ -116,24 +134,28 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         mCourseMenu.inflate(R.menu.main_course);
         mCourseMenu.setGravity(Gravity.LEFT);
         mSearchBar.setCardViewElevation(10);
-        mSearchBar.addTextChangeListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+        mSearchBar.addTextChangeListener(new
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + mSearchBar.getText());
-            }
+                                                 TextWatcher() {
+                                                     @Override
+                                                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                                     }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
+                                                     @Override
+                                                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                                         Log.d("LOG_TAG", getClass().getSimpleName() + " text changed " + mSearchBar.getText());
+                                                     }
 
-            }
+                                                     @Override
+                                                     public void afterTextChanged(Editable editable) {
 
-        });
+                                                     }
 
-        binding.searchButton.setOnClickListener(v -> {
+                                                 });
+
+        binding.searchButton.setOnClickListener(v ->
+
+        {
             if (mSearchBar.isSearchOpened())
                 search(mSearchBar.getText(), mCurrentCourse.getValue(), false);
             else
@@ -141,6 +163,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         });
 
         reduce();
+
         OnSearchActionListener searchActionListener = new OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
@@ -176,7 +199,9 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         mSearchBar.setText(keyword.toString());
         mSearchEdit = mSearchBar.getSearchEditText();
         mSearchEdit.setSelection(keyword.length());
-        mSearchEdit.setOnEditorActionListener((v, actionId, event) -> {
+        mSearchEdit.setOnEditorActionListener((v, actionId, event) ->
+
+        {
             searchActionListener.onSearchConfirmed(mSearchEdit.getText());
             return true;
         });
@@ -206,6 +231,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                 }
             }
         });
+
         search(keyword, mCurrentCourse.getValue(), true);
     }
 
