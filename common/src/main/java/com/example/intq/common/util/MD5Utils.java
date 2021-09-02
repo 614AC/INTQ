@@ -1,6 +1,7 @@
 package com.example.intq.common.util;
 
 import java.security.MessageDigest;
+import java.util.Locale;
 
 public class MD5Utils {
     //公盐
@@ -16,6 +17,10 @@ public class MD5Utils {
      */
     public static String md5(String password){
         return encodeByMD5(PUBLIC_SALT+password);
+    }
+
+    public static String md5Simple(String plain){
+        return encodeByMD5(plain).toLowerCase(Locale.ROOT);
     }
      
     /**
