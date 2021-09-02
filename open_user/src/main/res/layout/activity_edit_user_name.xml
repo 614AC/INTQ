@@ -25,7 +25,10 @@
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
             android:inputType="text"
-            android:text="@={vm.userName}"/>
+            android:text="@={vm.userName}"
+            android:layout_marginHorizontal="20dp"
+            android:textSize="16sp"
+            android:hint="请输入修改的用户名"/>
 
         <Button
             android:id="@+id/user_name_btn"
@@ -33,6 +36,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
+            android:background="@drawable/text_view_round"
             android:onClick="@{() -> vm.editUserName()}"
             android:text="确认" />
     </LinearLayout>

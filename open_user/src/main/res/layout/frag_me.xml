@@ -1,213 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
             type="com.example.intq.user.vm.UserViewModel" />
     </data>
 
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <ScrollView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/me_avatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="50dp"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/me_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:text="@={vm.userName}"
+                android:textColor="@color/commdity_text_color"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="140dp"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
+
 
             <RelativeLayout
+                android:id="@+id/me_info"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:onClick="@{()->vm.meInfo()}"
+                android:background="@drawable/click_view">
 
-                <LinearLayout
-                    android:id="@+id/line1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="140dp"
-                    android:background="@drawable/my_card_bg"
-                    android:orientation="vertical"
-                    android:paddingBottom="50dp">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="24dp"
+                    android:contentDescription="个人资料"
+                    android:src="@drawable/ic_____personal" />
 
-                    <TextView
-                        android:id="@+id/me_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="60dp"
-                        android:gravity="center"
-                        android:text="@={vm.userName}"
-                        android:textColor="@color/commdity_text_color"
-                        android:textSize="14sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="68dp"
+                    android:text="个人资料"
+                    android:textColor="@color/commdity_text_color"
+                    android:textSize="14sp" />
 
-                    <RelativeLayout
-                        android:id="@+id/me_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="70dp"
-                        android:layout_marginRight="24dp"
-                        android:onClick="@{()->vm.meInfo()}">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:src="@drawable/my_icon_information_n"
-                            android:layout_alignParentStart="true"
-                            android:contentDescription="个人资料" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="个人资料"
-                            android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginStart="44dp" />
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/me_safety"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginRight="24dp"
-                        android:onClick="@{() -> vm.meSafety()}">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:src="@drawable/my_icon_circle_n"
-                            android:contentDescription="安全设置" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="44dp"
-                            android:text="安全设置"
-                            android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/me_circle"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginRight="24dp"
-                        android:onClick="@{()-> vm.meStar()}">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:src="@drawable/my_icon_circle_n"
-                            android:contentDescription="我的收藏" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="44dp"
-                            android:text="我的收藏"
-                            android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/me_foot"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginRight="24dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:src="@drawable/my_icon_foot_n"
-                            android:contentDescription="浏览历史" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="44dp"
-                            android:text="浏览历史"
-                            android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/me_setting"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginTop="25dp"
-                        android:onClick="@{()->vm.setting()}"
-                        android:layout_marginRight="24dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentStart="true"
-                            android:src="@drawable/my_icon_wallet_n"
-                            android:contentDescription="设置" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="44dp"
-                            android:text="设置"
-                            android:textColor="@color/commdity_text_color"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
-                    <Button
-                        android:id="@+id/logout_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="@dimen/dip_20"
-                        android:layout_marginRight="30dp"
-                        android:onClick="@{()->vm.logout()}"
-                        android:background="@android:color/holo_red_light"
-                        android:text="退出登录"
-                        android:textColor="@android:color/white" />
-
-                </LinearLayout>
-
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/me_avatar"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignTop="@+id/line1"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="-40dp"
-                    fresco:roundAsCircle="true"/>
 
             </RelativeLayout>
-        </ScrollView>
+
+            <RelativeLayout
+                android:id="@+id/me_safety"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{() -> vm.meSafety()}"
+                android:background="@drawable/click_view">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="24dp"
+                    android:contentDescription="安全设置"
+                    android:src="@drawable/ic_____safety" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="68dp"
+                    android:text="安全设置"
+                    android:textColor="@color/commdity_text_color"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/me_circle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{()-> vm.meStar()}"
+                android:background="@drawable/click_view">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="24dp"
+                    android:contentDescription="我的收藏"
+                    android:src="@drawable/ic___star" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="68dp"
+                    android:text="我的收藏"
+                    android:textColor="@color/commdity_text_color"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/me_foot"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/click_view">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="24dp"
+                    android:contentDescription="浏览历史"
+                    android:src="@drawable/ic___history" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="68dp"
+                    android:text="浏览历史"
+                    android:textColor="@color/commdity_text_color"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/me_setting"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:onClick="@{()->vm.setting()}"
+                android:background="@drawable/click_view">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="24dp"
+                    android:contentDescription="设置"
+                    android:src="@drawable/ic___set" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="68dp"
+                    android:text="设置"
+                    android:textColor="@color/commdity_text_color"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 </layout>

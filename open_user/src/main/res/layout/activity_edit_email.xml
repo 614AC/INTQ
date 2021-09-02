@@ -23,8 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="20dp"
             android:inputType="text"
-            android:text="@={vm.email}"/>
+            android:text="@={vm.email}"
+            android:textSize="16sp"
+            android:hint="请输入需要修改的邮箱"/>
 
         <Button
             android:id="@+id/user_name_btn"
@@ -32,6 +35,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
+            android:background="@drawable/text_view_round"
             android:onClick="@{() -> vm.editEmail()}"
             android:text="确认" />
     </LinearLayout>
