@@ -38,7 +38,7 @@ public class EditMobileViewModel extends WDViewModel<IUserRequest> {
                 }
             });
         }
-        mobile.set(LOGIN_USER.getEmail());
+        mobile.set(LOGIN_USER.getMobile());
     }
 
     public void editMobile(){
