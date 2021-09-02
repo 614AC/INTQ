@@ -1,5 +1,7 @@
 package com.example.intq.main.vm;
 
+import android.os.Handler;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.intq.common.bean.Course;
@@ -7,6 +9,7 @@ import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDFragViewModel;
 import com.example.intq.common.core.exception.ApiException;
+import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.request.IMainRequest;
 
 import java.util.ArrayList;
@@ -26,10 +29,12 @@ public class HomeTabViewModel extends WDFragViewModel<IMainRequest> {
             courseList.add(new Course(i));
         this.courseList.setValue(courseList);
 
+        searching.setValue(false);
     }
 
     public void updateRandomInstList(int limit, String course) {
         searching.setValue(true);
+
         request(iRequest.getRandomInstList(LOGIN_USER.getToken(), limit, course), new DataCall<InstList>() {
             @Override
             public void success(InstList data) {

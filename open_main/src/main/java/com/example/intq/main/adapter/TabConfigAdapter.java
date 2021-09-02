@@ -17,11 +17,14 @@
 package com.example.intq.main.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,19 +44,32 @@ public class TabConfigAdapter
         implements DraggableItemAdapter<TabConfigAdapter.TabConfigViewHolder> {
     private static final String TAG = "TabDraggableItemAdapter";
     private int mItemMoveMode = RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT;
-
+    private String[] itemColors = {
+            "#227BDA",
+            "#00979f",
+            "#0f7e79",
+            "#cbd1e6",
+            "#aacb92",
+            "#839bb2",
+            "#d2efdc",
+            "#e7aba9",
+            "#c1381c",
+            "#555868",
+    };
     private AbstractDataProvider mProvider;
 
     public static class TabConfigViewHolder extends AbstractDraggableItemViewHolder {
         public FrameLayout mContainer;
         public View mDragHandle;
         public TextView mTextView;
+        public ImageView mImageView;
 
         public TabConfigViewHolder(View v) {
             super(v);
             mContainer = v.findViewById(R.id.container);
             mDragHandle = v.findViewById(R.id.drag_handle);
             mTextView = v.findViewById(android.R.id.text1);
+            mImageView = v.findViewById(R.id.item_image);
         }
     }
 
@@ -92,36 +108,32 @@ public class TabConfigAdapter
         final AbstractDataProvider.Data item = mProvider.getItem(position);
 
         // set text
-        holder.mTextView.setText(item.getText());
+        if (item.getId() >= 0)
+            holder.mTextView.setText(item.getText());
+        else
+            holder.mImageView.setBackgroundResource(R.drawable.trash_bin);
 
         // set item view width
         Context context = holder.itemView.getContext();
-        if (item.getId() < 0) {
-            ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-            if (lp.width != ViewGroup.LayoutParams.MATCH_PARENT) {
-                lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                holder.itemView.setLayoutParams(lp);
-            }
-        }
 
         // set background resource (target view ID: container)
         final DraggableItemState dragState = holder.getDragState();
 
         if (dragState.isUpdated()) {
-            int bgResId;
-
             if (dragState.isActive()) {
-                bgResId = R.drawable.bg_item_dragging_active_state;
-
+                if (item.getId() >= 0)
+                    holder.mTextView.setBackgroundColor(Color.parseColor(
+                            itemColors[item.getId()]));
                 // need to clear drawable state here to get correct appearance of the dragging item.
                 holder.mContainer.getForeground().setState(new int[]{});
             } else if (dragState.isDragging()) {
-                bgResId = R.drawable.bg_item_dragging_state;
+                if (item.getId() >= 0)
+                    holder.mTextView.setBackgroundColor(Color.parseColor(
+                            itemColors[item.getId()]));
             } else {
-                bgResId = R.drawable.bg_item_normal_state;
+                if (item.getId() >= 0)
+                    holder.mTextView.setBackgroundColor(Color.WHITE);
             }
-
-            holder.mContainer.setBackgroundResource(bgResId);
         }
     }
 
@@ -154,6 +166,11 @@ public class TabConfigAdapter
 
     @Override
     public boolean onCheckCanDrop(int draggingPosition, int dropPosition) {
+        if (draggingPosition == 0 && mProvider.getItem(dropPosition).getId() < 0
+                || (mItemMoveMode == RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT
+                && draggingPosition == 0 && mProvider.getItem(1).getId() < 0)
+                || mProvider.getItem(draggingPosition).getId() < 0 && dropPosition == 0)
+            return false;
         return true;
     }
 

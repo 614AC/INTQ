@@ -49,6 +49,7 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
             @Override
             public void onChanged(List<Course> courses) {
                 mTabAdapter.setList(courses);
+                binding.tabItems.selectTab(binding.tabItems.getTabAt(0));
             }
         });
         binding.tabItems.addOnTabSelectedListener(new OnTabSelectedListener() {

@@ -1,5 +1,7 @@
 package com.example.intq.main.vm;
 
+import android.os.Handler;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.intq.common.bean.Course;
@@ -9,6 +11,7 @@ import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
 
+import com.example.intq.common.util.UIUtils;
 import com.example.intq.common.util.logger.Logger;
 import com.example.intq.main.request.IMainRequest;
 
@@ -74,6 +77,7 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
 
     public void updateInstList(InstSearch query) {
         searching.setValue(true);
+
         logger.d("Searching state: " + searching.getValue() + "[starting]");
         searchMillis = System.currentTimeMillis();
         request(iRequest.getInstList(LOGIN_USER.getToken(),
