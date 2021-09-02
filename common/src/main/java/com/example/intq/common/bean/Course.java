@@ -19,6 +19,28 @@ public class Course {
         return NAME_CHI[clamp(index)];
     }
 
+    public static int getIndexEng(String s) {
+        for (int i = 0; i < getCourseNumber(); ++i)
+            if (s.equals(NAME_ENG[i]))
+                return i;
+        return -1;
+    }
+
+    public static int getIndexChi(String s) {
+        for (int i = 0; i < getCourseNumber(); ++i)
+            if (s.equals(NAME_CHI[i]))
+                return i;
+        return -1;
+    }
+
+    public static String chi2Eng(String chi) {
+        return Course.getNameEng(Course.getIndexChi(chi));
+    }
+
+    public static String eng2Chi(String eng) {
+        return Course.getNameChi(Course.getIndexEng(eng));
+    }
+
     public static int getCourseNumber() {
         return NAME_ENG.length;
     }

@@ -10,43 +10,77 @@
             type="com.example.intq.main.vm.SearchViewModel" />
     </data>
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/search_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp">
-
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/search_bar"
-            style="@style/search_bar_style"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerHorizontal="true"
-            app:mt_maxSuggestionsCount="10"
-            app:mt_searchIconDrawable="@drawable/common_nav_btn_search_n"
-            app:mt_speechMode="false" />
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/search_bar">
+            android:layout_marginTop="90dp">
 
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/search_loading"
-                style="@style/AVLoadingIndicatorView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
-                android:visibility="visible"
-                app:indicatorName="PacmanIndicator" />
-
-            <ScrollView
+            <TextView
+                android:id="@+id/search_display_head"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/search_display"
+                android:layout_height="wrap_content" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/search_display_head" />
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/search_loading"
+                    style="@style/AVLoadingIndicatorView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:visibility="visible"
+                    app:indicatorName="PacmanIndicator" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/search_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </ScrollView>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/ic_magnify_black_48dp" />
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </RelativeLayout>
-    </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <com.mancj.materialsearchbar.MaterialSearchBar
+                    android:id="@+id/search_bar"
+                    style="@style/search_bar_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/search_bar_margin"
+                    android:layout_marginEnd="@dimen/search_bar_margin"
+                    app:mt_hint="@string/search_hint"
+                    app:mt_placeholder="@string/search_placeholder" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </FrameLayout>
 </layout>

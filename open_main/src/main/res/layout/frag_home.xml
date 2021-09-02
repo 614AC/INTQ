@@ -51,9 +51,11 @@
                 android:id="@+id/search_bar"
                 style="@style/search_bar_style"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/search_bar_height"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="@dimen/search_bar_margin"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/search_bar_margin"
                 app:mt_maxSuggestionsCount="10"
                 app:mt_searchIconDrawable="@drawable/common_nav_btn_search_n"
                 app:mt_speechMode="false" />

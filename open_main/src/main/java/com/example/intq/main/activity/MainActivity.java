@@ -68,7 +68,7 @@ public class MainActivity extends WDActivity<MainFromViewPagerViewModel, Activit
 
         viewModel.addFragViewModel(homeFragment.getFragViewModel());
 
-        currentFragment = homeFragment;
+//        currentFragment = homeFragment;
 
         binding.pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull

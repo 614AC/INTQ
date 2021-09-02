@@ -40,6 +40,7 @@ public class HomeTabViewModel extends WDFragViewModel<IMainRequest> {
             @Override
             public void fail(ApiException data) {
                 searching.setValue(false);
+                randomInstList.setValue(null);
             }
         });
     }
