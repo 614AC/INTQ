@@ -10,6 +10,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModel;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.intq.common.bean.InstInfo;
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
 import com.example.intq.common.bean.UserInfo_;
@@ -58,6 +59,8 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     protected Box<UserInfo> userInfoBox;
     protected static UserInfo LOGIN_USER;
 
+    protected Box<InstInfo> instInfoBox;
+
     protected R iRequest;
 
     public WDViewModel() {
@@ -85,6 +88,7 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
         LOGIN_USER = userInfoBox.query()
                 .equal(UserInfo_.status, 1)
                 .build().findUnique();
+        instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

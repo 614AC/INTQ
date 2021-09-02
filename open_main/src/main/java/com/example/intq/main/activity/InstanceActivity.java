@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
@@ -32,6 +33,13 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     private InstanceListFragment ListFragment;
     private ExerciseFragment ExerciseFragment;
 
+    @Autowired
+    public String inst_name;
+    @Autowired
+    public String course;
+    @Autowired
+    public String uri;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_instance;
@@ -39,12 +47,18 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        System.out.println("activity -> " + inst_name);
         TabLayout tabLayout = findViewById(R.id.inst_tab);
         ViewPager viewPager = findViewById(R.id.inst_pager);
         TextView tv = findViewById(R.id.inst_name);
-        tv.setText(this.inst_name);
+        tv.setText(inst_name);
 
+        Bundle bundle = new Bundle();
+        bundle.putString("inst_name", inst_name);
+        bundle.putString("course", course);
+        bundle.putString("uri", uri);
         GraphFragment = new InstanceGraphFragment();
+        GraphFragment.setArguments(bundle);
         ListFragment = new InstanceListFragment();
         ExerciseFragment = new ExerciseFragment();
 

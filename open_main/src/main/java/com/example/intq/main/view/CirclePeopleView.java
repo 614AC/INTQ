@@ -22,7 +22,7 @@ public class CirclePeopleView extends View {
     private Paint paint;
     private float XPoint;
     private float YPoint;
-    private int[] radius = null;
+//    private int[] radius = null;
     private List<Instance> lists = new ArrayList<>();
     private static final int DISTANCE_CIRCLE = 350;
 
@@ -41,12 +41,12 @@ public class CirclePeopleView extends View {
 
     public void SetFieldInfo(List<Instance> lists) {
         this.lists = lists;
-        radius = new int[lists.size()];
-        for (int i = 0; i < lists.size(); i++) {
-//            Random r = new Random();
-//            radius[i] = r.nextInt(160) + DISTANCE_CIRCLE;
-            radius[i] = DISTANCE_CIRCLE;
-        }
+//        radius = new int[lists.size()];
+//        for (int i = 0; i < lists.size(); i++) {
+////            Random r = new Random();
+////            radius[i] = r.nextInt(160) + DISTANCE_CIRCLE;
+//            radius[i] = DISTANCE_CIRCLE;
+//        }
     }
 
     private void init() {
@@ -81,10 +81,10 @@ public class CirclePeopleView extends View {
                 } else if (r > 22) {
                     r = 22;
                 }
-                canvas.drawCircle(XPoint + (float) Math.cos(pere * i + 5) * radius[i], YPoint + (float) Math.sin(pere * i + 5) * radius[i], dip2px(mContext, r), paint);
+                canvas.drawCircle(XPoint + (float) Math.cos(pere * i + 5) * DISTANCE_CIRCLE, YPoint + (float) Math.sin(pere * i + 5) * DISTANCE_CIRCLE, dip2px(mContext, r), paint);
                 this.paint.setColor(Color.parseColor("#666666"));
                 this.paint.setStrokeWidth(0.5f);
-                canvas.drawLine(XPoint + (float) Math.cos(pere * i + 5) * dip2px(mContext, 22), YPoint + (float) Math.sin(pere * i + 5) * dip2px(mContext, 22), XPoint + (float) Math.cos(pere * i + 5) * (radius[i] - dip2px(mContext, r)), YPoint + (float) Math.sin(pere * i + 5) * (radius[i] - dip2px(mContext, r)), paint);
+                canvas.drawLine(XPoint + (float) Math.cos(pere * i + 5) * dip2px(mContext, 22), YPoint + (float) Math.sin(pere * i + 5) * dip2px(mContext, 22), XPoint + (float) Math.cos(pere * i + 5) * (DISTANCE_CIRCLE - dip2px(mContext, r)), YPoint + (float) Math.sin(pere * i + 5) * (DISTANCE_CIRCLE - dip2px(mContext, r)), paint);
             }
             for (int i = 0; i < count; i++) {
                 int r = lists.get(i).getSymbolSize();
@@ -96,12 +96,12 @@ public class CirclePeopleView extends View {
                 this.paint.setColor(Color.parseColor("#333333"));
                 this.paint.setTextSize(dip2px(mContext, 8));
                 this.paint.setTextAlign(Paint.Align.CENTER);
-//                canvas.drawText(lists.get(i).getName(), XPoint + (float) Math.cos(pere * i + 5) * radius[i] - 30, YPoint + (float) Math.sin(pere * i + 5) * radius[i] + dip2px(mContext, r + 10), paint);
-                canvas.drawText(lists.get(i).getName(), XPoint + (float) Math.cos(pere * i + 5) * radius[i], YPoint + (float) Math.sin(pere * i + 5) * radius[i] + 60, paint);
+//                canvas.drawText(lists.get(i).getName(), XPoint + (float) Math.cos(pere * i + 5) * DISTANCE_CIRCLE - 30, YPoint + (float) Math.sin(pere * i + 5) * DISTANCE_CIRCLE + dip2px(mContext, r + 10), paint);
+                canvas.drawText(lists.get(i).getName(), XPoint + (float) Math.cos(pere * i + 5) * DISTANCE_CIRCLE, YPoint + (float) Math.sin(pere * i + 5) * DISTANCE_CIRCLE + 60, paint);
                 this.paint.setColor(Color.parseColor("#856d72"));
                 this.paint.setTextSize(dip2px(mContext, 6));
                 this.paint.setTextAlign(Paint.Align.CENTER);
-                canvas.drawText(lists.get(i).getPredicate_label(), ((XPoint + (float) Math.cos(pere * i + 5) * dip2px(mContext, 22)) + XPoint + (float) Math.cos(pere * i + 5) * (radius[i] - dip2px(mContext, r))) / 2, (YPoint + (float) Math.sin(pere * i + 5) * dip2px(mContext, 22) + YPoint + (float) Math.sin(pere * i + 5) * (radius[i] - dip2px(mContext, r))) / 2, paint);
+                canvas.drawText(lists.get(i).getPredicate_label(), ((XPoint + (float) Math.cos(pere * i + 5) * dip2px(mContext, 22)) + XPoint + (float) Math.cos(pere * i + 5) * (DISTANCE_CIRCLE - dip2px(mContext, r))) / 2, (YPoint + (float) Math.sin(pere * i + 5) * dip2px(mContext, 22) + YPoint + (float) Math.sin(pere * i + 5) * (DISTANCE_CIRCLE - dip2px(mContext, r))) / 2, paint);
             }
         }
 

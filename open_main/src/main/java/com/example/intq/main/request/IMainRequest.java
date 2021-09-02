@@ -4,9 +4,12 @@ import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.exercise.ExerciseList;
 import com.example.intq.common.bean.instance.InstInfoResult;
 import com.example.intq.common.bean.instance.InstList;
+import com.example.intq.common.bean.instance.LinkInstanceResult;
 import com.example.intq.common.bean.question.SolveResult;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
