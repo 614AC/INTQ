@@ -1,0 +1,70 @@
+[
+  {
+    "GroupName": "水果",
+    "GroupIcon": "icon_fruit",
+    "ChildData": [
+      {
+        "ChildName": "香蕉",
+        "ChildIcon": "icon_banana",
+        "Number": 5
+      },
+      {
+        "ChildName": "苹果",
+        "ChildIcon": "icon_apple",
+        "Number": 3
+      },
+      {
+        "ChildName": "西瓜",
+        "ChildIcon": "icon_watermelon",
+        "Number": 9
+      }
+    ]
+  },
+  {
+    "GroupName": "蔬菜",
+    "GroupIcon": "icon_vegetable",
+    "ChildData": [
+      {
+        "ChildName": "萝卜",
+        "ChildIcon": "icon_radish",
+        "Number": 4
+      },
+      {
+        "ChildName": "西红柿",
+        "ChildIcon": "icon_tomatoes",
+        "Number": 7
+      },
+      {
+        "ChildName": "榴莲",
+        "ChildIcon": "icon_durian",
+        "Number": 9
+      }
+    ]
+  },
+  {
+    "GroupName": "交通工具",
+    "GroupIcon": "icon_traffic",
+    "ChildData": [
+      {
+        "ChildName": "汽车",
+        "ChildIcon": "icon_car",
+        "Number": 4
+      },
+      {
+        "ChildName": "飞机",
+        "ChildIcon": "icon_plane",
+        "Number": 7
+      },
+      {
+        "ChildName": "大炮",
+        "ChildIcon": "icon_cannon",
+        "Number": 9
+      },
+      {
+        "ChildName": "火箭",
+        "ChildIcon": "icon_rocket",
+        "Number": 1
+      }
+    ]
+  }
+]

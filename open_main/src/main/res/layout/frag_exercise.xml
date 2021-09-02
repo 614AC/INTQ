@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.example.intq.main.vm.ExerciseViewModel" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.intq.main.activity.InstanceActivity">
+        <ExpandableListView
+            android:id="@+id/act_main_expandable_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:childDivider="@drawable/item_child_divider"
+            android:divider="@color/item_line"
+            android:dividerHeight="0.5dp"
+            android:groupIndicator="@null" />
+
+    </LinearLayout>
+</layout>

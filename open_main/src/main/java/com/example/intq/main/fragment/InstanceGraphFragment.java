@@ -13,20 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.example.intq.common.bean.instance.ContentNode;
-import com.example.intq.common.bean.instance.ContentResult;
 import com.example.intq.common.bean.instance.Instance;
-import com.example.intq.common.bean.instance.PropertyResult;
 import com.example.intq.common.core.WDFragment;
 import com.example.intq.main.R;
 import com.example.intq.main.adapter.InstanceAdapter;
 import com.example.intq.main.databinding.FragGraphBinding;
 import com.example.intq.main.view.CirclePeopleView;
 import com.example.intq.main.vm.InstanceItemViewModel;
-import com.example.intq.main.utils.Contant;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

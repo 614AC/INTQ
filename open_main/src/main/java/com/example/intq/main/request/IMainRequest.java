@@ -1,6 +1,7 @@
 package com.example.intq.main.request;
 
 import com.example.intq.common.bean.Result;
+import com.example.intq.common.bean.exercise.ExerciseList;
 import com.example.intq.common.bean.instance.InstInfoResult;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.question.SolveResult;
@@ -47,5 +48,11 @@ public interface IMainRequest {
      */
     @GET("instance/info")
     Observable<Result<InstInfoResult>> getInstanceInfo(@Query("instName") String instName, @Query("course") String course);
+
+    /**
+     * 相关试题
+     */
+    @GET("exercise/search")
+    Observable<Result<ExerciseList>> getExercise(@Query("instName") String instName);
 
 }
