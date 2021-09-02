@@ -113,8 +113,8 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
         searchBarLayoutParams.topMargin = binding.searchTitleBar.getHeight();
         searchBarLayoutParams.width = LayoutParams.MATCH_PARENT;
         binding.searchBar.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.searchBar, 0, 500);
-        beginDelayedTransition(binding.tabLayout, 0, 600);
+        beginDelayedTransition(binding.searchBar, 0, 1000);
+        beginDelayedTransition(binding.tabLayout, 0, 500);
         beginDelayedAlphaTransition(binding.searchTitleBar, 0, 1, 500);
     }
 
@@ -128,8 +128,8 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
         searchBarLayoutParams.width = UIUtils.getScreenWidth(getActivity()) * 3 / 4;
         searchBarLayoutParams.topMargin = 0;
         binding.searchBar.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.searchBar, 0, 500);
-        beginDelayedTransition(binding.tabLayout, 0, 600);
+        beginDelayedTransition(binding.searchBar, 0, 1000);
+        beginDelayedTransition(binding.tabLayout, 0, 500);
         beginDelayedAlphaTransition(binding.searchTitleBar, 1, 0, 500);
     }
 

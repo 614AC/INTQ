@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.intq.common.bean.Course;
@@ -31,7 +32,9 @@ import com.example.intq.common.bean.instance.InstSearch;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
+import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.main.R;
+import com.example.intq.main.adapter.ListInstanceAdapter;
 import com.example.intq.main.databinding.ActivitySearchBinding;
 import com.example.intq.main.vm.SearchViewModel;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -44,6 +47,7 @@ import javax.annotation.Nullable;
 
 @Route(path = Constant.ACTIVITY_URL_SEARCH)
 public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBinding> {
+    private ListInstanceAdapter mAdapter;
     private MaterialSearchBar mSearchBar;
     private PopupMenu mCourseMenu;
     private EditText mSearchEdit;
@@ -56,14 +60,19 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        mAdapter = new ListInstanceAdapter();
+        binding.searchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.searchRecyclerView.addItemDecoration(new SpacingItemDecoration(30));
+        binding.searchRecyclerView.setAdapter(mAdapter);
+
         viewModel.searching.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean searching) {
                 if (searching) {
-                    binding.searchDisplay.setVisibility(View.INVISIBLE);
+                    binding.searchRecyclerView.setVisibility(View.INVISIBLE);
                     binding.searchLoading.smoothToShow();
                 } else {
-                    binding.searchDisplay.setVisibility(View.VISIBLE);
+                    binding.searchRecyclerView.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(() -> {
                         binding.searchLoading.smoothToHide();
                     }, 1000);
@@ -72,19 +81,17 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         });
         viewModel.instList.observe(this, instList -> {
             String toastInfo = "";
-            String show = "";
+            mAdapter.clear();
             if (instList == null || instList.getInstList().size() == 0) {
+                mAdapter.add(new InstListNode("空空如也", "搜索", ""));
                 toastInfo = "没有找到相关实体~";
-                show = "空空如也";
             } else {
+                mAdapter.addAll(instList.getInstList());
                 toastInfo = String.format("搜索到%d个相关实体,耗时%.2fs",
                         instList.getInstList().size(), viewModel.getSearchSec());
-                for (InstListNode node : instList.getInstList())
-                    show += String.format("label:%s\ncategory:%s\nuri:%s\n",
-                            node.getLabel(), node.getCategory(), node.getUri());
             }
+            mAdapter.notifyDataSetChanged();
             UIUtils.showToastSafe(toastInfo);
-            binding.searchDisplay.setText(show);
         });
         mCurrentCourse.observe(this, (charSequence) -> {
             String show = String.format("搜索学科:%s", Course.eng2Chi(charSequence.toString()));

@@ -3,17 +3,22 @@ package com.example.intq.main.fragment;
 import android.os.Bundle;
 
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.intq.common.bean.Course;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.InstListNode;
 import com.example.intq.common.core.WDFragment;
 import com.example.intq.common.util.UIUtils;
+import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.main.R;
+import com.example.intq.main.adapter.HomeListInstanceAdapter;
+import com.example.intq.main.adapter.ListInstanceAdapter;
 import com.example.intq.main.databinding.FragHomeTabBinding;
 import com.example.intq.main.vm.HomeTabViewModel;
 
 public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBinding> {
+    private HomeListInstanceAdapter mAdapter;
     private int mCourseIndex;
     private int mCnt;
 
@@ -29,6 +34,11 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
 
     @Override
     protected void initView(Bundle bundle) {
+        mAdapter = new HomeListInstanceAdapter();
+        binding.tabRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.tabRecyclerView.addItemDecoration(new SpacingItemDecoration(30));
+        binding.tabRecyclerView.setAdapter(mAdapter);
+
         bundle = getArguments();
         mCourseIndex = bundle.getInt("courseIndex");
         viewModel.searching.observe(this, searching -> {
@@ -38,16 +48,14 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
         viewModel.randomInstList.observe(this, new Observer<InstList>() {
             @Override
             public void onChanged(InstList instList) {
-                String show = Course.getNameChi(mCourseIndex) + "\n";
+                mAdapter.clear();
                 if (instList == null || instList.getInstList().size() == 0) {
                     UIUtils.showToastSafe("网络错误~");
-                    show += "空空如也";
+                    mAdapter.add(new InstListNode("空空如也", "搜索", ""));
                 } else {
-                    for (InstListNode node : instList.getInstList())
-                        show += String.format("label:%s\nuri:%s\n",
-                                node.getLabel(), node.getUri());
+                    mAdapter.addAll(instList.getInstList());
                 }
-                binding.txtContent.setText(show);
+                mAdapter.notifyDataSetChanged();
             }
         });
 

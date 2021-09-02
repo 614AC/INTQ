@@ -15,15 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-        <!--            <com.google.android.material.navigation.NavigationView-->
-        <!--                android:id="@+id/nav_view"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:layout_gravity="start"-->
-        <!--                android:fitsSystemWindows="true"-->
-        <!--                app:headerLayout="@layout/nav_header_main"-->
-        <!--                app:menu="@menu/activity_main_drawer" />-->
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -35,16 +26,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <ScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/search_display_head">
-
-                <TextView
-                    android:id="@+id/search_display"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </ScrollView>
+                android:layout_below="@id/search_display_head" />
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
@@ -75,20 +61,26 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp">
 
-            <com.mancj.materialsearchbar.MaterialSearchBar
-                android:id="@+id/search_bar"
-                style="@style/search_bar_style"
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="@dimen/search_bar_margin"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="@dimen/search_bar_margin"
-                app:mt_hint="@string/search_hint"
-                app:mt_placeholder="@string/search_placeholder" />
-        </RelativeLayout>
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
+                <com.mancj.materialsearchbar.MaterialSearchBar
+                    android:id="@+id/search_bar"
+                    style="@style/search_bar_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/search_bar_margin"
+                    android:layout_marginEnd="@dimen/search_bar_margin"
+                    app:mt_hint="@string/search_hint"
+                    app:mt_placeholder="@string/search_placeholder" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
     </FrameLayout>
 </layout>
