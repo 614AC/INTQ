@@ -1,6 +1,7 @@
 package com.example.intq.main.request;
 
 import com.example.intq.common.bean.Result;
+import com.example.intq.common.bean.exercise.ExerciseList;
 import com.example.intq.common.bean.instance.InstInfoResult;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.LinkInstanceResult;
@@ -53,5 +54,11 @@ public interface IMainRequest {
 
     @POST("instance/linkinstance")
     Observable<Result<LinkInstanceResult>> getLinkInstance(@Body RequestBody body);
+
+    /**
+     * 相关试题
+     */
+    @GET("exercise/search")
+    Observable<Result<ExerciseList>> getExercise(@Query("instName") String instName);
 
 }

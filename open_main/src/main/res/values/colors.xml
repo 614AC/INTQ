@@ -32,4 +32,6 @@
     <color name="expandable_item_indicator_color">#42000000</color>
 
     <color name="bg_search_title_txt">#28120135</color>
+
+    <color name="item_line">#E4E4E4</color>
 </resources>

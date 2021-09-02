@@ -15,6 +15,7 @@ import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.main.R;
 import com.example.intq.main.databinding.ActivityInstanceBinding;
+import com.example.intq.main.fragment.ExerciseFragment;
 import com.example.intq.main.fragment.InstanceGraphFragment;
 import com.example.intq.main.fragment.InstanceListFragment;
 import com.example.intq.main.view.CirclePeopleView;
@@ -26,9 +27,10 @@ import org.w3c.dom.Text;
 @Route(path = Constant.ACTIVITY_URL_INSTANCE)
 public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInstanceBinding> {
 
-    private final String[] titles = {"属性", "知识图谱"};
+    private final String[] titles = {"属性", "知识图谱", "相关试题"};
     private InstanceGraphFragment GraphFragment;
     private InstanceListFragment ListFragment;
+    private ExerciseFragment ExerciseFragment;
 
     @Autowired
     public String inst_name;
@@ -58,6 +60,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         GraphFragment.setArguments(bundle);
         ListFragment = new InstanceListFragment();
         ListFragment.setArguments(bundle);
+        ExerciseFragment = new ExerciseFragment();
+        ExerciseFragment.setArguments(bundle);
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
@@ -65,13 +69,15 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
             public Fragment getItem(int position) {
                 if(position == 0)
                     return ListFragment;
-                else
+                else if (position == 1)
                     return GraphFragment;
+                else
+                    return ExerciseFragment;
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 3;
             }
 
             @Nullable
@@ -80,6 +86,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
                 return titles[position];
             }
         });
+
+        viewPager.setOffscreenPageLimit(3);
 
         tabLayout.setupWithViewPager(viewPager, false);
     }
