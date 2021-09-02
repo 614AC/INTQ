@@ -45,15 +45,32 @@
                     android:layout_alignParentStart="true"
                     android:selectedItemPosition="@={vm.courseId}"/>
 
-                <Button
-                    android:id="@+id/btn_chat_message_send"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="64dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_height="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="4dp"
-                    android:onClick="@{() -> vm.link()}"/>
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/btn_choose_hand"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"/>
+
+                    <Button
+                        android:id="@+id/btn_choose_general"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"/>
+
+                    <Button
+                        android:id="@+id/btn_chat_message_send"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+
+                        android:onClick="@{() -> vm.link()}"/>
+                </LinearLayout>
+
             </RelativeLayout>
 
             <EditText
