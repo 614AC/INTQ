@@ -93,7 +93,8 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
                 if (text != null && text.length() > 0) {
                     Bundle bundle = new Bundle();
                     bundle.putCharSequence("keyword", text);
-                    bundle.putCharSequence("course", Course.getNameEng(mCurrentIndex));
+                    int courseIndex = mTabAdapter.mFragments.get(mCurrentIndex).getCourseIndex();
+                    bundle.putCharSequence("course", Course.getNameEng(courseIndex));
                     intentByRouter(Constant.ACTIVITY_URL_SEARCH, bundle);
                 }
             }

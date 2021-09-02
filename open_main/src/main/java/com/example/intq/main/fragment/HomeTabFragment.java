@@ -80,6 +80,14 @@ public class HomeTabFragment extends WDFragment<HomeTabViewModel, FragHomeTabBin
         refresh();
     }
 
+    public int getCourseIndex() {
+        try {
+            return mCourseIndex.getValue();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     public void setCourseIndex(int index) {
         int oldIndex = -1;
         try {
