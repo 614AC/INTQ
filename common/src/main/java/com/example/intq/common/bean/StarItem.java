@@ -7,6 +7,8 @@ public class StarItem {
     private String course;
     private Integer exerciseId;
 
+    public StarItem(){}
+
     public StarItem(int type, String label, String uri, String course, Integer exerciseId) {
         this.type = type;
         this.label = label;

@@ -41,6 +41,7 @@ public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStar
                     .withString("inst_name", item.getLabel())
                     .withString("course", item.getCourse())
                     .withString("uri", item.getUri())
+                    .withBoolean("star", true)
                     .navigation();
         });
         binding.starList.setLayoutManager(new LinearLayoutManager(getContext()));
