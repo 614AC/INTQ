@@ -63,6 +63,7 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         viewModel.course.setValue(course);
         viewModel.uri.setValue(uri);
         viewModel.checkStar();
+        viewModel.addHistory();
 
         Bundle bundle = new Bundle();
         bundle.putString("inst_name", inst_name);

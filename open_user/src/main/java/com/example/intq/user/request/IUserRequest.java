@@ -1,6 +1,7 @@
 package com.example.intq.user.request;
 
 import com.example.intq.common.bean.Result;
+import com.example.intq.common.bean.instance.HistoryInstResult;
 import com.example.intq.common.bean.instance.StarInstResult;
 import com.example.intq.common.bean.user.AvatarResult;
 import com.example.intq.common.bean.user.UserInfoResult;
@@ -35,4 +36,7 @@ public interface IUserRequest {
 
     @GET("user/starred/inst")
     Observable<Result<StarInstResult>> getStarredInstList(@Header("token") String token, @Query("offset") Integer offset, @Query("limit") Integer limit);
+
+    @GET("user/history/inst")
+    Observable<Result<HistoryInstResult>> getHistoryInstList(@Header("token") String token, @Query("offset") Integer offset, @Query("limit") Integer limit);
 }

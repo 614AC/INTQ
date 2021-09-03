@@ -1,17 +1,22 @@
 package com.example.intq.common.bean;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class HistoryItem {
     private int type;
-    private String title;
+    private String course;
     private String label;
-    private Date vis;
+    private String uri;
+    private long vis;
 
-    public HistoryItem(int type, String title, String label, Date vis) {
+
+    public HistoryItem(){}
+
+    public HistoryItem(int type, String course, String label, String uri, long vis) {
         this.type = type;
-        this.title = title;
+        this.course = course;
         this.label = label;
+        this.uri = uri;
         this.vis = vis;
     }
 
@@ -23,12 +28,12 @@ public class HistoryItem {
         this.type = type;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCourse() {
+        return course;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getLabel() {
@@ -39,11 +44,19 @@ public class HistoryItem {
         this.label = label;
     }
 
-    public Date getVis() {
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public long getVis() {
         return vis;
     }
 
-    public void setVis(Date vis) {
+    public void setVis(long vis) {
         this.vis = vis;
     }
 }

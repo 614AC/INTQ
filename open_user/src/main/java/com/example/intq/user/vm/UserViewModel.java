@@ -83,6 +83,8 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
 
     public void meStar(){intentByRouter(Constant.ACTIVITY_URL_ME_STAR);}
 
+    public void meHistory(){intentByRouter(Constant.ACTIVITY_URL_ME_HISTORY);}
+
     public void setting() {
         intentByRouter(Constant.ACTIVITY_URL_SET);
     }

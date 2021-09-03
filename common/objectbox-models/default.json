@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:1918397186535782234",
-      "lastPropertyId": "14:8045218295147693720",
+      "lastPropertyId": "15:5232461504620030148",
       "name": "UserInfo",
       "properties": [
         {
@@ -48,6 +48,11 @@
         {
           "id": "14:8045218295147693720",
           "name": "starInst",
+          "type": 9
+        },
+        {
+          "id": "15:5232461504620030148",
+          "name": "historyInst",
           "type": 9
         }
       ],

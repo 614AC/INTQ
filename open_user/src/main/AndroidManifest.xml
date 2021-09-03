@@ -10,6 +10,7 @@
         <activity android:name=".activity.MeSafetyActivity" />
         <activity android:name=".activity.EditMobileActivity" />
         <activity android:name=".activity.MeStarActivity" />
+        <activity android:name=".activity.MeHistoryActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
