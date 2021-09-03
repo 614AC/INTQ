@@ -38,7 +38,11 @@ public class InstanceViewModel extends WDViewModel<IMainRequest> {
 
                 @Override
                 public void fail(ApiException data) {
+                    try{
+                        if_star.setValue(LOGIN_USER.getStarInst().contains(uri.getValue()));
+                    }catch (Exception e){
 
+                    }
                 }
             });
         }

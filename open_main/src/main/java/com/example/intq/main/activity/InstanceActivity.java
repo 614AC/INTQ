@@ -39,8 +39,6 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     public String course;
     @Autowired
     public String uri;
-    @Autowired
-    public boolean star;
 
     @Override
     protected int getLayoutId() {
@@ -64,7 +62,6 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         viewModel.instName.setValue(inst_name);
         viewModel.course.setValue(course);
         viewModel.uri.setValue(uri);
-        viewModel.if_star.setValue(star);
         viewModel.checkStar();
 
         Bundle bundle = new Bundle();
