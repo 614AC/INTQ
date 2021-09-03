@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -51,6 +52,17 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         ViewPager viewPager = findViewById(R.id.inst_pager);
         TextView tv = findViewById(R.id.inst_name);
         tv.setText(inst_name);
+
+        viewModel.if_star.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                findViewById(R.id.star_icon).setActivated(aBoolean);
+            }
+        });
+        viewModel.instName.setValue(inst_name);
+        viewModel.course.setValue(course);
+        viewModel.uri.setValue(uri);
+        viewModel.checkStar();
 
         Bundle bundle = new Bundle();
         bundle.putString("inst_name", inst_name);

@@ -5,6 +5,12 @@
     <color name="colorAccent">#D81B60</color>
     <color name="transparentBlack">#96000000</color>
 
+    <color name="colorPrimaryA">#0B89CF</color>
+    <color name="colorPrimaryB">#A7647A</color>
+    <color name="colorPrimaryC">#AACFDD</color>
+    <color name="colorPrimaryD">#B4A9BC</color>
+    <color name="colorPrimaryE">#F4EEEE</color>
+
     <color name="bg_item_normal_state">#fff0f0f0</color>
     <color name="bg_item_dragging_state">#ffffdddd</color>
     <color name="bg_item_dragging_active_state">#ffff9999</color>
