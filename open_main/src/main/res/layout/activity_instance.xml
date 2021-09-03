@@ -29,6 +29,15 @@
                 android:text="实体列表">
 
             </TextView>
+
+            <ImageView
+                android:id="@+id/star_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/item_star_selector"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="320dp"
+                android:onClick="@{() -> vm.starOperation()}"/>
         </FrameLayout>
 
         <com.google.android.material.tabs.TabLayout

@@ -1,11 +1,15 @@
 package com.example.intq.main.request;
 
+import androidx.databinding.ObservableField;
+
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.exercise.ExerciseList;
+import com.example.intq.common.bean.instance.CheckInstanceResult;
 import com.example.intq.common.bean.instance.InstInfoResult;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.LinkInstanceResult;
 import com.example.intq.common.bean.question.SolveResult;
+import com.google.gson.internal.LinkedTreeMap;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -60,5 +64,14 @@ public interface IMainRequest {
      */
     @GET("exercise/search")
     Observable<Result<ExerciseList>> getExercise(@Query("instName") String instName);
+
+    @POST("instance/star")
+    Observable<Result<LinkedTreeMap>> starInstance(@Header("token") String token, @Body RequestBody info);
+
+    @POST("instance/unstar")
+    Observable<Result<LinkedTreeMap>> unstarInstance(@Header("token") String token, @Body RequestBody info);
+
+    @GET("user/checkstar/inst")
+    Observable<Result<CheckInstanceResult>> checkInstanceIfStarred(@Header("token") String token, @Query("instances") String instances);
 
 }
