@@ -44,7 +44,12 @@ public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
                 InstInfo instInfo = instInfoBox.query().equal(InstInfo_.course, queryCourse.getValue()).equal(InstInfo_.uri, queryUri.getValue()).build().findFirst();
                 System.out.println(JSON.toJSONString(data.getInstInfo().getProperty()));
                 if(instInfo == null){
-                    instInfoBox.put(new InstInfo(JSON.toJSONString(data.getInstInfo().getProperty()), JSON.toJSONString(data.getInstInfo().getContent()), queryInstance.getValue(), queryCourse.getValue(), queryUri.getValue()));
+                    instInfoBox.put(new InstInfo(JSON.toJSONString(data.getInstInfo().getProperty()), JSON.toJSONString(data.getInstInfo().getContent()), queryInstance.getValue(), queryCourse.getValue(), queryUri.getValue(), null));
+                }
+                else{
+                    instInfo.setProperty(JSON.toJSONString(data.getInstInfo().getProperty()));
+                    instInfo.setContent(JSON.toJSONString(data.getInstInfo().getContent()));
+                    instInfoBox.put(instInfo);
                 }
             }
 

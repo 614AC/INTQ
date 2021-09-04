@@ -12,13 +12,15 @@ public class InstInfo {
     private String label;
     private String course;
     private String uri;
+    private String exercise;
 
-    public InstInfo(String property, String content, String label, String course, String uri) {
+    public InstInfo(String property, String content, String label, String course, String uri, String exercise) {
         this.property = property;
         this.content = content;
         this.label = label;
         this.course = course;
         this.uri = uri;
+        this.exercise = exercise;
     }
 
     public String getProperty() {
@@ -59,5 +61,13 @@ public class InstInfo {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public String getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(String exercise) {
+        this.exercise = exercise;
     }
 }

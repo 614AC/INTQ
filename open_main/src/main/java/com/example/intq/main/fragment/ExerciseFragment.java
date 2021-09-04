@@ -72,6 +72,9 @@ public class ExerciseFragment extends WDFragment<ExerciseViewModel, FragExercise
         super.onCreate(savedInstanceState);
         System.out.println("frag -> " + getArguments().getString("inst_name"));
         viewModel.instName.setValue(getArguments().getString("inst_name"));
+        viewModel.queryCourse.setValue(getArguments().getString("course"));
+        viewModel.queryUri.setValue(getArguments().getString("uri"));
+
         viewModel.getData();
     }
 
