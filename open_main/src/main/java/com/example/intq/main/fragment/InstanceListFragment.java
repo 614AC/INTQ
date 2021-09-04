@@ -43,6 +43,7 @@ public class InstanceListFragment extends WDFragment<InstanceItemViewModel, Frag
         viewModel.propertyResultMutableLiveData.observe(this, new Observer<List<PropertyNode>>() {
             @Override
             public void onChanged(List<PropertyNode> Instances) {
+                adapter.clear();
                 adapter.addAll(Instances);
                 adapter.notifyDataSetChanged();
             }
