@@ -50,4 +50,10 @@ public class Constant {
     //-----------request_code---------
     public final static int REQ_TAB_CONFIG = 0;
     public final static int REQ_SEARCH_KEYWORD = 0;
+    //-----------request_code---------
+
+    //-----------sina_adk-------------
+    public final static String APP_KY = "3262198445";
+    public final static String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
+    public final static String SCOPE = "";
 }

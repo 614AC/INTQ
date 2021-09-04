@@ -22,6 +22,9 @@ public class UserInfo {
     String email;
     String token;
 
+    String starInst;
+    String historyInst;
+
     int status;//记录本地用户登录状态，用于直接登录和退出,1:登录，0：未登录或退出
 
     public UserInfo(String avatar, String username, String mobile, String email, String token,
@@ -87,5 +90,21 @@ public class UserInfo {
 
     public long getUserId() {
         return userId;
+    }
+
+    public String getStarInst() {
+        return starInst;
+    }
+
+    public void setStarInst(String starInst) {
+        this.starInst = starInst;
+    }
+
+    public String getHistoryInst() {
+        return historyInst;
+    }
+
+    public void setHistoryInst(String historyInst) {
+        this.historyInst = historyInst;
     }
 }

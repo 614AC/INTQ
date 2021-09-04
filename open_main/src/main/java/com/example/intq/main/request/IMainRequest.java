@@ -74,4 +74,6 @@ public interface IMainRequest {
     @GET("user/checkstar/inst")
     Observable<Result<CheckInstanceResult>> checkInstanceIfStarred(@Header("token") String token, @Query("instances") String instances);
 
+    @POST("instance/addhistory")
+    Observable<Result<LinkedTreeMap>> addHistoryInstance(@Header("token") String token, @Body RequestBody body);
 }
