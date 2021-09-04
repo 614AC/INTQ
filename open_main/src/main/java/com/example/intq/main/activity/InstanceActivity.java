@@ -1,5 +1,6 @@
 package com.example.intq.main.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,8 +9,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
@@ -342,6 +346,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
             File file = new File(getExternalFilesDir(null), "share_property.jpg");
             if(!file.getParentFile().exists())
                 file.getParentFile().mkdirs();
+            if(!file.exists())
+                file.createNewFile();
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             Bitmap bitmap = transViewToBitmap(ListFragment.getView().findViewById(R.id.instance_list), getMaxSize(ListFragment.getView().findViewById(R.id.instance_list)));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
@@ -356,6 +362,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     private Uri getPicUri(){
         File file = new File(getExternalFilesDir(null), "share_pic.jpg");
         try{
+            if(!file.getParentFile().exists())
+                file.getParentFile().mkdirs();
             if(!file.exists())
                 file.createNewFile();
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
@@ -371,6 +379,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     private Uri getExerciseUri(){
         File file = new File(getExternalFilesDir(null), "share_exercise.jpg");
         try{
+            if(!file.getParentFile().exists())
+                file.getParentFile().mkdirs();
             if(!file.exists())
                 file.createNewFile();
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
@@ -403,9 +413,9 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         return b;
     }
 
-    public Bitmap transViewToBitmap(View view, int size) {
-        int measuredWidth = view.getWidth();
-        int measuredHeight = View.MeasureSpec.makeMeasureSpec(size, View.MeasureSpec.EXACTLY);
+    public Bitmap transViewToBitmap(View view, Pair<Integer, Integer> size) {
+        int measuredWidth = View.MeasureSpec.makeMeasureSpec(size.first, View.MeasureSpec.EXACTLY);
+        int measuredHeight = View.MeasureSpec.makeMeasureSpec(size.second, View.MeasureSpec.EXACTLY);
         view.measure(measuredWidth, measuredHeight);
         int w = view.getMeasuredWidth();
         int h = view.getMeasuredHeight();
@@ -417,12 +427,17 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         return bmp;
     }
 
-    public static int getMaxSize(View view) {
-        int measuredWidth = View.MeasureSpec.makeMeasureSpec(10000, View.MeasureSpec.AT_MOST);
+    public Pair<Integer, Integer> getMaxSize(View view) {
+        int measuredWidth = View.MeasureSpec.makeMeasureSpec(getScreenWidth(this), View.MeasureSpec.AT_MOST);
         int measuredHeight = View.MeasureSpec.makeMeasureSpec(10000, View.MeasureSpec.AT_MOST);
         view.measure(measuredWidth, measuredHeight);
-        int h = view.getMeasuredHeight();
-        return h;
+        return new Pair<>(view.getMeasuredWidth(), view.getMeasuredHeight());
     }
 
+    public int getScreenWidth(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        return dm.widthPixels;
+    }
 }
