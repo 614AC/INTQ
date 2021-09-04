@@ -65,6 +65,9 @@ public interface IMainRequest {
     @GET("exercise/search")
     Observable<Result<ExerciseList>> getExercise(@Query("instName") String instName);
 
+    @GET("exercise/customized")
+    Observable<Result<ExerciseList>> getCustomized(@Header("token") String token, @Query("limit") Integer limit);
+
     @POST("instance/star")
     Observable<Result<LinkedTreeMap>> starInstance(@Header("token") String token, @Body RequestBody info);
 
