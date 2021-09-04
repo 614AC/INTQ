@@ -23,6 +23,16 @@ public class StarItemViewModel extends WDFragViewModel<IUserRequest> {
     @Override
     protected void create() {
         super.create();
+        updateStar();
+    }
+
+    @Override
+    protected void resume() {
+        super.resume();
+        updateStar();
+    }
+
+    private void updateStar(){
         request(iRequest.getStarredInstList(LOGIN_USER.getToken(), 0, 10), new DataCall<StarInstResult>() {
             @Override
             public void success(StarInstResult data) {
