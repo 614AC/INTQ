@@ -34,13 +34,18 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
                     en.setGroupIcon("exercise");
                     en.setGroupName(ser.getqBody());
                     String ans = ser.getqAnswer();
-                    for (int t = 0; t < 8; t++) {
-                        if (ans.contains(capitalAlphabet[t])) {
-                            ans = capitalAlphabet[t];
-                            break;
-                        }
+                    if (alphabetString.contains(ans.substring(0, 1))) {
+                        en.setAnswer(alphabetString.indexOf(ans.substring(0, 1)));
                     }
-                    en.setAnswer(alphabetString.indexOf(ans));
+                    else {
+                        for (int t = 0; t < 8; t++) {
+                            if (ans.contains(capitalAlphabet[t])) {
+                                ans = capitalAlphabet[t];
+                                break;
+                            }
+                        }
+                        en.setAnswer(alphabetString.indexOf(ans));
+                    }
                     List<ExerciseOption> eops = new ArrayList<>();
 //                    System.out.println(ans);
 //                    System.out.println(en.getAnswer());
