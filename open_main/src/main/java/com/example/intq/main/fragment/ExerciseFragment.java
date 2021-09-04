@@ -2,6 +2,7 @@ package com.example.intq.main.fragment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import com.example.intq.common.bean.exercise.ExerciseNode;
@@ -45,6 +48,8 @@ public class ExerciseFragment extends WDFragment<ExerciseViewModel, FragExercise
     private boolean[] savedCollapse;
 
     private int[] savedIcon;
+
+    public MutableLiveData<String> shareExercise = new MutableLiveData<>();
 
     @Override
     protected ExerciseViewModel initFragViewModel() {
@@ -124,6 +129,27 @@ public class ExerciseFragment extends WDFragment<ExerciseViewModel, FragExercise
                 mExpandableListView.collapseGroup(groupPosition);
                 mExpandableListView.expandGroup(groupPosition);
                 return false;
+            }
+        });
+
+        mExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                long packedPosition = mExpandableListView.getExpandableListPosition(i);
+                int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
+                StringBuffer str = new StringBuffer();
+                str.append(mExpandableModeList.get(groupPosition).getGroupName());
+                List<ExerciseOption> options = mExpandableModeList.get(groupPosition).getChildData();
+                for(int j = 0; j < options.size(); j++){
+                    str.append('\n');
+                    str.append(alphabet[j].toUpperCase(Locale.ROOT));
+                    str.append('.');
+                    str.append(options.get(j).getChildName());
+                }
+                str.append("\n正确答案：");
+                str.append(alphabet[mExpandableModeList.get(groupPosition).getAnswer()].toUpperCase(Locale.ROOT));
+                shareExercise.setValue(str.toString());
+                return true;
             }
         });
 

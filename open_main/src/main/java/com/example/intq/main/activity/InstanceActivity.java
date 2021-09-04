@@ -74,9 +74,15 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     private IWBAPI mWBAPI;
 
     BottomSheetDialog mDialog;
+    BottomSheetDialog mExerciseDialog;
     private boolean isPropertySelected;
     private boolean isPicSelected;
     private boolean isExerciseSelected;
+    private int[] checkbox;
+    private View view;
+    private View view1;
+    private String shareExer;
+    private TextView textView;
 
     @Override
     protected int getLayoutId() {
@@ -152,8 +158,8 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         });
 
         mDialog = new BottomSheetDialog(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.layout_choose_share, null, false);
-        int[] checkbox = {R.id.check_property, R.id.check_pic, R.id.check_exercise};
+        view = LayoutInflater.from(this).inflate(R.layout.layout_choose_share, null, false);
+        checkbox = new int[]{R.id.check_property, R.id.check_pic, R.id.check_exercise};
         for(int id: checkbox){
             CheckBox b = view.findViewById(id);
             b.setOnCheckedChangeListener(this);
@@ -170,6 +176,30 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
             }
         });
         mDialog.setContentView(view);
+
+        mExerciseDialog = new BottomSheetDialog(this);
+        view1 = LayoutInflater.from(this).inflate(R.layout.layout_exercise_share, null, false);
+        textView = (TextView) view1.findViewById(R.id.share_text);
+        view1.findViewById(R.id.check_exercise_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doExerciseShare();
+                mExerciseDialog.hide();
+            }
+        });
+        mExerciseDialog.setContentView(view1);
+
+        ExerciseFragment.shareExercise.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                shareExer = s;
+                if(shareExer.length() > 20)
+                    textView.setText(shareExer.substring(0, 20) + "...");
+                else
+                    textView.setText(shareExer);
+                mExerciseDialog.show();
+            }
+        });
     }
 
     private void initSdk() {
@@ -219,6 +249,7 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     @Override
     protected void onDestroy() {
         mDialog.dismiss();
+        mExerciseDialog.dismiss();
         super.onDestroy();
     }
 
@@ -226,18 +257,25 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
     public void onComplete() {
         UIUtils.showToastSafe("微博分享成功");
         mDialog.dismiss();
+        mExerciseDialog.dismiss();
+        for(int id: checkbox){
+            CheckBox b = view.findViewById(id);
+            b.setChecked(false);
+        }
     }
 
     @Override
     public void onError(UiError error) {
         UIUtils.showToastSafe("微博分享失败");
         mDialog.dismiss();
+        mExerciseDialog.dismiss();
     }
 
     @Override
     public void onCancel() {
         UIUtils.showToastSafe("微博分享取消");
         mDialog.dismiss();
+        mExerciseDialog.dismiss();
     }
 
     @Override
@@ -284,6 +322,17 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         }
         multiImageObject.imageList = list;
         message.multiImageObject = multiImageObject;
+
+        mWBAPI.shareMessage(message, false);
+    }
+
+    private void doExerciseShare(){
+        WeiboMultiMessage message = new WeiboMultiMessage();
+
+        TextObject textObject = new TextObject();
+        String text = "我正在使用知清INTQ分享" + inst_name + "的一道习题~\n" + shareExer;
+        textObject.text = text;
+        message.textObject = textObject;
 
         mWBAPI.shareMessage(message, false);
     }
