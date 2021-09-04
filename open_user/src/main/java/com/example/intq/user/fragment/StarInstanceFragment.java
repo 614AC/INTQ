@@ -5,8 +5,10 @@ import android.os.Bundle;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.intq.common.bean.StarItem;
 import com.example.intq.common.core.WDFragment;
+import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.user.R;
 import com.example.intq.user.adapter.StarItemAdapter;
@@ -33,7 +35,14 @@ public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStar
     @Override
     protected void initView(Bundle savedInstanceState) {
         adapter = new StarItemAdapter();
-
+        adapter.setOnItemClickListener((view, position) -> {
+            StarItem item = adapter.getItem(position);
+            ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
+                    .withString("inst_name", item.getLabel())
+                    .withString("course", item.getCourse())
+                    .withString("uri", item.getUri())
+                    .navigation();
+        });
         binding.starList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.starList.addItemDecoration(new SpacingItemDecoration(30));
         binding.starList.setAdapter(adapter);
