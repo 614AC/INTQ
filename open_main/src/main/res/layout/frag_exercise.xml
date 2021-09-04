@@ -11,7 +11,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context="com.example.intq.main.activity.InstanceActivity">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="长按题目可以直接分享哦~"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorPrimaryB"/>
         <ExpandableListView
             android:id="@+id/act_main_expandable_list_view"
             android:layout_width="match_parent"
