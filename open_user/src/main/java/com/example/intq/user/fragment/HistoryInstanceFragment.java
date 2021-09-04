@@ -5,8 +5,11 @@ import android.os.Bundle;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.intq.common.bean.HistoryItem;
+import com.example.intq.common.bean.StarItem;
 import com.example.intq.common.core.WDFragment;
+import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.user.R;
 import com.example.intq.user.adapter.HistoryItemAdapter;
@@ -32,6 +35,14 @@ public class HistoryInstanceFragment extends WDFragment<HistoryItemViewModel, Fr
     @Override
     protected void initView(Bundle savedInstanceState) {
         adapter = new HistoryItemAdapter();
+        adapter.setOnItemClickListener((view, position) -> {
+            HistoryItem item = adapter.getItem(position);
+            ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
+                    .withString("inst_name", item.getLabel())
+                    .withString("course", item.getCourse())
+                    .withString("uri", item.getUri())
+                    .navigation();
+        });
 
         binding.starList.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.starList.addItemDecoration(new SpacingItemDecoration(30));
@@ -40,10 +51,10 @@ public class HistoryInstanceFragment extends WDFragment<HistoryItemViewModel, Fr
         viewModel.instanceHistoryList.observe(this, new Observer<List<HistoryItem>>() {
             @Override
             public void onChanged(List<HistoryItem> historyItemsItems) {
+                adapter.clear();
                 adapter.addAll(historyItemsItems);
                 adapter.notifyDataSetChanged();
             }
         });
     }
-
 }
