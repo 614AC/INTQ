@@ -14,7 +14,7 @@
         android:background="@android:color/white"
         android:orientation="vertical">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp">
 
@@ -26,7 +26,8 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="#1c0d1a"
-                android:text="实体列表">
+                android:text="实体列表"
+                android:layout_centerInParent="true">
 
             </TextView>
 
@@ -35,10 +36,20 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/item_star_selector"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="320dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="80dp"
                 android:onClick="@{() -> vm.starOperation()}"/>
-        </FrameLayout>
+            <ImageView
+                android:id="@+id/share_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic___share"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="320dp"/>
+        </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/inst_tab"

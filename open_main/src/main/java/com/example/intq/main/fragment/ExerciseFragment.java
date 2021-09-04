@@ -42,6 +42,10 @@ public class ExerciseFragment extends WDFragment<ExerciseViewModel, FragExercise
     /** 可展开的List */
     private ExpandableListView mExpandableListView;
 
+    private boolean[] savedCollapse;
+
+    private int[] savedIcon;
+
     @Override
     protected ExerciseViewModel initFragViewModel() {
         return new ExerciseViewModel();
@@ -127,5 +131,53 @@ public class ExerciseFragment extends WDFragment<ExerciseViewModel, FragExercise
 //        for (int i = 0; i < mExpandableModeList.size(); i++) mExpandableListView.expandGroup(i);
         // 设置默认展开蔬菜组
         // mExpandableListView.expandGroup(1);
+    }
+
+    public void expandAll(){
+        savedCollapse = new boolean[mExpandableModeList.size()];
+        savedIcon = new int[mExpandableModeList.size()];
+
+        for(int i = 0; i < mExpandableModeList.size(); i++){
+            savedCollapse[i] = mExpandableListView.isGroupExpanded(i);
+            mExpandableListView.expandGroup(i);
+
+            int icon = -2; // nothing chosen - turn the right answer to green
+            List<ExerciseOption> childDataBeans = mExpandableModeList.get(i).getChildData();
+            ExerciseNode en = mExpandableModeList.get(i);
+            for (int j = 0; j < childDataBeans.size(); j++) {
+                ExerciseOption option = childDataBeans.get(j);
+                if(option.getChildIcon().contains("_red")){
+                    icon = j; // choose the wrong answer
+                    option.setChildIcon("icon_" + alphabet[j]);
+                    break;
+                }
+                if(option.getChildIcon().contains("_green")){
+                    icon = -1; // choose the right answer
+                }
+            }
+            childDataBeans.get(en.getAnswer()).setChildIcon("icon_" + alphabet[en.getAnswer()] + "_green");
+            savedIcon[i] = icon;
+        }
+    }
+
+    public void reverseExpandAll(){
+        for(int i = 0; i < mExpandableModeList.size(); i++){
+
+            int icon = savedIcon[i]; // nothing chosen or only right answer - turn the right answer to green
+            List<ExerciseOption> childDataBeans = mExpandableModeList.get(i).getChildData();
+            ExerciseNode en = mExpandableModeList.get(i);
+            switch (icon){
+                case -2:
+                    childDataBeans.get(en.getAnswer()).setChildIcon("icon_" + alphabet[en.getAnswer()]);
+                    break;
+                case -1:
+                    break;
+                default:
+                    childDataBeans.get(icon).setChildIcon("icon_" + alphabet[icon] + "_red");
+            }
+
+            if(!savedCollapse[i])
+                mExpandableListView.collapseGroup(i);
+        }
     }
 }
