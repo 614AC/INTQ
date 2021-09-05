@@ -81,4 +81,21 @@
 
     <style name="commonListItemStyle"></style>
 
+
+    <style name="tab_selected_style">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="tab_unselected_style">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="switch_compat" parent="Theme.AppCompat.Light">
+        <!--开启时的颜色-->
+        <item name="colorControlActivated">@color/colorPrimaryB</item>
+        <!--关闭时的颜色-->
+        <!--        <item name="colorSwitchThumbNormal">#383434</item>-->
+        <!--关闭时的轨迹颜色-->
+        <!--        <item name="android:colorForeground">#ecd502</item>-->
+    </style>
 </resources>

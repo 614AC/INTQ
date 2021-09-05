@@ -1,13 +1,17 @@
 package com.example.intq.main.fragment;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.AlphaAnimation;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
@@ -26,6 +30,7 @@ import com.example.intq.common.util.UIUtils;
 import com.example.intq.common.core.WDFragment;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> {
     private HomeTabAdapter mTabAdapter;
@@ -56,16 +61,19 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
             @Override
             public void onTabSelected(Tab tab) {
                 mCurrentIndex = tab.getPosition();
+
+                TextView textView = getTabTextView(mCurrentIndex);
+                textView.setTextAppearance(R.style.tab_selected_style);
             }
 
             @Override
             public void onTabUnselected(Tab tab) {
-
+                TextView textView = getTabTextView(mCurrentIndex);
+                textView.setTextAppearance(R.style.tab_unselected_style);
             }
 
             @Override
             public void onTabReselected(Tab tab) {
-
             }
         });
         //Tab相关设置
@@ -105,33 +113,34 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
         });
     }
 
+    private TextView getTabTextView(int index) {
+        return (TextView) (((LinearLayout) ((LinearLayout)
+                binding.tabItems.getChildAt(0)).getChildAt(index)).getChildAt(1));
+    }
+
     private void expand() {
         //设置伸展状态时的布局
         binding.searchBar.setHint("搜索已光翼展开");
 
         //设置动画
-        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBar.getLayoutParams();
-
+        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBarCard.getLayoutParams();
         searchBarLayoutParams.topMargin = binding.searchTitleBar.getHeight();
         searchBarLayoutParams.width = LayoutParams.MATCH_PARENT;
-        binding.searchBar.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.searchBar, 0, 1000);
-        beginDelayedTransition(binding.tabLayout, 0, 500);
+        binding.searchBarCard.setLayoutParams(searchBarLayoutParams);
+        beginDelayedTransition(binding.fragHome, 0, 500);
         beginDelayedAlphaTransition(binding.searchTitleBar, 0, 1, 500);
     }
 
     private void reduce() {
         // 设置收缩状态时的布局
-        binding.searchBar.setHint("点我搜索");
+        binding.searchBar.setPlaceHolder("开始搜索");
 
         //设置动画
-        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBar.getLayoutParams();
-
+        MarginLayoutParams searchBarLayoutParams = (MarginLayoutParams) binding.searchBarCard.getLayoutParams();
         searchBarLayoutParams.width = UIUtils.getScreenWidth(getActivity()) * 3 / 4;
         searchBarLayoutParams.topMargin = 0;
-        binding.searchBar.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.searchBar, 0, 1000);
-        beginDelayedTransition(binding.tabLayout, 0, 500);
+        binding.searchBarCard.setLayoutParams(searchBarLayoutParams);
+        beginDelayedTransition(binding.fragHome, 0, 500);
         beginDelayedAlphaTransition(binding.searchTitleBar, 1, 0, 500);
     }
 

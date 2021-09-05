@@ -23,20 +23,29 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dip_10">
 
-            <ImageButton
-                android:id="@+id/tab_config_back"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@color/colorPrimary"
-                android:rotation="180"
-                android:src="@drawable/ic_back_animated" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tab_config_back_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <ImageButton
+                    android:id="@+id/tab_config_back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@color/colorPrimaryB"
+                    android:rotation="180"
+                    android:src="@drawable/ic_back_animated" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/dip_10"
-                android:layout_toEndOf="@id/tab_config_back"
+                android:layout_toEndOf="@id/tab_config_back_card"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp">
 
@@ -49,6 +58,7 @@
                     android:paddingRight="5dp"
                     android:text="@string/tab_config_title"
                     android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryA"
                     android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>

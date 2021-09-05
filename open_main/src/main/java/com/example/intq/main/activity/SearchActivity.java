@@ -110,15 +110,11 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             UIUtils.showToastSafe(toastInfo);
         });
         mCurrentCourse.observe(this, (charSequence) ->
-
         {
-            String show = String.format("搜索学科:%s", Course.eng2Chi(charSequence.toString()));
-            binding.searchDisplayHead.setText(show);
+            binding.searchDisplayHeadHint.setText("搜索学科:");
+            binding.searchDisplayHeadCourse.setText(Course.eng2Chi(charSequence.toString()));
         });
-        //加载设置
-        binding.searchLoading.getIndicator().
 
-                setColor(R.color.colorPrimary);
         //搜索栏设置
         mSearchBar = binding.searchBar;
         mSearchBar.setSpeechMode(false);
@@ -268,7 +264,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         MarginLayoutParams mSearchBarLayoutParams = (MarginLayoutParams) mSearchBar.getLayoutParams();
         mSearchBarLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         mSearchBar.setLayoutParams(mSearchBarLayoutParams);
-        beginDelayedTransition(mSearchBar, 0, 500);
+        beginDelayedTransition(binding.searchFrame, 0, 500);
     }
 
     private void reduce() {
@@ -278,7 +274,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         MarginLayoutParams mSearchBarLayoutParams = (MarginLayoutParams) mSearchBar.getLayoutParams();
         mSearchBarLayoutParams.width = UIUtils.getScreenWidth(this) * 3 / 4;
         mSearchBar.setLayoutParams(mSearchBarLayoutParams);
-        beginDelayedTransition(mSearchBar, 0, 500);
+        beginDelayedTransition(binding.searchFrame, 0, 500);
     }
 
     void beginDelayedTransition(ViewGroup view, long startDelay, long duration) {

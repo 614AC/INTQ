@@ -21,10 +21,26 @@
             android:layout_height="match_parent"
             android:layout_marginTop="90dp">
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/search_display_head"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/search_display_head_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/search_display_head_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryB"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_recycler_view"
@@ -44,6 +60,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:visibility="visible"
+                    app:indicatorColor="@color/colorPrimaryD"
                     app:indicatorName="PacmanIndicator" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -54,7 +71,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="16dp"
-                    android:src="@drawable/ic_magnify_black_48dp" />
+                    android:src="@drawable/ic_magnify_black_48dp"
+                    app:backgroundTint="@color/colorPrimaryD" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </RelativeLayout>
 
@@ -68,6 +86,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/search_bar_margin"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="@dimen/search_bar_margin"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="4dp">
 
@@ -76,8 +97,6 @@
                     style="@style/search_bar_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/search_bar_margin"
-                    android:layout_marginEnd="@dimen/search_bar_margin"
                     app:mt_hint="@string/search_hint"
                     app:mt_placeholder="@string/search_placeholder" />
             </androidx.cardview.widget.CardView>
