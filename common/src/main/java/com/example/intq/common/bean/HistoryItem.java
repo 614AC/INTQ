@@ -1,20 +1,23 @@
 package com.example.intq.common.bean;
 
-public class StarItem {
+import java.sql.Timestamp;
+
+public class HistoryItem {
     private int type;
+    private String course;
     private String label;
     private String uri;
-    private String course;
-    private Integer exerciseId;
+    private long vis;
 
-    public StarItem(){}
 
-    public StarItem(int type, String label, String uri, String course, Integer exerciseId) {
+    public HistoryItem(){}
+
+    public HistoryItem(int type, String course, String label, String uri, long vis) {
         this.type = type;
+        this.course = course;
         this.label = label;
         this.uri = uri;
-        this.course = course;
-        this.exerciseId = exerciseId;
+        this.vis = vis;
     }
 
     public int getType() {
@@ -23,6 +26,14 @@ public class StarItem {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getLabel() {
@@ -41,19 +52,11 @@ public class StarItem {
         this.uri = uri;
     }
 
-    public String getCourse() {
-        return course;
+    public long getVis() {
+        return vis;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public Integer getExerciseId() {
-        return exerciseId;
-    }
-
-    public void setExerciseId(Integer exerciseId) {
-        this.exerciseId = exerciseId;
+    public void setVis(long vis) {
+        this.vis = vis;
     }
 }

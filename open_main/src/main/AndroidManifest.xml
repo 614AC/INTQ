@@ -2,15 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.intq.main">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application>
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.TabConfigActivity" />
         <activity android:name=".activity.SetActivity" />
         <activity android:name=".activity.QAActivity" />
-        <activity android:name=".activity.InstanceActivity" />
+        <activity android:name=".activity.InstanceActivity"
+            android:requestLegacyExternalStorage="true"/>
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.LinkActivity"
             android:requestLegacyExternalStorage="true"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.intq.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

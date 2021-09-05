@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.intq.common.bean.instance.CheckInstanceResult;
+import com.example.intq.common.bean.instance.Link;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
@@ -23,6 +24,20 @@ public class InstanceViewModel extends WDViewModel<IMainRequest> {
     public MutableLiveData<String> uri = new MutableLiveData<>();
     public MutableLiveData<Boolean> if_star = new MutableLiveData<>(false);
 
+    public void addHistory(){
+        if(LOGIN_USER != null){
+            RequestBody body = NetworkManager.convertJsonBody(new String[]{"course", "uri"}, new String[]{course.getValue(), uri.getValue()});
+            request(iRequest.addHistoryInstance(LOGIN_USER.getToken(), body), new DataCall<LinkedTreeMap>() {
+                @Override
+                public void success(LinkedTreeMap data) {
+                }
+
+                @Override
+                public void fail(ApiException data) {
+                }
+            });
+        }
+    }
     public void checkStar(){
         if(LOGIN_USER != null){
             JSONObject object = new JSONObject();
@@ -38,7 +53,11 @@ public class InstanceViewModel extends WDViewModel<IMainRequest> {
 
                 @Override
                 public void fail(ApiException data) {
+                    try{
+                        if_star.setValue(LOGIN_USER.getStarInst().contains(uri.getValue()));
+                    }catch (Exception e){
 
+                    }
                 }
             });
         }

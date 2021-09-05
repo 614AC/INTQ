@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="com.example.intq.main.vm.InstanceItemViewModel" />
+            type="com.example.intq.user.vm.HistoryItemViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/instance_list"
+        android:id="@+id/star_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutAnimation="@anim/layout_fall_down" />
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/layout_right_slide" />
 
 </layout>

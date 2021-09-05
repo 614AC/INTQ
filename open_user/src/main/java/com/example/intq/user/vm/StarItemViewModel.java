@@ -2,12 +2,14 @@ package com.example.intq.user.vm;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.alibaba.fastjson.JSON;
 import com.example.intq.common.bean.StarItem;
 import com.example.intq.common.bean.instance.StarInst;
 import com.example.intq.common.bean.instance.StarInstResult;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDFragViewModel;
 import com.example.intq.common.core.exception.ApiException;
+import com.example.intq.common.util.UIUtils;
 import com.example.intq.user.request.IUserRequest;
 
 import java.util.ArrayList;
@@ -21,6 +23,16 @@ public class StarItemViewModel extends WDFragViewModel<IUserRequest> {
     @Override
     protected void create() {
         super.create();
+        updateStar();
+    }
+
+    @Override
+    protected void resume() {
+        super.resume();
+        updateStar();
+    }
+
+    private void updateStar(){
         request(iRequest.getStarredInstList(LOGIN_USER.getToken(), 0, 10), new DataCall<StarInstResult>() {
             @Override
             public void success(StarInstResult data) {
@@ -29,10 +41,19 @@ public class StarItemViewModel extends WDFragViewModel<IUserRequest> {
                     starItems.add(new StarItem(0, inst.getLabel(), inst.getUri(), inst.getCourse(), null));
                 }
                 instanceStarList.setValue(starItems);
+                LOGIN_USER.setStarInst(JSON.toJSONString(starItems));
+                userInfoBox.put(LOGIN_USER);
             }
 
             @Override
             public void fail(ApiException data) {
+                System.out.println(LOGIN_USER.getStarInst());
+                try{
+                    List<StarItem> starItems = JSON.parseArray(LOGIN_USER.getStarInst(), StarItem.class);
+                    instanceStarList.setValue(starItems);
+                }catch (Exception e){
+                    UIUtils.showToastSafe("网络错误，请检查网络设置");
+                }
 
             }
         });
