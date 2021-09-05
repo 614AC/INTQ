@@ -1,6 +1,7 @@
 package com.example.intq.main.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.lifecycle.Observer;
@@ -39,18 +40,18 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        binding.retryBtn.setClickable(false);
         choiceAdapter = new ChoiceAdapter();
         choiceAdapter.setOnItemClickListener((view, position) -> {
-            ExtraExercise extraExercise = viewModel.presentQuestion.getValue();
-            if(extraExercise != null && extraExercise.getChosen() >= 0 && position != extraExercise.getChosen()){
-                extraExercise.getOptions().get(extraExercise.getChosen()).setType(0);
-            }
-            extraExercise.getOptions().get(position).setType(1);
-            viewModel.presentQuestion.setValue(extraExercise);
+            viewModel.choose(position);
         });
         binding.optionsRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.optionsRecycler.addItemDecoration(new SpacingItemDecoration(30));
 
+        binding.progressDown.setText(String.valueOf(limit));
+
+        binding.submitBtn.setVisibility(View.INVISIBLE);
+        binding.progressView.setVisibility(View.INVISIBLE);
         binding.failIcon.setVisibility(View.INVISIBLE);
         binding.questionBody.setVisibility(View.INVISIBLE);
         binding.optionsRecycler.setVisibility(View.INVISIBLE);
@@ -76,6 +77,8 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
                     binding.generateLoading.setVisibility(View.INVISIBLE);
                     binding.questionBody.setVisibility(View.VISIBLE);
                     binding.optionsRecycler.setVisibility(View.VISIBLE);
+                    binding.progressView.setVisibility(View.VISIBLE);
+                    binding.submitBtn.setVisibility(View.VISIBLE);
                     loading = false;
                 }
             }
@@ -100,16 +103,12 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     choiceAdapter.setOnItemClickListener((view, position) -> {
-                        for (ExtraOption option : choiceAdapter.getList()) {
-                            option.setType(0);
-                        }
-                        choiceAdapter.getItem(position).setType(1);
-                        viewModel.presentQuestion.getValue().setOptions(choiceAdapter.getList());
-                        choiceAdapter.notifyDataSetChanged();
+                        viewModel.choose(position);
                     });
                 }
                 else {
                     choiceAdapter.removeOnItemClickListener();
+                    binding.submitBtn.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -121,12 +120,39 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
                     binding.generateIcon.smoothToHide();
                     binding.generateLoading.setText("没有找到匹配套题\n单击此处重试");
                     binding.failIcon.setVisibility(View.VISIBLE);
+                    binding.retryBtn.setClickable(true);
                 }
                 else {
                     binding.generateIcon.smoothToShow();
                     binding.generateLoading.setText("正在为您精选试题");
                     binding.failIcon.setVisibility(View.INVISIBLE);
                 }
+            }
+        });
+
+        viewModel.corrects.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                binding.progressName.setText("正确率");
+                binding.progressCircle.setProgress(0, 300);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.progressCircle.setProgress((int)((integer + 1) * 1.0 / limit * 100), 200);
+                    }
+                }, 300);
+                binding.progressUp.setText(String.valueOf(integer));
+            }
+        });
+
+        viewModel.progress.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if(integer == limit - 1)
+                    binding.progressCircle.setProgress(100, 300);
+                else
+                    binding.progressCircle.setProgress((int)((integer + 1) * 1.0 / limit * 100), 300);
+                binding.progressUp.setText(String.valueOf(integer + 1));
             }
         });
 

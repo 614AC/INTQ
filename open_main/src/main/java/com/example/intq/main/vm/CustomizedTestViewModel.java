@@ -3,6 +3,7 @@ package com.example.intq.main.vm;
 import android.annotation.SuppressLint;
 import android.os.Message;
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.intq.common.bean.ExtraExercise;
@@ -28,6 +29,8 @@ public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
     public MutableLiveData<ExtraExercise> presentQuestion = new MutableLiveData<>();
     private List<ExtraExercise> tests;
     public MutableLiveData<Boolean> fail = new MutableLiveData<>(false);
+    public MutableLiveData<Integer> corrects = new MutableLiveData<>();
+    public MutableLiveData<Integer> progress = new MutableLiveData<>();
 
     @SuppressLint("HandlerLeak")
     private final Handler handler = new Handler() {
@@ -37,6 +40,7 @@ public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
                 case 200:
                     qIndex.setValue(0);
                     presentQuestion.setValue(tests.get(qIndex.getValue()));
+                    progress.setValue(-1);
                     break;
                 default:
                     break;
@@ -82,6 +86,27 @@ public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
         return s.charAt(0) - 'A';
     }
 
+    public void choose(int position){
+        if(!qMode.getValue())
+            return;
+        ExtraExercise extraExercise = presentQuestion.getValue();
+        boolean flag = false;
+        if(extraExercise.getChosen() < 0 && qMode.getValue() && qIndex.getValue() > progress.getValue()){
+            flag = true;
+        }
+        if(extraExercise != null && extraExercise.getChosen() >= 0 && position != extraExercise.getChosen()){
+            extraExercise.getOptions().get(extraExercise.getChosen()).setType(0);
+        }
+        extraExercise.getOptions().get(position).setType(1);
+        presentQuestion.setValue(extraExercise);
+        if(flag){
+            int p = progress.getValue();
+            while (p + 1 < limit.getValue() && tests.get(p + 1).getChosen() >= 0)
+                p++;
+            progress.setValue(p);
+        }
+    }
+
     public void nextOne(){
         tests.set(qIndex.getValue(), presentQuestion.getValue());
         qIndex.setValue(qIndex.getValue() + 1);
@@ -96,6 +121,21 @@ public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
 
     public void submit(){
         qMode.setValue(false);
+        int correctNum = 0;
+        for(int i = 0; i < tests.size(); i++){
+            ExtraExercise extraExercise = tests.get(i);
+            for(ExtraOption option: extraExercise.getOptions()){
+                if(option.getType() == 1)
+                    if(option.getIndex() != extraExercise.getAnswer())
+                        option.setType(3);
+                    else
+                        correctNum++;
+                if(option.getIndex() == extraExercise.getAnswer())
+                    option.setType(2);
+            }
+        }
+        corrects.setValue(correctNum);
+        presentQuestion.setValue(tests.get(qIndex.getValue()));
     }
 
     public void retry(){
