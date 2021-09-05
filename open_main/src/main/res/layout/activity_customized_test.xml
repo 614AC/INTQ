@@ -9,25 +9,44 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/retry_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onClick="@{() -> vm.retry()}">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical">
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/search_loading"
-                style="@style/AVLoadingIndicatorView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:visibility="visible"
-                app:indicatorName="PacmanIndicator" />
-            <TextView
+
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="正在为您精选试题"/>
+                android:layout_gravity="center">
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/generate_icon"
+                    style="@style/AVLoadingIndicatorView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/colorPrimaryA"
+                    android:visibility="visible"
+                    app:indicatorName="PacmanIndicator" />
+                <ImageView
+                    android:id="@+id/fail_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_____fail"/>
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/generate_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="正在为您精选试题" />
         </LinearLayout>
 
         <TextView

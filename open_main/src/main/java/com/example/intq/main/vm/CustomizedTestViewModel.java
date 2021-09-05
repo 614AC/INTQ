@@ -1,5 +1,8 @@
 package com.example.intq.main.vm;
 
+import android.annotation.SuppressLint;
+import android.os.Message;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.intq.common.bean.ExtraExercise;
@@ -14,41 +17,63 @@ import com.example.intq.main.request.IMainRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.os.Handler;
+import java.util.logging.LogRecord;
 
 public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
     public MutableLiveData<Integer> qIndex = new MutableLiveData<>();
     public MutableLiveData<Boolean> qMode = new MutableLiveData<>();
-    public MutableLiveData<Integer> limit = new MutableLiveData<>(5);
+    public MutableLiveData<Integer> limit = new MutableLiveData<>(10);
     public MutableLiveData<String> course = new MutableLiveData<>();
     public MutableLiveData<ExtraExercise> presentQuestion = new MutableLiveData<>();
     private List<ExtraExercise> tests;
+    public MutableLiveData<Boolean> fail = new MutableLiveData<>(false);
 
+    @SuppressLint("HandlerLeak")
+    private final Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message message){
+            switch (message.what){
+                case 200:
+                    qIndex.setValue(0);
+                    presentQuestion.setValue(tests.get(qIndex.getValue()));
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void create() {
         super.create();
         qMode.setValue(true);
+        tests = new ArrayList<>();
     }
 
     public void getCustomizedExercise(){
         request(iRequest.getCustomized(LOGIN_USER.getToken(), limit.getValue(), course.getValue()), new DataCall<ExerciseList>() {
             @Override
             public void success(ExerciseList data) {
-                for(int i = 0; i < data.getQuestionList().size(); i++) {
-                    SingleExerciseResult result = data.getQuestionList().get(i);
-                    List<ExtraOption> options = new ArrayList<>();
-                    for(int j = 0; j < result.getOptions().size(); j++){
-                        options.add(new ExtraOption(j, result.getOptions().get(j), 0));
+                new Thread(() -> {
+                    for(int i = 0; i < data.getQuestionList().size(); i++) {
+                        SingleExerciseResult result = data.getQuestionList().get(i);
+                        List<ExtraOption> options = new ArrayList<>();
+                        for(int j = 0; j < result.getOptions().size(); j++){
+                            options.add(new ExtraOption(j, result.getOptions().get(j), 0));
+                        }
+                        tests.add(new ExtraExercise(stringToInt(result.getqAnswer()), result.getqBody(), options));
                     }
-                    tests.add(new ExtraExercise(stringToInt(result.getqAnswer()), result.getqBody(), options));
-                }
-                qIndex.setValue(0);
-                presentQuestion.setValue(tests.get(qIndex.getValue()));
+                    Message message = new Message();
+                    message.what = 200;
+                    handler.sendMessage(message);
+                }).start();
+
             }
 
             @Override
             public void fail(ApiException data) {
-
+                fail.setValue(true);
             }
         });
     }
@@ -71,5 +96,10 @@ public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
 
     public void submit(){
         qMode.setValue(false);
+    }
+
+    public void retry(){
+        fail.setValue(false);
+        getCustomizedExercise();
     }
 }

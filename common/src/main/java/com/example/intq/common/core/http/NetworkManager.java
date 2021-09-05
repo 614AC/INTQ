@@ -52,7 +52,7 @@ public class NetworkManager {
                 .addInterceptor(interceptor)
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .writeTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
                 .build();
 
         //这个是模仿应用多模块采用不同的域名，域名配置参见config.gradle

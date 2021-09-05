@@ -14,6 +14,8 @@ import com.example.intq.common.core.WDRecyclerAdapter;
 import com.example.intq.main.R;
 import com.example.intq.main.databinding.LayoutItemChildBinding;
 
+import java.util.List;
+
 public class ChoiceAdapter extends WDRecyclerAdapter<ExtraOption> {
     private OnItemClickListener mOnItemClickListener;
 
@@ -90,5 +92,9 @@ public class ChoiceAdapter extends WDRecyclerAdapter<ExtraOption> {
 
     public void removeOnItemClickListener(){
         this.mOnItemClickListener = null;
+    }
+
+    public void update(List<ExtraOption> newOptions){
+        mList = newOptions;
     }
 }
