@@ -21,13 +21,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="根据您最近的学习情况\n智能生成试题\n请选择您需要的试题数"
+                android:text="根据您最近的学习情况\n智能生成试题\n请选择您需要的科目及试题数"
                 android:gravity="center_horizontal"/>
-            <NumberPicker
-                android:id="@+id/limit_picker"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:value="@={vm.limit}"/>
+                android:layout_height="wrap_content">
+                <NumberPicker
+                    android:id="@+id/course_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:value="@={vm.course}"/>
+                <NumberPicker
+                    android:id="@+id/limit_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:value="@={vm.limit}"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <Button

@@ -31,11 +31,11 @@ public class MeHistoryActivity extends WDActivity<MeHistoryViewModel, ActivityMe
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        TabLayout tabLayout = findViewById(R.id.star_tab);
-        ViewPager viewPager = findViewById(R.id.star_pager);
+//        TabLayout tabLayout = findViewById(R.id.star_tab);
+        ViewPager viewPager = findViewById(R.id.history_pager);
 
         instanceFragment = new HistoryInstanceFragment();
-        exerciseFragment = new HistoryExerciseFragment();
+//        exerciseFragment = new HistoryExerciseFragment();
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
@@ -49,7 +49,7 @@ public class MeHistoryActivity extends WDActivity<MeHistoryViewModel, ActivityMe
 
             @Override
             public int getCount() {
-                return 2;
+                return 1;
             }
 
             @Nullable
@@ -59,7 +59,7 @@ public class MeHistoryActivity extends WDActivity<MeHistoryViewModel, ActivityMe
             }
         });
 
-        tabLayout.setupWithViewPager(viewPager, false);
+//        tabLayout.setupWithViewPager(viewPager, false);
     }
 
 }

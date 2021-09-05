@@ -34,7 +34,7 @@
             android:layout_marginTop="@dimen/dip_20"
             android:layout_marginRight="30dp"
             android:onClick="@{()->vm.logout()}"
-            android:background="@android:color/holo_red_light"
+            android:background="@drawable/text_view_round"
             android:text="退出登录"
             android:textColor="@android:color/white" />
 

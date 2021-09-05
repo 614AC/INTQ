@@ -8,10 +8,63 @@
             type="com.example.intq.main.vm.CustomizedTestViewModel" />
     </data>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/search_loading"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:indicatorName="PacmanIndicator" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="正在为您精选试题"/>
+        </LinearLayout>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/question_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="48dp"
+            android:layout_above="@id/options_recycler"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/options_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="48dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="36dp">
+            <TextView
+                android:id="@+id/previous_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上一题"
+                android:layout_alignParentStart="true"
+                android:onClick="@{() -> vm.previousOne()}"/>
+            <TextView
+                android:id="@+id/next_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下一题"
+                android:layout_alignParentEnd="true"
+                android:onClick="@{() -> vm.nextOne()}"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </layout>

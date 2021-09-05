@@ -27,10 +27,10 @@
             </TextView>
         </FrameLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/star_tab"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/star_tab"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"/>-->
 
 
         <androidx.viewpager.widget.ViewPager

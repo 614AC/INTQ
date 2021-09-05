@@ -28,6 +28,7 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
     public MutableLiveData<String> instName = new MutableLiveData<>();
     public MutableLiveData<String> queryCourse = new MutableLiveData<>();
     public MutableLiveData<String> queryUri = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isExerciseReady = new MutableLiveData<>(false);
 
     public static final String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h"};
     public static final String[] capitalAlphabet = {"A", "B", "C", "D", "E", "F", "G", "H"};
@@ -59,6 +60,9 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
                 }
                 exerciseNodes.setValue(ens);
 
+                if(ens.size() > 0)
+                    isExerciseReady.setValue(true);
+
                 InstInfo instInfo = instInfoBox.query().equal(InstInfo_.course, queryCourse.getValue()).equal(InstInfo_.uri, queryUri.getValue()).build().findFirst();
                 if(instInfo == null){
                     instInfoBox.put(new InstInfo(null, null, instName.getValue(), queryCourse.getValue(), queryUri.getValue(), JSON.toJSONString(ens)));
@@ -72,14 +76,18 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
             @Override
             public void fail(ApiException data) {
                 InstInfo instInfo = instInfoBox.query().equal(InstInfo_.course, queryCourse.getValue()).equal(InstInfo_.uri, queryUri.getValue()).build().findFirst();
-                if(instInfo == null)
+                if(instInfo == null) {
                     UIUtils.showToastSafe("网络连接失败，请检查网络连接");
+                    isExerciseReady.setValue(false);
+                }
                 else{
                     try{
                         List<ExerciseNode> exerciseNodes_ = JSON.parseArray(instInfo.getExercise(), ExerciseNode.class);
                         exerciseNodes.setValue(exerciseNodes_);
+                        isExerciseReady.setValue(true);
                     }catch (JSONException e){
                         UIUtils.showToastSafe("网络连接失败，请检查网络连接");
+                        isExerciseReady.setValue(false);
                     }
 
                 }

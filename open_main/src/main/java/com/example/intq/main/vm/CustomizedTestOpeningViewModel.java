@@ -12,6 +12,8 @@ import com.example.intq.main.request.IMainRequest;
 
 public class CustomizedTestOpeningViewModel extends WDViewModel<IMainRequest> {
     public ObservableField<Integer> limit = new ObservableField<>(5);
+    public ObservableField<Integer> course = new ObservableField<>(0);
+    public String[] courses = new String[]{"语文","数学","英语","物理","化学","生物","政治","历史","地理"};
 
     public void leaveOpening(){
         if(LOGIN_USER == null){
@@ -20,6 +22,7 @@ public class CustomizedTestOpeningViewModel extends WDViewModel<IMainRequest> {
         }
         Bundle bundle = new Bundle();
         bundle.putInt("limit", limit.get());
+        bundle.putString("course", courses[course.get()]);
         intentByRouter(Constant.ACTIVITY_CUSTOMIZED, bundle);
     }
 }
