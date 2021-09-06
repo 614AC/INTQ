@@ -41,7 +41,7 @@ public class ChoiceAdapter extends WDRecyclerAdapter<ExtraOption> {
     @Override
     protected void bindView(ViewDataBinding binding, ExtraOption item, int position) {
         LayoutItemChildBinding binding1 = (LayoutItemChildBinding) binding;
-        binding1.itemChildNameTv.setText(item.getChoice());
+        binding1.itemChildNameTv.setText(item.getChoice().substring(2));
         switch (item.getType()) {
             case 0:
                 binding1.itemChildIconIv.setImageResource(choices_common[item.getIndex()]);

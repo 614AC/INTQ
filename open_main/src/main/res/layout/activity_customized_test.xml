@@ -30,7 +30,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:backgroundTint="@color/colorPrimaryA"
+                    app:indicatorColor="@color/colorPrimaryA"
                     android:visibility="visible"
                     app:indicatorName="PacmanIndicator" />
                 <ImageView
@@ -45,7 +45,7 @@
                 android:id="@+id/generate_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:gravity="center_horizontal"
                 android:text="正在为您精选试题" />
         </LinearLayout>
 
@@ -84,7 +84,8 @@
                     <TextView
                         android:id="@+id/progress_up"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -92,37 +93,51 @@
                     <TextView
                         android:id="@+id/progress_down"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"/>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/question_body"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginHorizontal="48dp"
-            android:layout_above="@id/options_recycler"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/options_recycler"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginHorizontal="48dp" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="120dp"
+            android:orientation="vertical"
+            android:layout_below="@+id/progress_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp">
+            <TextView
+                android:id="@+id/question_body"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:scrollbars="vertical"
+                android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/options_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="48dp"
-            android:layout_marginBottom="36dp">
+            android:layout_marginBottom="72dp">
 
             <TextView
                 android:id="@+id/previous_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimaryA"
                 android:onClick="@{() -> vm.previousOne()}"
                 android:text="上一题" />
 
@@ -131,6 +146,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimaryA"
                 android:onClick="@{() -> vm.submit()}"
                 android:text="提交" />
 
@@ -139,6 +156,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimaryA"
                 android:onClick="@{() -> vm.nextOne()}"
                 android:text="下一题" />
         </RelativeLayout>

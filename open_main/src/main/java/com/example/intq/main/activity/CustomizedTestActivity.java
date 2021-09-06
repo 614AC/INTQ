@@ -2,6 +2,8 @@ package com.example.intq.main.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 
 import androidx.lifecycle.Observer;
@@ -50,6 +52,7 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
 
         binding.progressDown.setText(String.valueOf(limit));
 
+        binding.questionBody.setMovementMethod(new ScrollingMovementMethod());
         binding.submitBtn.setVisibility(View.INVISIBLE);
         binding.progressView.setVisibility(View.INVISIBLE);
         binding.failIcon.setVisibility(View.INVISIBLE);
@@ -108,7 +111,7 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
                 }
                 else {
                     choiceAdapter.removeOnItemClickListener();
-                    binding.submitBtn.setVisibility(View.INVISIBLE);
+                    binding.submitBtn.setText("退出");
                 }
             }
         });
@@ -138,7 +141,7 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        binding.progressCircle.setProgress((int)((integer + 1) * 1.0 / limit * 100), 200);
+                        binding.progressCircle.setProgress((int)((integer) * 1.0 / limit * 100), 200);
                     }
                 }, 300);
                 binding.progressUp.setText(String.valueOf(integer));
@@ -156,5 +159,12 @@ public class CustomizedTestActivity extends WDActivity<CustomizedTestViewModel, 
             }
         });
 
+        viewModel.quit.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean)
+                    finish();
+            }
+        });
     }
 }

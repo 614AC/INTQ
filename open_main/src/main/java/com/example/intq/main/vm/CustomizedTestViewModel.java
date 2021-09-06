@@ -31,6 +31,7 @@ public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
     public MutableLiveData<Boolean> fail = new MutableLiveData<>(false);
     public MutableLiveData<Integer> corrects = new MutableLiveData<>();
     public MutableLiveData<Integer> progress = new MutableLiveData<>();
+    public MutableLiveData<Boolean> quit = new MutableLiveData<>();
 
     @SuppressLint("HandlerLeak")
     private final Handler handler = new Handler() {
@@ -120,22 +121,27 @@ public class CustomizedTestViewModel extends WDViewModel<IMainRequest> {
     }
 
     public void submit(){
-        qMode.setValue(false);
-        int correctNum = 0;
-        for(int i = 0; i < tests.size(); i++){
-            ExtraExercise extraExercise = tests.get(i);
-            for(ExtraOption option: extraExercise.getOptions()){
-                if(option.getType() == 1)
-                    if(option.getIndex() != extraExercise.getAnswer())
-                        option.setType(3);
-                    else
-                        correctNum++;
-                if(option.getIndex() == extraExercise.getAnswer())
-                    option.setType(2);
+        if(qMode.getValue()) {
+            qMode.setValue(false);
+            int correctNum = 0;
+            for (int i = 0; i < tests.size(); i++) {
+                ExtraExercise extraExercise = tests.get(i);
+                for (ExtraOption option : extraExercise.getOptions()) {
+                    if (option.getType() == 1)
+                        if (option.getIndex() != extraExercise.getAnswer())
+                            option.setType(3);
+                        else
+                            correctNum++;
+                    if (option.getIndex() == extraExercise.getAnswer())
+                        option.setType(2);
+                }
             }
+            corrects.setValue(correctNum);
+            presentQuestion.setValue(tests.get(qIndex.getValue()));
         }
-        corrects.setValue(correctNum);
-        presentQuestion.setValue(tests.get(qIndex.getValue()));
+        else {
+            quit.setValue(true);
+        }
     }
 
     public void retry(){
