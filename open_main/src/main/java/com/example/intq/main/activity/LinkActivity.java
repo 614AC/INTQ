@@ -3,6 +3,7 @@ package com.example.intq.main.activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -216,5 +217,10 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
         }
 
         startActivityForResult(intent, 3);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

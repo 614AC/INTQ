@@ -17,7 +17,7 @@
         tools:context="com.example.intq.main.activity.InstanceActivity">
 
         <com.example.intq.main.view.CirclePeopleView
-            android:id="@+id/layout_cricle_people"
+            android:id="@+id/layout_circle_people"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

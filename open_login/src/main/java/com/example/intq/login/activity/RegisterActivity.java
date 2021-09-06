@@ -1,9 +1,11 @@
 package com.example.intq.login.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -26,9 +28,11 @@ public class RegisterActivity extends WDActivity<RegisterViewModel, ActivityRegi
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {//密码显示，则隐藏
-                    binding.loginPas.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.regPas.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.regPasEye.setActivated(false);
                 } else {//密码隐藏则显示
-                    binding.loginPas.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.regPas.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.regPasEye.setActivated(true);
                 }
             }
         });
@@ -36,11 +40,18 @@ public class RegisterActivity extends WDActivity<RegisterViewModel, ActivityRegi
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {//密码显示，则隐藏
-                    binding.loginPasRpt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.regPasRpt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.regPasEye2.setActivated(false);
                 } else {//密码隐藏则显示
-                    binding.loginPasRpt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.regPasRpt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.regPasEye2.setActivated(true);
                 }
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }
