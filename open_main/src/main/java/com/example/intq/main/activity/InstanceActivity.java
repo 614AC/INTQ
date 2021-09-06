@@ -25,6 +25,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Observer;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -33,6 +34,7 @@ import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.R;
+import com.example.intq.main.adapter.MyPagerAdapter;
 import com.example.intq.main.databinding.ActivityInstanceBinding;
 import com.example.intq.main.fragment.ExerciseFragment;
 import com.example.intq.main.fragment.InstanceGraphFragment;
@@ -107,6 +109,7 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
                 findViewById(R.id.star_icon).setActivated(aBoolean);
             }
         });
+
         viewModel.instName.setValue(inst_name);
         viewModel.course.setValue(course);
         viewModel.uri.setValue(uri);
@@ -128,12 +131,18 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                if (position == 0)
+                if (position == 0) {
+//                    findViewById(R.id.exer_word).setVisibility(View.INVISIBLE);
                     return ListFragment;
-                else if (position == 1)
+                }
+                else if (position == 1) {
+//                    findViewById(R.id.exer_word).setVisibility(View.INVISIBLE);
                     return GraphFragment;
-                else
+                }
+                else {
+//                    findViewById(R.id.exer_word).setVisibility(View.VISIBLE);
                     return ExerciseFragment;
+                }
             }
 
             @Override
@@ -204,6 +213,34 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
                 mExerciseDialog.show();
             }
         });
+
+        viewPager.addOnPageChangeListener(new MyPagerAdapter() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                TextView t = findViewById(R.id.exer_word);
+                if (position == 0) {
+                    t.setVisibility(View.GONE);
+                }
+                else if (position == 1) {
+                    t.setVisibility(View.GONE);
+                }
+                else {
+                    t.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        ExerciseFragment.getFragViewModel().hasExercise.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (!aBoolean) {
+                    TextView textView = (TextView)findViewById(R.id.exer_word);
+                    textView.setText("没有相关习题...");
+                }
+            }
+        });
+
+
     }
 
     private void initSdk() {
@@ -441,3 +478,5 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         return dm.widthPixels;
     }
 }
+
+

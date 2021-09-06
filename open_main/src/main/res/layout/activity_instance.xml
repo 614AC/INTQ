@@ -47,14 +47,28 @@
                 android:src="@drawable/ic___share"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="40dp"
-                android:layout_marginStart="320dp"/>
+                android:layout_marginEnd="40dp"/>
         </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/inst_tab"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/exer_word"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="长按题目可以直接分享哦~"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorPrimaryB"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
 
 
         <androidx.viewpager.widget.ViewPager
