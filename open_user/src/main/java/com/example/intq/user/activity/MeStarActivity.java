@@ -35,11 +35,11 @@ public class MeStarActivity extends WDActivity<MeStarViewModel, ActivityMeStarBi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        TabLayout tabLayout = findViewById(R.id.star_tab);
+//        TabLayout tabLayout = findViewById(R.id.star_tab);
         ViewPager viewPager = findViewById(R.id.star_pager);
 
         instanceFragment = new StarInstanceFragment();
-        exerciseFragment = new StarExerciseFragment();
+//        exerciseFragment = new StarExerciseFragment();
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
@@ -53,7 +53,7 @@ public class MeStarActivity extends WDActivity<MeStarViewModel, ActivityMeStarBi
 
             @Override
             public int getCount() {
-                return 2;
+                return 1;
             }
 
             @Nullable
@@ -63,6 +63,6 @@ public class MeStarActivity extends WDActivity<MeStarViewModel, ActivityMeStarBi
             }
         });
 
-        tabLayout.setupWithViewPager(viewPager, false);
+//        tabLayout.setupWithViewPager(viewPager, false);
     }
 }

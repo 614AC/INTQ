@@ -16,6 +16,8 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.LinkActivity"
             android:requestLegacyExternalStorage="true"/>
+        <activity android:name=".activity.CustomizedTestActivity" />
+        <activity android:name=".activity.CustomizedTestOpeningActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

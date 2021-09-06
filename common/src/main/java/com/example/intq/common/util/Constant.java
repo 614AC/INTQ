@@ -25,6 +25,8 @@ public class Constant {
     public final static String ACTIVITY_URL_TAB_CONFIG = "/main/TabConfigActivity";
     public final static String ACTIVITY_URL_INSTANCE = "/main/InstanceActivity";
     public final static String ACTIVITY_URL_SEARCH = "/main/SearchActivity";
+    public final static String ACTIVITY_CUSTOMIZED_OPENING = "/main/CustomizedTestOpeningActivity";
+    public final static String ACTIVITY_CUSTOMIZED = "/main/CustomizedTestActivity";
 
 
     //-----------open_main---------

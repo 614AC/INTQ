@@ -167,6 +167,7 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         for(int id: checkbox){
             CheckBox b = view.findViewById(id);
             b.setOnCheckedChangeListener(this);
+            b.setEnabled(false);
         }
         view.findViewById(R.id.check_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +203,24 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
                 else
                     textView.setText(shareExer);
                 mExerciseDialog.show();
+            }
+        });
+
+        ListFragment.getFragViewModel().isPropertyReady.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                CheckBox b = view.findViewById(checkbox[0]);
+                b.setEnabled(aBoolean);
+                CheckBox b1 = view.findViewById(checkbox[1]);
+                b1.setEnabled(aBoolean);
+            }
+        });
+
+        ExerciseFragment.getFragViewModel().isExerciseReady.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                CheckBox b = view.findViewById(checkbox[2]);
+                b.setEnabled(aBoolean);
             }
         });
     }

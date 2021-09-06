@@ -32,6 +32,7 @@ public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
     public MutableLiveData<String> queryInstance = new MutableLiveData<>();
     public MutableLiveData<String> queryCourse = new MutableLiveData<>();
     public MutableLiveData<String> queryUri = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isPropertyReady = new MutableLiveData<>(false);
 //    public MutableLiveData<List<Instance>> EntityGraph = new MutableLiveData<>();
 
     public void getData(){
@@ -40,6 +41,8 @@ public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
             public void success(InstInfoResult data) {
                 propertyResultMutableLiveData.setValue(data.getInstInfo().getProperty());
                 contentResultMutableLiveData.setValue(data.getInstInfo().getContent());
+
+                isPropertyReady.setValue(true);
 
                 InstInfo instInfo = instInfoBox.query().equal(InstInfo_.course, queryCourse.getValue()).equal(InstInfo_.uri, queryUri.getValue()).build().findFirst();
                 System.out.println(JSON.toJSONString(data.getInstInfo().getProperty()));
@@ -56,16 +59,21 @@ public class InstanceItemViewModel extends WDFragViewModel<IMainRequest> {
             @Override
             public void fail(ApiException data) {
                 InstInfo instInfo = instInfoBox.query().equal(InstInfo_.course, queryCourse.getValue()).equal(InstInfo_.uri, queryUri.getValue()).build().findFirst();
-                if(instInfo == null)
+                if(instInfo == null) {
                     UIUtils.showToastSafe("网络连接失败，请检查网络连接");
+                    isPropertyReady.setValue(false);
+                }
                 else{
                     try{
                         List<PropertyNode> propertyNodes = JSON.parseArray(instInfo.getProperty(), PropertyNode.class);
                         List<ContentNode> contentNodes = JSON.parseArray(instInfo.getContent(), ContentNode.class);
                         propertyResultMutableLiveData.setValue(propertyNodes);
                         contentResultMutableLiveData.setValue(contentNodes);
+
+                        isPropertyReady.setValue(false);
                     }catch (JSONException e){
                         UIUtils.showToastSafe("网络连接失败，请检查网络连接");
+                        isPropertyReady.setValue(false);
                     }
 
                 }

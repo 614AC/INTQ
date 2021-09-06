@@ -23,7 +23,7 @@ ext {
     //发布版上线-分支
     release = [
             branch       : "release",
-            applicationId: "com.example.intq",
+            applicationId: "com.java.jiangjianxiao",
             versionCode  : 1,
             versionName  : "1.0",
             appName      : "知清INTQ",
