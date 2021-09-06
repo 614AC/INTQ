@@ -1,6 +1,7 @@
 package com.example.intq.main.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Message;
 
@@ -140,5 +141,10 @@ public class MainActivity extends WDActivity<MainFromViewPagerViewModel, Activit
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQ_TAB_CONFIG)
             homeFragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

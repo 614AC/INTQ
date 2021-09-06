@@ -1,5 +1,6 @@
 package com.example.intq.user.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,4 +63,8 @@ public class MeHistoryActivity extends WDActivity<MeHistoryViewModel, ActivityMe
 //        tabLayout.setupWithViewPager(viewPager, false);
     }
 
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 }

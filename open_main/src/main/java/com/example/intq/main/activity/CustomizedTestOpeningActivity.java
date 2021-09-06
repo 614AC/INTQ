@@ -1,8 +1,11 @@
 package com.example.intq.main.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
+
+import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.intq.common.core.WDActivity;
@@ -38,5 +41,10 @@ public class CustomizedTestOpeningActivity extends WDActivity<CustomizedTestOpen
         binding.coursePicker.setDisplayedValues(courses);
         binding.coursePicker.setValue(0);
         binding.coursePicker.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

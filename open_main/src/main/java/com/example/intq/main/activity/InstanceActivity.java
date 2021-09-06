@@ -2,6 +2,7 @@ package com.example.intq.main.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -458,5 +459,10 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         DisplayMetrics dm = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

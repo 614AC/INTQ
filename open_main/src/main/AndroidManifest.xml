@@ -7,17 +7,25 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.TabConfigActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.TabConfigActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.SetActivity" />
-        <activity android:name=".activity.QAActivity" />
+        <activity android:name=".activity.QAActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.InstanceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:requestLegacyExternalStorage="true"/>
-        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.SearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.LinkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:requestLegacyExternalStorage="true"/>
-        <activity android:name=".activity.CustomizedTestActivity" />
-        <activity android:name=".activity.CustomizedTestOpeningActivity" />
+        <activity android:name=".activity.CustomizedTestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.CustomizedTestOpeningActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
