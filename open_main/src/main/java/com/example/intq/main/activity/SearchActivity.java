@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -39,6 +40,8 @@ import com.example.intq.main.R;
 import com.example.intq.main.adapter.ListInstanceAdapter;
 import com.example.intq.main.databinding.ActivitySearchBinding;
 import com.example.intq.main.vm.SearchViewModel;
+import com.google.android.material.snackbar.Snackbar;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.MaterialSearchBar.OnSearchActionListener;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
@@ -54,6 +57,8 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
     private PopupMenu mCourseMenu;
     private EditText mSearchEdit;
     private MutableLiveData<CharSequence> mCurrentCourse = new MutableLiveData<>();
+    private String mSortField;
+    private String mSortWay;
 
     @Override
     protected int getLayoutId() {
@@ -65,7 +70,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         mAdapter = new ListInstanceAdapter();
         mAdapter.setOnItemClickListener((view, position) -> {
             InstListNode node = mAdapter.getItem(position);
-            if (node.getLabel().equals("空空如也") && node.getUri().equals("") && node.getCategory().equals("搜索"))
+            if (node.getLabel().equals("空空如也") && node.getUri().equals("") && node.getCategory().equals(""))
                 return;
             ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
                     .withString("inst_name", node.getLabel())
@@ -100,7 +105,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             String toastInfo = "";
             mAdapter.clear();
             if (instList == null || instList.getInstList().size() == 0) {
-                mAdapter.add(new InstListNode("空空如也", "搜索", ""));
+                mAdapter.add(new InstListNode("空空如也", "", ""));
                 toastInfo = "没有找到相关实体~\n请检查您的网络链接或更换关键词";
             } else {
                 mAdapter.addAll(instList.getInstList());
@@ -154,7 +159,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         binding.searchButton.setOnClickListener(v ->
         {
             if (mSearchBar.isSearchOpened())
-                search(mSearchBar.getText(), mCurrentCourse.getValue(), false);
+                search(mSearchBar.getText(), mCurrentCourse.getValue());
             else
                 mSearchBar.openSearch();
         });
@@ -177,7 +182,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
 
             @Override
             public void onSearchConfirmed(CharSequence text) {
-                search(text, mCurrentCourse.getValue(), false);
+                search(text, mCurrentCourse.getValue());
             }
 
             @Override
@@ -223,8 +228,24 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                 }
             }
         });
-
-        search(keyword, mCurrentCourse.getValue(), true);
+        //排序方式
+        mSortField = "Start";
+        mSortWay = "Down";
+        binding.sortField.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mSortField = isChecked ? "View" : "Star";
+            UIUtils.showToastSafe(String.format("使用%s进行%s排序",
+                    (mSortField.equals("View") ? "浏览量" : "收藏量"),
+                    (mSortWay.equals("Up") ? "升序" : "降序")));
+            search(mSearchBar.getPlaceHolderText(), mCurrentCourse.getValue());
+        });
+        binding.sortWay.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mSortWay = isChecked ? "Up" : "Down";
+            UIUtils.showToastSafe(String.format("使用%s进行%s排序",
+                    (mSortField.equals("View") ? "浏览量" : "收藏量"),
+                    (mSortWay.equals("Up") ? "升序" : "降序")));
+            search(mSearchBar.getPlaceHolderText(), mCurrentCourse.getValue());
+        });
+        search(keyword, mCurrentCourse.getValue());
     }
 
     /**
@@ -233,14 +254,12 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
      * @param keyword
      * @return
      */
-    public boolean search(@NonNull CharSequence keyword, @NonNull CharSequence course, boolean forceSearch) {
+    public boolean search(@NonNull CharSequence keyword, @NonNull CharSequence course) {
         keyword = keyword.toString().trim();
         if (keyword.length() > 0) {
-            InstSearch query = new InstSearch(0, 100, "name", keyword.toString(), course.toString());
-            if (forceSearch || viewModel.worthSearch(query)) {
-                viewModel.updateInstList(query);
-                viewModel.addLastSearch(query);
-            }
+            InstSearch query = new InstSearch(0, 1000, mSortField + mSortWay, keyword.toString(), course.toString());
+            viewModel.updateInstList(query);
+            viewModel.addLastSearch(query);
             mSearchBar.hideSuggestionsList();
             mSearchBar.closeSearch();
             mSearchBar.setPlaceHolder(keyword);

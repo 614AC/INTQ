@@ -30,7 +30,8 @@
                 android:scaleType="centerCrop"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryA"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:autoSizeTextType="uniform" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

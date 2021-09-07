@@ -26,4 +26,10 @@
     <string name="history">历史</string>
     <string name="geo">地理</string>
     <string name="politics">政治</string>
+
+    <string name="sort_hint">搜索排序:</string>
+    <string name="sort_star">收藏量</string>
+    <string name="sort_view">浏览量</string>
+    <string name="sort_down">降序</string>
+    <string name="sort_up">升序</string>
 </resources>

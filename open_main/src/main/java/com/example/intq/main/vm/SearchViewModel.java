@@ -29,7 +29,7 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
     public MutableLiveData<InstList> instList = new MutableLiveData<>();
     public MutableLiveData<Boolean> searching = new MutableLiveData<>();
     public MutableLiveData<List<InstSearch>> lastSearches = new MutableLiveData<>();
-    public final int MAX_SUGGESTIONS = 10;
+    public final int MAX_SUGGESTIONS = 5;
     private boolean initLastSearches = false;
     private static long searchMillis;
 
@@ -103,7 +103,7 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
             }
         });
     }
-    
+
     private void save() {
         LOGIN_USER.setLastSearches(JSON.toJSONString(lastSearches.getValue()));
         userInfoBox.put(LOGIN_USER);
