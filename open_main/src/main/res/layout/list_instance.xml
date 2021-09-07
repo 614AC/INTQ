@@ -20,17 +20,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colorPrimary">
+            android:layout_height="100dp">
 
             <TextView
                 android:id="@+id/inst_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dip_10"
+                android:layout_marginTop="15dp"
                 android:scaleType="centerCrop"
                 android:textAlignment="center"
-                android:textSize="30sp"
+                android:textColor="@color/colorPrimaryA"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -40,7 +40,9 @@
                 android:layout_below="@id/inst_label"
                 android:scaleType="centerCrop"
                 android:textAlignment="center"
-                android:textSize="12sp" />
+                android:textColor="@color/colorPrimaryB"
+                android:textSize="12sp"
+                app:autoSizeTextType="uniform" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

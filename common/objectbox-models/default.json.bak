@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:1918397186535782234",
-      "lastPropertyId": "15:5232461504620030148",
+      "lastPropertyId": "17:5129369404278211505",
       "name": "UserInfo",
       "properties": [
         {
@@ -53,6 +53,16 @@
         {
           "id": "15:5232461504620030148",
           "name": "historyInst",
+          "type": 9
+        },
+        {
+          "id": "16:4868525611387035558",
+          "name": "homeTabInfo",
+          "type": 9
+        },
+        {
+          "id": "17:5129369404278211505",
+          "name": "lastSearches",
           "type": 9
         }
       ],

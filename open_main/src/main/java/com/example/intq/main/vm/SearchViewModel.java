@@ -2,8 +2,11 @@ package com.example.intq.main.vm;
 
 import android.os.Handler;
 
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.OnLifecycleEvent;
 
+import com.alibaba.fastjson.JSON;
 import com.example.intq.common.bean.Course;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.InstSearch;
@@ -38,7 +41,7 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
     }
 
     public float getSearchSec() {
-        return Objects.requireNonNull(searching.getValue()) ? -1 : searchMillis / 1000.0f;
+        return searchMillis / 1000.0f;
     }
 
     public List<String> getLastKeywords() {
@@ -49,8 +52,10 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
     }
 
     public void loadLastSearches() {
-        List<InstSearch> sampleHis = new ArrayList<>();
-        lastSearches.setValue(sampleHis);
+        List<InstSearch> searchesOnDisk = JSON.parseArray(LOGIN_USER.getLastSearches(), InstSearch.class);
+        if (searchesOnDisk == null)
+            searchesOnDisk = new ArrayList<>();
+        lastSearches.setValue(searchesOnDisk);
         initLastSearches = true;
     }
 
@@ -63,12 +68,14 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
         while (history.size() > MAX_SUGGESTIONS)
             history.remove(history.size() - 1);
         lastSearches.setValue(history);
+        save();
     }
 
     public void deleteLastSearch(int index) {
         List<InstSearch> history = lastSearches.getValue();
         history.remove(index);
         lastSearches.setValue(history);
+        save();
     }
 
     public boolean worthSearch(InstSearch query) {
@@ -78,7 +85,6 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
     public void updateInstList(InstSearch query) {
         searching.setValue(true);
 
-        logger.d("Searching state: " + searching.getValue() + "[starting]");
         searchMillis = System.currentTimeMillis();
         request(iRequest.getInstList(LOGIN_USER.getToken(),
                 query.offset, query.limit, query.sort, query.key, query.course), new DataCall<InstList>() {
@@ -87,8 +93,6 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
                 searching.setValue(false);
                 searchMillis = System.currentTimeMillis() - searchMillis;
                 instList.setValue(data);
-                logger.d("Searching state: " + searching.getValue() + "[success]");
-                logger.d("Searching result: " + instList.getValue());
             }
 
             @Override
@@ -96,10 +100,12 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
                 searching.setValue(false);
                 searchMillis = System.currentTimeMillis() - searchMillis;
                 instList.setValue(null);
-                logger.d("Searching state: " + searching.getValue() + "[failed]");
-                logger.d("Error code:" + data.getCode());
-                logger.d("Error msg:" + data.getMessage());
             }
         });
+    }
+
+    private void save() {
+        LOGIN_USER.setLastSearches(JSON.toJSONString(lastSearches.getValue()));
+        userInfoBox.put(LOGIN_USER);
     }
 }

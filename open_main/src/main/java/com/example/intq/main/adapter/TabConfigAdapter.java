@@ -45,16 +45,16 @@ public class TabConfigAdapter
     private static final String TAG = "TabDraggableItemAdapter";
     private int mItemMoveMode = RecyclerViewDragDropManager.ITEM_MOVE_MODE_DEFAULT;
     private String[] itemColors = {
+            "#0B89CF",
+            "#A7647A",
+            "#AACFDD",
+            "#B4A9BC",
+            "#F4EEEE",
             "#227BDA",
             "#00979f",
             "#0f7e79",
             "#cbd1e6",
             "#aacb92",
-            "#839bb2",
-            "#d2efdc",
-            "#e7aba9",
-            "#c1381c",
-            "#555868",
     };
     private AbstractDataProvider mProvider;
 
