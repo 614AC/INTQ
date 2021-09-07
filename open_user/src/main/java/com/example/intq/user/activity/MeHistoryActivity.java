@@ -14,16 +14,14 @@ import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.user.R;
 import com.example.intq.user.databinding.ActivityMeHistoryBinding;
-import com.example.intq.user.fragment.HistoryExerciseFragment;
 import com.example.intq.user.fragment.HistoryInstanceFragment;
 import com.example.intq.user.vm.MeHistoryViewModel;
-import com.google.android.material.tabs.TabLayout;
 
 @Route(path = Constant.ACTIVITY_URL_ME_HISTORY)
 public class MeHistoryActivity extends WDActivity<MeHistoryViewModel, ActivityMeHistoryBinding> {
     private final String[] titles = {"实体历史", "习题历史"};
     private HistoryInstanceFragment instanceFragment;
-    private HistoryExerciseFragment exerciseFragment;
+//    private HistoryExerciseFragment exerciseFragment;
 
     @Override
     protected int getLayoutId() {
@@ -42,10 +40,10 @@ public class MeHistoryActivity extends WDActivity<MeHistoryViewModel, ActivityMe
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                if(position == 0)
+//                if(position == 0)
                     return instanceFragment;
-                else
-                    return exerciseFragment;
+//                else
+//                    return exerciseFragment;
             }
 
             @Override
