@@ -1,5 +1,6 @@
 package com.example.intq.user.vm;
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
 import com.alibaba.fastjson.JSON;
@@ -21,6 +22,7 @@ public class HistoryItemViewModel extends WDFragViewModel<IUserRequest> {
     public MutableLiveData<List<HistoryItem>> exerciseHistoryList = new MutableLiveData<>();
     private int offset = 0;
     private final int limit = 20;
+    public ObservableField<Boolean> fromResume = new ObservableField<>(false);
     public MutableLiveData<Integer> lastVisit = new MutableLiveData<>();
     public MutableLiveData<Boolean> fail = new MutableLiveData<>();
     public MutableLiveData<Boolean> firstLoading = new MutableLiveData<>(true);
@@ -28,25 +30,30 @@ public class HistoryItemViewModel extends WDFragViewModel<IUserRequest> {
     @Override
     protected void create() {
         super.create();
-        updateHistory();
+        loadMore();
 
     }
 
     @Override
     protected void resume() {
         super.resume();
-        updateHistory();
+        fromResume.set(true);
+        updateHistory(0, offset);
     }
 
-    public void updateHistory(){
+    public void loadMore(){
+        updateHistory(offset, limit);
+    }
+
+    public void updateHistory(int _offset, int _limit){
         if(!loading) {
             loading = true;
             fail.setValue(false);
-            request(iRequest.getHistoryInstList(LOGIN_USER.getToken(), offset, limit), new DataCall<HistoryInstResult>() {
+            request(iRequest.getHistoryInstList(LOGIN_USER.getToken(), _offset, _limit), new DataCall<HistoryInstResult>() {
                 @Override
                 public void success(HistoryInstResult data) {
                     List<HistoryItem> historyItems = instanceHistoryList.getValue();
-                    if(historyItems == null)
+                    if(historyItems == null || fromResume.get())
                         historyItems = new ArrayList<>();
                     if(data.getInstList() == null || data.getInstList().size() < limit)
                         fail.setValue(true);
@@ -72,14 +79,14 @@ public class HistoryItemViewModel extends WDFragViewModel<IUserRequest> {
                         List<HistoryItem> historyItems = instanceHistoryList.getValue();
                         if(historyItems == null)
                             historyItems = new ArrayList<>();
-                        int end = offset + limit;
+                        int end = _offset + _limit;
                         if(end > historyItems1.size()){
                             end = historyItems1.size();
                             fail.setValue(true);
                         }
                         else
                             fail.setValue(false);
-                        historyItems.addAll(historyItems1.subList(offset, end));
+                        historyItems.addAll(historyItems1.subList(_offset, end));
                         instanceHistoryList.setValue(historyItems);
                         offset = historyItems.size();
                     } catch (Exception e) {

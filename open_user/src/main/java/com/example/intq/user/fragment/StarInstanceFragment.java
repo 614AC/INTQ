@@ -22,6 +22,7 @@ import java.util.List;
 public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStarItemBinding> {
 
     private StarItemAdapter adapter;
+    private int lastVis;
 
 
     @Override
@@ -58,8 +59,10 @@ public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStar
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == linearLayoutManager.getItemCount() - 1){
-                    viewModel.updateStar();
+                if(linearLayoutManager != null){
+                    lastVis = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+                    if(lastVis == linearLayoutManager.getItemCount() - 1)
+                        viewModel.loadMore();
                 }
             }
         });
@@ -71,6 +74,12 @@ public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStar
                 adapter.addAll(starItems);
                 adapter.add(new StarItem());
                 adapter.notifyDataSetChanged();
+                if(viewModel.fromResume.get()){
+                    if(lastVis >= adapter.getItemCount() - 1)
+                        lastVis = adapter.getItemCount() - 1;
+                    binding.starList.scrollToPosition(lastVis);
+                    viewModel.fromResume.set(false);
+                }
             }
         });
 

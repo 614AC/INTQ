@@ -22,7 +22,7 @@ import java.util.List;
 
 public class HistoryInstanceFragment extends WDFragment<HistoryItemViewModel, FragHistoryItemBinding> {
     private HistoryItemAdapter adapter;
-
+    private int lastVis;
 
     @Override
     protected HistoryItemViewModel initFragViewModel() {
@@ -61,8 +61,10 @@ public class HistoryInstanceFragment extends WDFragment<HistoryItemViewModel, Fr
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == linearLayoutManager.getItemCount() - 1){
-                    viewModel.updateHistory();
+                if(linearLayoutManager != null){
+                    lastVis = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+                    if(lastVis == linearLayoutManager.getItemCount() - 1)
+                        viewModel.loadMore();
                 }
             }
         });
@@ -74,6 +76,13 @@ public class HistoryInstanceFragment extends WDFragment<HistoryItemViewModel, Fr
                 adapter.addAll(historyItems);
                 adapter.add(new HistoryItem());
                 adapter.notifyDataSetChanged();
+
+                if(viewModel.fromResume.get()){
+                    if(lastVis >= adapter.getItemCount() - 1)
+                        lastVis = adapter.getItemCount() - 1;
+                    binding.historyList.scrollToPosition(lastVis);
+                    viewModel.fromResume.set(false);
+                }
             }
         });
 
