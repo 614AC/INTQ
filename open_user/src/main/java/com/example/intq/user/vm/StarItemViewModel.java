@@ -19,6 +19,12 @@ public class StarItemViewModel extends WDFragViewModel<IUserRequest> {
 
     public MutableLiveData<List<StarItem>> instanceStarList = new MutableLiveData<>();
     public MutableLiveData<List<StarItem>> exerciseStarList = new MutableLiveData<>();
+    private int offset = 0;
+    private final int limit = 20;
+    public MutableLiveData<Integer> lastVisit = new MutableLiveData<>();
+    public MutableLiveData<Boolean> fail = new MutableLiveData<>();
+    public MutableLiveData<Boolean> firstLoading = new MutableLiveData<>(true);
+    private boolean loading = false;
 
     @Override
     protected void create() {
@@ -32,30 +38,59 @@ public class StarItemViewModel extends WDFragViewModel<IUserRequest> {
         updateStar();
     }
 
-    private void updateStar(){
-        request(iRequest.getStarredInstList(LOGIN_USER.getToken(), 0, 10), new DataCall<StarInstResult>() {
-            @Override
-            public void success(StarInstResult data) {
-                List<StarItem> starItems = new ArrayList<>();
-                for(StarInst inst: data.getInstList()){
-                    starItems.add(new StarItem(0, inst.getLabel(), inst.getUri(), inst.getCourse(), null));
-                }
-                instanceStarList.setValue(starItems);
-                LOGIN_USER.setStarInst(JSON.toJSONString(starItems));
-                userInfoBox.put(LOGIN_USER);
-            }
-
-            @Override
-            public void fail(ApiException data) {
-                System.out.println(LOGIN_USER.getStarInst());
-                try{
-                    List<StarItem> starItems = JSON.parseArray(LOGIN_USER.getStarInst(), StarItem.class);
+    public void updateStar(){
+        if(!loading){
+            loading = true;
+            request(iRequest.getStarredInstList(LOGIN_USER.getToken(), offset, limit), new DataCall<StarInstResult>() {
+                @Override
+                public void success(StarInstResult data) {
+                    List<StarItem> starItems = instanceStarList.getValue();
+                    if(starItems == null)
+                        starItems = new ArrayList<>();
+                    if(data.getInstList() == null || data.getInstList().size() < limit)
+                        fail.setValue(true);
+                    else
+                        fail.setValue(false);
+                    for(StarInst inst: data.getInstList()){
+                        starItems.add(new StarItem(0, inst.getLabel(), inst.getUri(), inst.getCourse(), null));
+                    }
                     instanceStarList.setValue(starItems);
-                }catch (Exception e){
-                    UIUtils.showToastSafe("网络错误，请检查网络设置");
+                    LOGIN_USER.setStarInst(JSON.toJSONString(starItems));
+                    userInfoBox.put(LOGIN_USER);
+                    offset = starItems.size();
+                    loading = false;
+                    if(firstLoading.getValue())
+                        firstLoading.setValue(false);
                 }
 
-            }
-        });
+                @Override
+                public void fail(ApiException data) {
+                    System.out.println(LOGIN_USER.getStarInst());
+                    try{
+                        List<StarItem> starItems = JSON.parseArray(LOGIN_USER.getStarInst(), StarItem.class);
+                        List<StarItem> starItems1 = instanceStarList.getValue();
+                        if(starItems1 == null)
+                            starItems1 = new ArrayList<>();
+                        int end = offset + limit;
+                        if(end > starItems.size()) {
+                            end = starItems.size();
+                            fail.setValue(true);
+                        }
+                        else
+                            fail.setValue(false);
+                        starItems1.addAll(starItems.subList(offset, end));
+                        instanceStarList.setValue(starItems1);
+                        offset = starItems1.size();
+                    }catch (Exception e){
+                        UIUtils.showToastSafe("网络错误，请检查网络设置");
+                        fail.setValue(true);
+                    }
+                    loading = false;
+                    if(firstLoading.getValue())
+                        firstLoading.setValue(false);
+                }
+            });
+        }
+
     }
 }

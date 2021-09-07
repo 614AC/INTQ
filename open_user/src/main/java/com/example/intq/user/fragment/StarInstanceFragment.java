@@ -2,8 +2,10 @@ package com.example.intq.user.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.intq.common.bean.StarItem;
@@ -47,13 +49,50 @@ public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStar
         binding.starList.addItemDecoration(new SpacingItemDecoration(30));
         binding.starList.setAdapter(adapter);
 
+        binding.starList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if(linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition() == linearLayoutManager.getItemCount() - 1){
+                    viewModel.updateStar();
+                }
+            }
+        });
+
         viewModel.instanceStarList.observe(this, new Observer<List<StarItem>>() {
             @Override
             public void onChanged(List<StarItem> starItems) {
                 adapter.clear();
                 adapter.addAll(starItems);
+                adapter.add(new StarItem());
                 adapter.notifyDataSetChanged();
             }
         });
+
+        viewModel.fail.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    adapter.setFooterFail();
+                }
+                else {
+                    adapter.setFooterLoading();
+                }
+            }
+        });
+
+        viewModel.firstLoading.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(!aBoolean)
+                    binding.starLoading.smoothToHide();
+            }
+        });
     }
+
 }

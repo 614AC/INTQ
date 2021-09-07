@@ -14,20 +14,15 @@ import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.user.R;
 import com.example.intq.user.databinding.ActivityMeStarBinding;
-import com.example.intq.user.fragment.StarExerciseFragment;
 import com.example.intq.user.fragment.StarInstanceFragment;
 import com.example.intq.user.vm.MeStarViewModel;
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Route(path = Constant.ACTIVITY_URL_ME_STAR)
 public class MeStarActivity extends WDActivity<MeStarViewModel, ActivityMeStarBinding> {
 
     private final String[] titles = {"实体收藏", "习题收藏"};
     private StarInstanceFragment instanceFragment;
-    private StarExerciseFragment exerciseFragment;
+//    private StarExerciseFragment exerciseFragment;
 
     @Override
     protected int getLayoutId() {
@@ -46,10 +41,10 @@ public class MeStarActivity extends WDActivity<MeStarViewModel, ActivityMeStarBi
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                if(position == 0)
+//                if(position == 0)
                     return instanceFragment;
-                else
-                    return exerciseFragment;
+//                else
+//                    return exerciseFragment;
             }
 
             @Override
