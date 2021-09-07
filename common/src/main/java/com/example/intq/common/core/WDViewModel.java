@@ -56,10 +56,10 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     //Fragment数据共享，参考https://developer.android.google.cn/topic/libraries/architecture/viewmodel#sharing
     public MutableLiveData<Message> fragDataShare = new MutableLiveData<>();
 
-    protected Box<UserInfo> userInfoBox;
+    protected static Box<UserInfo> userInfoBox;
     protected static UserInfo LOGIN_USER;
 
-    protected Box<InstInfo> instInfoBox;
+    protected static Box<InstInfo> instInfoBox;
 
     protected R iRequest;
 
@@ -84,12 +84,14 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     protected void create() {
         logger.i("Activity-VM create");
-        userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
+        if (userInfoBox == null)
+            userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
         if (LOGIN_USER == null)
             LOGIN_USER = userInfoBox.query()
                     .equal(UserInfo_.status, 1)
                     .build().findUnique();
-        instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
+        if (instInfoBox == null)
+            instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -100,8 +102,6 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     protected void resume() {
         logger.i("Activity-VM resume");
-        userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
-        instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

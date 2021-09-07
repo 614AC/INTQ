@@ -33,6 +33,8 @@ public class UserInfo {
     //首页相关记录
     String homeTabInfo;
 
+    String lastSearches;
+
     int status;//记录本地用户登录状态，用于直接登录和退出,1:登录，0：未登录或退出
 
     public UserInfo(String avatar, String username, String mobile, String email, String token,
@@ -122,5 +124,13 @@ public class UserInfo {
 
     public void setHomeTabInfo(String homeTabInfo) {
         this.homeTabInfo = homeTabInfo;
+    }
+
+    public String getLastSearches() {
+        return lastSearches;
+    }
+
+    public void setLastSearches(String lastSearches) {
+        this.lastSearches = lastSearches;
     }
 }

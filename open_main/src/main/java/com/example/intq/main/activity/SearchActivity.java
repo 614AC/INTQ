@@ -65,6 +65,8 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         mAdapter = new ListInstanceAdapter();
         mAdapter.setOnItemClickListener((view, position) -> {
             InstListNode node = mAdapter.getItem(position);
+            if (node.getLabel().equals("空空如也") && node.getUri().equals("") && node.getCategory().equals("搜索"))
+                return;
             ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
                     .withString("inst_name", node.getLabel())
                     .withString("course", mCurrentCourse.getValue().toString())
@@ -94,13 +96,12 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             }
         });
         viewModel.instList.observe(this, instList ->
-
         {
             String toastInfo = "";
             mAdapter.clear();
             if (instList == null || instList.getInstList().size() == 0) {
                 mAdapter.add(new InstListNode("空空如也", "搜索", ""));
-                toastInfo = "没有找到相关实体~";
+                toastInfo = "没有找到相关实体~\n请检查您的网络链接或更换关键词";
             } else {
                 mAdapter.addAll(instList.getInstList());
                 toastInfo = String.format("搜索到%d个相关实体,耗时%.2fs",
@@ -123,11 +124,8 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         //restore last queries from disk
         viewModel.loadLastSearches();
         //setup menu and OnMenuItemClickListener
-        mCourseMenu = new
-
-                PopupMenu(this, findViewById(R.id.mt_nav));
+        mCourseMenu = new PopupMenu(this, findViewById(R.id.mt_nav));
         mCourseMenu.setOnMenuItemClickListener(item ->
-
         {
             CharSequence title = item.getTitle();
             mCurrentCourse.setValue(Course.chi2Eng(title.toString()));
@@ -154,7 +152,6 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         });
 
         binding.searchButton.setOnClickListener(v ->
-
         {
             if (mSearchBar.isSearchOpened())
                 search(mSearchBar.getText(), mCurrentCourse.getValue(), false);
@@ -167,9 +164,14 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         OnSearchActionListener searchActionListener = new OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
-                if (enabled)
+                if (enabled) {
                     expand();
-                else
+                    new Handler().postDelayed(() -> {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(mSearchEdit, InputMethodManager.SHOW_IMPLICIT);
+                    }, 10);
+                    loadSearchToBar(viewModel.getLastKeywords().get(0), false);
+                } else
                     reduce();
             }
 
@@ -200,7 +202,6 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         mSearchEdit = mSearchBar.getSearchEditText();
         mSearchEdit.setSelection(keyword.length());
         mSearchEdit.setOnEditorActionListener((v, actionId, event) ->
-
         {
             searchActionListener.onSearchConfirmed(mSearchEdit.getText());
             return true;
@@ -209,17 +210,8 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             @Override
             public void OnItemClickListener(int position, View v) {
                 if (v.getTag() instanceof String) {
-                    String[] courseWithKeyword = ((String) v.getTag()).split("]");
-                    String course = Course.chi2Eng(courseWithKeyword[0].substring(1));
-                    String keyword = courseWithKeyword[1].trim();
-                    mCurrentCourse.setValue(course);
-                    new Handler().postDelayed(() -> {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(mSearchEdit, InputMethodManager.SHOW_IMPLICIT);
-                    }, 10);
-                    mSearchEdit.requestFocus();
-                    mSearchEdit.setText(keyword);
-                    mSearchEdit.setSelection(keyword.length());
+                    loadSearchToBar((String) v.getTag(), true);
+                    searchActionListener.onSearchConfirmed(mSearchEdit.getText());
                 }
             }
 
@@ -316,4 +308,14 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         return super.onOptionsItemSelected(item);
     }
 
+    private void loadSearchToBar(String search, boolean loadCourse) {
+        String[] courseWithKeyword = search.split("]");
+        String course = Course.chi2Eng(courseWithKeyword[0].substring(1));
+        String keyword = courseWithKeyword[1].trim();
+        if (loadCourse)
+            mCurrentCourse.setValue(course);
+        mSearchEdit.requestFocus();
+        mSearchEdit.setText(keyword);
+        mSearchEdit.setSelection(keyword.length());
+    }
 }
