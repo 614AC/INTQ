@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.example.intq.common.bean.Course;
+import com.example.intq.common.bean.instance.HomeTabInfo;
 import com.example.intq.common.util.Constant;
 import com.example.intq.main.databinding.FragHomeBinding;
 import com.example.intq.main.vm.HomeTabViewModel;
@@ -29,6 +30,9 @@ import com.example.intq.main.R;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.common.core.WDFragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -50,11 +54,11 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
     protected void initView(Bundle bundle) {
         //Adapter
         mTabAdapter = new HomeTabAdapter(getChildFragmentManager());
-        viewModel.courseList.observe(this, new Observer<List<Course>>() {
+        viewModel.homeTabInfo.observe(this, new Observer<HomeTabInfo>() {
             @Override
-            public void onChanged(List<Course> courses) {
-                mTabAdapter.setList(courses);
-                binding.tabItems.selectTab(binding.tabItems.getTabAt(0));
+            public void onChanged(HomeTabInfo homeTabInfo) {
+                mTabAdapter.setHomeTabInfo(homeTabInfo);
+                binding.tabItems.selectTab(binding.tabItems.getTabAt(mCurrentIndex >= homeTabInfo.getCourseList().size() ? 0 : mCurrentIndex));
             }
         });
         binding.tabItems.addOnTabSelectedListener(new OnTabSelectedListener() {
@@ -82,7 +86,7 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
         //Tab编辑导航
         binding.tabConfig.setOnClickListener(v -> {
             Bundle bundle1 = new Bundle();
-            bundle1.putIntArray("courseIndices", Course.course2Integer(getFragViewModel().courseList.getValue()));
+            bundle1.putIntArray("courseIndices", viewModel.getCourseList().stream().mapToInt(Integer::valueOf).toArray());
             intentForResultByRouter(Constant.ACTIVITY_URL_TAB_CONFIG, bundle1, Constant.REQ_TAB_CONFIG);
         });
         //搜索栏设置
@@ -127,8 +131,8 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
         searchBarLayoutParams.topMargin = binding.searchTitleBar.getHeight();
         searchBarLayoutParams.width = LayoutParams.MATCH_PARENT;
         binding.searchBarCard.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.fragHome, 0, 500);
-        beginDelayedAlphaTransition(binding.searchTitleBar, 0, 1, 500);
+        beginDelayedTransition(binding.fragHome, 0, 300);
+        beginDelayedAlphaTransition(binding.searchTitleBar, 0, 1, 300);
     }
 
     private void reduce() {
@@ -140,8 +144,8 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
         searchBarLayoutParams.width = UIUtils.getScreenWidth(getActivity()) * 3 / 4;
         searchBarLayoutParams.topMargin = 0;
         binding.searchBarCard.setLayoutParams(searchBarLayoutParams);
-        beginDelayedTransition(binding.fragHome, 0, 500);
-        beginDelayedAlphaTransition(binding.searchTitleBar, 1, 0, 500);
+        beginDelayedTransition(binding.fragHome, 0, 300);
+        beginDelayedAlphaTransition(binding.searchTitleBar, 1, 0, 300);
     }
 
     void beginDelayedTransition(ViewGroup view, long startDelay, long duration) {
@@ -162,7 +166,11 @@ public class HomeFragment extends WDFragment<HomeTabViewModel, FragHomeBinding> 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == Constant.REQ_TAB_CONFIG) {
-            getFragViewModel().courseList.setValue(Course.integer2Course(data.getIntArrayExtra("courseIndices")));
+            List<Integer> courseList = new ArrayList<>();
+            int[] courseIndices = data.getIntArrayExtra("courseIndices");
+            for (int id : courseIndices)
+                courseList.add(id);
+            viewModel.updateCourseList(courseList);
         }
     }
 }

@@ -264,7 +264,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         MarginLayoutParams mSearchBarLayoutParams = (MarginLayoutParams) mSearchBar.getLayoutParams();
         mSearchBarLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         mSearchBar.setLayoutParams(mSearchBarLayoutParams);
-        beginDelayedTransition(binding.searchFrame, 0, 500);
+        beginDelayedTransition(binding.searchFrame, 0, 300);
     }
 
     private void reduce() {
@@ -274,7 +274,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         MarginLayoutParams mSearchBarLayoutParams = (MarginLayoutParams) mSearchBar.getLayoutParams();
         mSearchBarLayoutParams.width = UIUtils.getScreenWidth(this) * 3 / 4;
         mSearchBar.setLayoutParams(mSearchBarLayoutParams);
-        beginDelayedTransition(binding.searchFrame, 0, 500);
+        beginDelayedTransition(binding.searchFrame, 0, 300);
     }
 
     void beginDelayedTransition(ViewGroup view, long startDelay, long duration) {

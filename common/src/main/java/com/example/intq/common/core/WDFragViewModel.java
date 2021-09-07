@@ -56,7 +56,7 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
     public MutableLiveData<Message> fragDataShare;
 
     protected Box<UserInfo> userInfoBox;
-    protected UserInfo LOGIN_USER;
+    protected static UserInfo LOGIN_USER;
 
     protected Box<InstInfo> instInfoBox;
 
@@ -81,9 +81,10 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
     protected void create() {
         logger.i("Frag-VM create");
         userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
-        LOGIN_USER = userInfoBox.query()
-                .equal(UserInfo_.status, 1)
-                .build().findUnique();
+        if (LOGIN_USER == null)
+            LOGIN_USER = userInfoBox.query()
+                    .equal(UserInfo_.status, 1)
+                    .build().findUnique();
         instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 
@@ -96,9 +97,6 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
     protected void resume() {
         logger.i("Frag-VM resume");
         userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
-        LOGIN_USER = userInfoBox.query()
-                .equal(UserInfo_.status, 1)
-                .build().findUnique();
         instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 

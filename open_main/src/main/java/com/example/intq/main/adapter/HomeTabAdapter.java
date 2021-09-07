@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.intq.common.bean.Course;
+import com.example.intq.common.bean.instance.HomeTabInfo;
+import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.main.fragment.HomeTabFragment;
 
 import java.util.ArrayList;
@@ -16,28 +18,22 @@ import java.util.List;
 
 public class HomeTabAdapter extends FragmentStatePagerAdapter {
     public List<HomeTabFragment> mFragments = new ArrayList<>();
-    public List<Course> mCourseList = new ArrayList<>();
-
-    private void add(int cId) {
-        cId = Course.clamp(cId);
-        mCourseList.add((new Course(cId)));
-        HomeTabFragment fragment = new HomeTabFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("courseIndex", cId);
-        fragment.setArguments(bundle);
-        mFragments.add(fragment);
-    }
+    public HomeTabInfo mHomeTabInfo;
 
     public HomeTabAdapter(FragmentManager fm) {
         super(fm);
         for (int i = 0; i < Course.getCourseNumber(); ++i)
-            add(i);
+            mFragments.add(new HomeTabFragment());
     }
 
-    public void setList(List<Course> data) {
-        for (int i = 0; i < data.size(); ++i)
-            mFragments.get(i).setCourseIndex(data.get(i).getIndex());
-        mCourseList = data;
+    public void setHomeTabInfo(HomeTabInfo homeTabInfo) {
+        mHomeTabInfo = homeTabInfo;
+        List<Integer> courseList = mHomeTabInfo.getCourseList();
+        List<InstList> instLists = mHomeTabInfo.getInstLists();
+        for (int i = 0; i < getCount(); ++i) {
+            int courseIndex = courseList.get(i);
+            mFragments.get(i).setIndexAndInstList(courseIndex, instLists.get(courseIndex));
+        }
         notifyDataSetChanged();
     }
 
@@ -48,12 +44,12 @@ public class HomeTabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mCourseList.size();
+        return mHomeTabInfo == null ? 0 : mHomeTabInfo.getCourseList().size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        String plateName = mCourseList.get(position).getNameChi();
+        String plateName = Course.getNameChi(mHomeTabInfo.getCourseList().get(position));
         if (plateName == null) {
             plateName = "";
         } else if (plateName.length() > 15) {
