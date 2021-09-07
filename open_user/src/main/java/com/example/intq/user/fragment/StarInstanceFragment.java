@@ -83,6 +83,7 @@ public class StarInstanceFragment extends WDFragment<StarItemViewModel, FragStar
                 else {
                     adapter.setFooterLoading();
                 }
+                adapter.notifyItemChanged(adapter.getItemCount() - 1);
             }
         });
 

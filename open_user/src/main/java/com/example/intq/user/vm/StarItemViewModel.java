@@ -41,6 +41,7 @@ public class StarItemViewModel extends WDFragViewModel<IUserRequest> {
     public void updateStar(){
         if(!loading){
             loading = true;
+            fail.setValue(false);
             request(iRequest.getStarredInstList(LOGIN_USER.getToken(), offset, limit), new DataCall<StarInstResult>() {
                 @Override
                 public void success(StarInstResult data) {
@@ -67,20 +68,20 @@ public class StarItemViewModel extends WDFragViewModel<IUserRequest> {
                 public void fail(ApiException data) {
                     System.out.println(LOGIN_USER.getStarInst());
                     try{
-                        List<StarItem> starItems = JSON.parseArray(LOGIN_USER.getStarInst(), StarItem.class);
-                        List<StarItem> starItems1 = instanceStarList.getValue();
-                        if(starItems1 == null)
-                            starItems1 = new ArrayList<>();
+                        List<StarItem> starItems1 = JSON.parseArray(LOGIN_USER.getStarInst(), StarItem.class);
+                        List<StarItem> starItems = instanceStarList.getValue();
+                        if(starItems == null)
+                            starItems = new ArrayList<>();
                         int end = offset + limit;
-                        if(end > starItems.size()) {
-                            end = starItems.size();
+                        if(end > starItems1.size()) {
+                            end = starItems1.size();
                             fail.setValue(true);
                         }
                         else
                             fail.setValue(false);
-                        starItems1.addAll(starItems.subList(offset, end));
-                        instanceStarList.setValue(starItems1);
-                        offset = starItems1.size();
+                        starItems.addAll(starItems1.subList(offset, end));
+                        instanceStarList.setValue(starItems);
+                        offset = starItems.size();
                     }catch (Exception e){
                         UIUtils.showToastSafe("网络错误，请检查网络设置");
                         fail.setValue(true);
