@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/user_name_sheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -35,12 +35,6 @@
                 android:layout_marginStart="20dp"
                 android:hint="原密码"
                 android:text="@={vm.oldPwd}"/>
-            <ImageView
-                android:id="@+id/login_old_eye"
-                android:layout_width="22dp"
-                android:layout_height="13dp"
-                android:onClick="@{() -> vm.oldVisibility()}"
-                android:src="@drawable/pass_vis_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,12 +52,6 @@
                 android:layout_marginStart="20dp"
                 android:hint="新密码"
                 android:text="@={vm.pwd}"/>
-            <ImageView
-                android:id="@+id/login_pwd_eye"
-                android:layout_width="22dp"
-                android:layout_height="13dp"
-                android:onClick="@{() -> vm.pwdVisibility()}"
-                android:src="@drawable/pass_vis_selector" />
         </LinearLayout>
 
         <LinearLayout
@@ -81,12 +69,6 @@
                 android:layout_marginStart="20dp"
                 android:hint="确认新密码"
                 android:text="@={vm.pwdRpt}"/>
-            <ImageView
-                android:id="@+id/login_pwdRpt_eye"
-                android:layout_width="22dp"
-                android:layout_height="13dp"
-                android:onClick="@{() -> vm.pwdRptVisibility()}"
-                android:src="@drawable/pass_vis_selector" />
         </LinearLayout>
 
         <Button
@@ -98,6 +80,24 @@
             android:layout_marginTop="30dp"
             android:onClick="@{() -> vm.editPwd()}"
             android:text="确认" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*密码为6-16位的英文字母、数字和下划线组合"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 

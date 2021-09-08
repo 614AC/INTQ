@@ -64,7 +64,7 @@ public class EditPwdViewModel extends WDViewModel<IUserRequest> {
 
             @Override
             public void fail(ApiException data) {
-
+                UIUtils.showToastSafe("密码格式错误或网络请求错误");
             }
         });
     }
