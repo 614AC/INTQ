@@ -8,6 +8,7 @@ import com.example.intq.common.bean.instance.CheckInstanceResult;
 import com.example.intq.common.bean.instance.InstInfoResult;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.LinkInstanceResult;
+import com.example.intq.common.bean.instance.SearchInstList;
 import com.example.intq.common.bean.question.SolveResult;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -35,7 +36,7 @@ public interface IMainRequest {
      * 实体搜索
      */
     @GET("instance/list")
-    Observable<Result<InstList>> getInstList(
+    Observable<Result<SearchInstList>> getInstList(
             @Header("token") String token,
             @Query("offset") int offset,
             @Query("limit") int limit,

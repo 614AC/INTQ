@@ -10,12 +10,43 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.intq.common.bean.instance.InstListNode;
+import com.example.intq.common.bean.instance.SearchInstList;
+import com.example.intq.common.bean.instance.SearchInstListNode;
 import com.example.intq.common.core.WDRecyclerAdapter;
 import com.example.intq.main.R;
-import com.example.intq.main.databinding.ListInstanceBinding;
+import com.example.intq.main.databinding.SearchListInstanceBinding;
 
-public class ListInstanceAdapter extends WDRecyclerAdapter<InstListNode> {
+public class SearchListInstanceAdapter extends WDRecyclerAdapter<SearchInstListNode> {
     private OnItemClickListener mOnItemClickListener;
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.search_list_instance;
+    }
+
+    @Override
+    protected void bindView(ViewDataBinding binding, SearchInstListNode item, int position) {
+        SearchListInstanceBinding viewBinding = (SearchListInstanceBinding) binding;
+        viewBinding.instLabel.setText(item.getLabel());
+        if (!item.getCategory().equals("")) {
+            viewBinding.instCategory.setText(String.format("[%s]", item.getCategory()));
+            viewBinding.instCategory.setVisibility(View.VISIBLE);
+        } else
+            viewBinding.instCategory.setVisibility(View.INVISIBLE);
+        if (!item.getUri().equals("")) {
+            viewBinding.instStarTimes.setText(String.format("%d", item.getStarTimes()));
+            viewBinding.instViewTimes.setText(String.format("%d", item.getViewTimes()));
+            viewBinding.instViewTimes.setVisibility(View.VISIBLE);
+            viewBinding.instStarTimes.setVisibility(View.VISIBLE);
+            viewBinding.starIcon.setVisibility(View.VISIBLE);
+            viewBinding.viewIcon.setVisibility(View.VISIBLE);
+        } else {
+            viewBinding.instViewTimes.setVisibility(View.INVISIBLE);
+            viewBinding.instStarTimes.setVisibility(View.INVISIBLE);
+            viewBinding.starIcon.setVisibility(View.INVISIBLE);
+            viewBinding.viewIcon.setVisibility(View.INVISIBLE);
+        }
+    }
 
     @NonNull
     @Override
@@ -26,18 +57,6 @@ public class ListInstanceAdapter extends WDRecyclerAdapter<InstListNode> {
         return new ListInstanceHolder(binding.getRoot(), mOnItemClickListener);
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.list_instance;
-    }
-
-    @Override
-    protected void bindView(ViewDataBinding binding, InstListNode item, int position) {
-        ListInstanceBinding viewBinding = (ListInstanceBinding) binding;
-        viewBinding.instLabel.setText(item.getLabel());
-        if (item.getCategory().length() > 0)
-            viewBinding.instCategory.setText(String.format("[%s]", item.getCategory()));
-    }
 
     public static class ListInstanceHolder extends WDRecyclerAdapter.MyHodler {
         public ListInstanceHolder(@NonNull View itemView, OnItemClickListener onClickListener) {
