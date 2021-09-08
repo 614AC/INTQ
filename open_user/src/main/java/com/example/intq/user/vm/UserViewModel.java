@@ -24,12 +24,8 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
         super.create();
         userName.set(LOGIN_USER.getUsername());
         avatar.setValue(LOGIN_USER.getAvatar());
-        if(LOGIN_USER.getUsername() == null){
-            updateInfo();
-        }
-        if(LOGIN_USER.getAvatar() == null){
-            updateAvatar();
-        }
+        updateInfo();
+        updateAvatar();
     }
 
     public void updateInfo(){
@@ -96,4 +92,7 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
         finish();//本页面关闭
     }
 
+    public String getUserId(){
+        return String.valueOf(LOGIN_USER.getUserId());
+    }
 }

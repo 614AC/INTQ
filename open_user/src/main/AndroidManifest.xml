@@ -16,7 +16,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.intq.fileprovider"
+            android:authorities="com.java.jiangjianxiao.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

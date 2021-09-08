@@ -98,7 +98,6 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
                 if(instInfo == null) {
                     UIUtils.showToastSafe("网络连接失败，请检查网络连接");
                     isExerciseReady.setValue(false);
-                }
                     hasExercise.setValue(false);
                 }
                 else{

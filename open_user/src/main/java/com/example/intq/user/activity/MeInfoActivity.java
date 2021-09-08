@@ -3,6 +3,7 @@ package com.example.intq.user.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,11 +21,24 @@ import com.example.intq.user.R;
 import com.example.intq.user.databinding.ActivityMeInfoBinding;
 import com.example.intq.user.vm.MeInfoViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 @Route(path = Constant.ACTIVITY_URL_ME_INFO)
 public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBinding> {
@@ -44,15 +58,19 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
             public void onChanged(String s) {
                 try {
                     binding.meAvatar.setImageURI(Uri.parse(s));
-                    if(head != null)
-                        setPicToView(head);// 保存在SD卡中
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            head = getBitmap(s);
+                            if(head != null)
+                                setPicToView(head);// 保存在SD卡中
+                        }
+                    }).start();
+
                 }catch (Exception e){
-                    File head = new File(getFilesDir(), "head.jpg");
+                    File head = new File(getFilesDir(), "head" + viewModel.getUserId() + ".jpg");
                     if(head.exists()){
-                        binding.meAvatar.setImageURI(FileProvider.getUriForFile(getApplicationContext(), "com.example.intq.fileprovider", head));
-                    }
-                    else {
-                        binding.meAvatar.setImageResource(R.drawable.ic___head_pic);
+                        binding.meAvatar.setImageURI(FileProvider.getUriForFile(getApplicationContext(), "com.java.jiangjianxiao.fileprovider", head));
                     }
                 }
             }
@@ -74,7 +92,7 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
                 Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent2.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent2.putExtra(MediaStore.EXTRA_OUTPUT,
-                        FileProvider.getUriForFile(MeInfoActivity.this, "com.example.intq.fileprovider", head));
+                        FileProvider.getUriForFile(MeInfoActivity.this, "com.java.jiangjianxiao.fileprovider", head));
                 startActivityForResult(intent2, 2);// 采用ForResult打开
                 mAvatarDialog.hide();
             }
@@ -124,7 +142,7 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
-                    cropPhoto(FileProvider.getUriForFile(this, "com.example.intq.fileprovider", new File(getFilesDir(), "head_cache.jpg")));// 裁剪图片
+                    cropPhoto(FileProvider.getUriForFile(this, "com.java.jiangjianxiao.fileprovider", new File(getFilesDir(), "head_cache.jpg")));// 裁剪图片
                 }
                 break;
             case 3:
@@ -170,7 +188,7 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
         FileOutputStream b = null;
         File file = new File(path);
         file.mkdirs();// 创建文件夹
-        String fileName = path + "/head.jpg";// 图片名字
+        String fileName = path + "/head" + viewModel.getUserId() + ".jpg";// 图片名字
         System.out.println(fileName);
         try {
             b = new FileOutputStream(fileName);
@@ -186,5 +204,28 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
                 e.printStackTrace();
             }
         }
+    }
+
+    public Bitmap getBitmap(String url) {
+        Bitmap bm = null;
+        try {
+            URL iconUrl = new URL(url);
+            URLConnection conn = iconUrl.openConnection();
+            HttpURLConnection http = (HttpURLConnection) conn;
+
+            int length = http.getContentLength();
+
+            conn.connect();
+            // 获得图像的字符流
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is, length);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();// 关闭流
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bm;
     }
 }

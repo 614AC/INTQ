@@ -31,12 +31,8 @@ public class MeInfoViewModel extends WDViewModel<IUserRequest> {
         userName.set(LOGIN_USER.getUsername());
         avatar.setValue(LOGIN_USER.getAvatar());
         email.set(LOGIN_USER.getEmail());
-        if(LOGIN_USER.getUsername() == null){
-            updateInfo();
-        }
-        if(LOGIN_USER.getAvatar() == null){
-            updateAvatar();
-        }
+        updateInfo();
+        updateAvatar();
     }
 
     public void updateInfo(){
@@ -97,5 +93,9 @@ public class MeInfoViewModel extends WDViewModel<IUserRequest> {
 
             }
         });
+    }
+
+    public String getUserId(){
+        return String.valueOf(LOGIN_USER.getUserId());
     }
 }
