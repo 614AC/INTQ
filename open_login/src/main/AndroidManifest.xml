@@ -2,16 +2,22 @@
     package="com.example.intq.login">
 
     <application>
-        <activity android:name="com.example.intq.login.activity.LoginActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name="com.example.intq.login.activity.WelcomeActivity">
+        <activity
+            android:name="com.example.intq.login.activity.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.intq.login.activity.WelcomeActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.intq.login.activity.RegisterActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name="com.example.intq.login.activity.RegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

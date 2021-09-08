@@ -17,10 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -33,27 +30,25 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.intq.common.bean.Course;
 import com.example.intq.common.bean.instance.InstListNode;
 import com.example.intq.common.bean.instance.InstSearch;
+import com.example.intq.common.bean.instance.SearchInstList;
+import com.example.intq.common.bean.instance.SearchInstListNode;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.util.Constant;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.common.util.recycleview.SpacingItemDecoration;
 import com.example.intq.main.R;
-import com.example.intq.main.adapter.ListInstanceAdapter;
+import com.example.intq.main.adapter.SearchListInstanceAdapter;
 import com.example.intq.main.databinding.ActivitySearchBinding;
 import com.example.intq.main.vm.SearchViewModel;
-import com.google.android.material.snackbar.Snackbar;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.mancj.materialsearchbar.MaterialSearchBar.OnSearchActionListener;
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter;
 
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
 @Route(path = Constant.ACTIVITY_URL_SEARCH)
 public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBinding> {
-    private ListInstanceAdapter mAdapter;
+    private SearchListInstanceAdapter mAdapter;
     private MaterialSearchBar mSearchBar;
     private PopupMenu mCourseMenu;
     private EditText mSearchEdit;
@@ -68,9 +63,9 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        mAdapter = new ListInstanceAdapter();
+        mAdapter = new SearchListInstanceAdapter();
         mAdapter.setOnItemClickListener((view, position) -> {
-            InstListNode node = mAdapter.getItem(position);
+            SearchInstListNode node = mAdapter.getItem(position);
             if (node.getLabel().equals("空空如也") && node.getUri().equals("") && node.getCategory().equals(""))
                 return;
             ARouter.getInstance().build(Constant.ACTIVITY_URL_INSTANCE)
@@ -101,17 +96,17 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                 }
             }
         });
-        viewModel.instList.observe(this, instList ->
+        viewModel.instList.observe(this, searchInstList ->
         {
             String toastInfo = "";
             mAdapter.clear();
-            if (instList == null || instList.getInstList().size() == 0) {
-                mAdapter.add(new InstListNode("空空如也", "", ""));
+            if (searchInstList == null || searchInstList.getInstList().size() == 0) {
+                mAdapter.add(new SearchInstListNode("空空如也", "", "", 0, 0));
                 toastInfo = "没有找到相关实体~\n请检查您的网络链接或更换关键词";
             } else {
-                mAdapter.addAll(instList.getInstList());
+                mAdapter.addAll(searchInstList.getInstList());
                 toastInfo = String.format("搜索到%d个相关实体,耗时%.2fs",
-                        instList.getInstList().size(), viewModel.getSearchSec());
+                        searchInstList.getInstList().size(), viewModel.getSearchSec());
             }
             mAdapter.notifyDataSetChanged();
             UIUtils.showToastSafe(toastInfo);
@@ -176,7 +171,10 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                         imm.showSoftInput(mSearchEdit, InputMethodManager.SHOW_IMPLICIT);
                     }, 10);
-                    loadSearchToBar(viewModel.getLastKeywords().get(0), false);
+                    CharSequence keyword = mSearchBar.getPlaceHolderText();
+                    mSearchEdit.requestFocus();
+                    mSearchEdit.setText(keyword);
+                    mSearchEdit.setSelection(keyword.length());
                 } else
                     reduce();
             }
@@ -196,6 +194,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
                         break;
                     case MaterialSearchBar.BUTTON_BACK:
                         mSearchBar.closeSearch();
+                        mSearchBar.setPlaceHolder(mSearchBar.getText());
                         break;
                 }
             }
@@ -230,19 +229,19 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
             }
         });
         //排序方式
-        mSortField = "Start";
+        mSortField = "star";
         mSortWay = "Down";
         binding.sortField.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mSortField = isChecked ? "View" : "Star";
+            mSortField = isChecked ? "view" : "star";
             UIUtils.showToastSafe(String.format("使用%s进行%s排序",
-                    (mSortField.equals("View") ? "浏览量" : "收藏量"),
+                    (mSortField.equals("view") ? "浏览量" : "收藏量"),
                     (mSortWay.equals("Up") ? "升序" : "降序")));
             search(mSearchBar.getPlaceHolderText(), mCurrentCourse.getValue());
         });
         binding.sortWay.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mSortWay = isChecked ? "Up" : "Down";
             UIUtils.showToastSafe(String.format("使用%s进行%s排序",
-                    (mSortField.equals("View") ? "浏览量" : "收藏量"),
+                    (mSortField.equals("view") ? "浏览量" : "收藏量"),
                     (mSortWay.equals("Up") ? "升序" : "降序")));
             search(mSearchBar.getPlaceHolderText(), mCurrentCourse.getValue());
         });
