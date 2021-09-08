@@ -4,21 +4,28 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="top" />
-
-        <TextView
-            android:id="@+id/answer"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:padding="8dp"
-            android:text="请问您有什么需要帮助的吗？" />
+            android:background="@drawable/left_chat">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="top" />
+
+            <TextView
+                android:id="@+id/answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:text="请问您有什么需要帮助的吗？" />
+        </LinearLayout>`
     </LinearLayout>
 
 </layout>

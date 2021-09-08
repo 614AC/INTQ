@@ -29,6 +29,7 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
     public MutableLiveData<String> queryCourse = new MutableLiveData<>();
     public MutableLiveData<String> queryUri = new MutableLiveData<>();
     public MutableLiveData<Boolean> isExerciseReady = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> hasExercise = new MutableLiveData<>();
 
     public static final String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h"};
     public static final String[] capitalAlphabet = {"A", "B", "C", "D", "E", "F", "G", "H"};
@@ -37,6 +38,13 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
         request(iRequest.getExercise(this.instName.getValue()), new DataCall<ExerciseList>() {
             @Override
             public void success(ExerciseList data) {
+                System.out.println(data.getQuestionList().size());
+                if (data.getQuestionList().size() == 0) {
+                    hasExercise.setValue(false);
+                }
+                else {
+                    hasExercise.setValue(true);
+                }
                 List<ExerciseNode> ens = new ArrayList<>();
                 for (int i = 0; i < data.getQuestionList().size(); i++) {
                     ExerciseNode en = new ExerciseNode();
@@ -91,12 +99,15 @@ public class ExerciseViewModel extends WDFragViewModel<IMainRequest> {
                     UIUtils.showToastSafe("网络连接失败，请检查网络连接");
                     isExerciseReady.setValue(false);
                 }
+                    hasExercise.setValue(false);
+                }
                 else{
                     try{
                         List<ExerciseNode> exerciseNodes_ = JSON.parseArray(instInfo.getExercise(), ExerciseNode.class);
                         exerciseNodes.setValue(exerciseNodes_);
                         isExerciseReady.setValue(true);
                     }catch (JSONException e){
+                        hasExercise.setValue(false);
                         UIUtils.showToastSafe("网络连接失败，请检查网络连接");
                         isExerciseReady.setValue(false);
                     }

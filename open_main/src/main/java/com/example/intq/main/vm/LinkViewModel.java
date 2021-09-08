@@ -44,25 +44,30 @@ public class LinkViewModel extends WDViewModel<IMainRequest> {
     public MutableLiveData<Boolean> enabled = new MutableLiveData<>(true);
     // o for handwriting and 1 for general
     public MutableLiveData<Integer> recognizeType = new MutableLiveData<>(0);
+    public MutableLiveData<Boolean> unchangeable = new MutableLiveData<>(false);
 
     public void link() {
-        if (enabled.getValue()) {
-            enabled.setValue(false);
-            RequestBody body = NetworkManager.convertJsonBody(new String[]{"course", "context"}, new String[]{courseMapping[courseId.get()], context.get()});
-            request(iRequest.getLinkInstance(body), new DataCall<LinkInstanceResult>() {
-                @Override
-                public void success(LinkInstanceResult data) {
-                    links.setValue(data.getLinkInstance());
-                }
-
-                @Override
-                public void fail(ApiException data) {
-                    UIUtils.showToastSafe("网络连接失败，请检查网络连接");
-                    enabled.setValue(true);
-                }
-            });
+        if (!unchangeable.getValue()) {
+            if (enabled.getValue()) {
+                enabled.setValue(false);
+                RequestBody body = NetworkManager.convertJsonBody(new String[]{"course", "context"}, new String[]{courseMapping[courseId.get()], context.get()});
+                request(iRequest.getLinkInstance(body), new DataCall<LinkInstanceResult>() {
+                    @Override
+                    public void success(LinkInstanceResult data) {
+                        unchangeable.setValue(!unchangeable.getValue());
+                        links.setValue(data.getLinkInstance());
+                    }
+                    @Override
+                    public void fail(ApiException data) {
+                        UIUtils.showToastSafe("网络连接失败，请检查网络连接");
+                        enabled.setValue(true);
+                    }
+                });
+            }
         }
-
+        else {
+            unchangeable.setValue(false);
+        }
     }
 
     public void turnToInstance(String instName, String uri) {

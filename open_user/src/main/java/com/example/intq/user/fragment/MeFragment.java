@@ -43,6 +43,9 @@ public class MeFragment extends WDFragment<UserViewModel,FragMeBinding> {
                     if(head.exists()){
                         binding.meAvatar.setImageURI(FileProvider.getUriForFile(getActivity().getApplicationContext(), "com.example.intq.fileprovider",head ));
                     }
+                    else {
+                        binding.meAvatar.setImageResource(R.drawable.ic___head_pic);
+                    }
                 }
             }
         });

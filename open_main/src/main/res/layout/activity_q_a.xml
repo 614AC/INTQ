@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -10,19 +11,22 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryC">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="20sp"
             android:text="知识问答"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#c2c2c2"
+            android:background="@color/colorPrimaryC"
             android:orientation="vertical"
             android:layout_marginTop="30dp"
             android:padding="16dp" >
@@ -37,31 +41,38 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lv_chat_dialog"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:divider="#0000"
                     android:dividerHeight="8dp"
-                    android:scrollbars="none"/>
+                    android:scrollbars="none"
+                    app:stackFromEnd="true"/>
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:minHeight="40dp"
                 android:orientation="horizontal" >
 
                 <Spinner
                     android:id="@+id/course_spinner"
                     android:layout_width="wrap_content"
+                    android:minWidth="80dp"
                     android:layout_height="match_parent"
-                    android:selectedItemPosition="@={vm.courseId}"/>
+                    android:selectedItemPosition="@={vm.courseId}"
+                    android:textSize="16sp"
+                    android:background="@drawable/spinner_drop_down"/>
 
                 <EditText
                     android:id="@+id/et_chat_message"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
                     android:gravity="center|left"
                     android:padding="8dp"
                     android:text="@={vm.inputQuestion}"/>
@@ -71,7 +82,7 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="32dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="32dp"
                     android:layout_gravity="center|right"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/icon_send"

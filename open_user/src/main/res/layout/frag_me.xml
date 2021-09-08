@@ -26,7 +26,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="50dp"
-                fresco:roundAsCircle="true" />
+                fresco:roundAsCircle="true"/>
 
             <TextView
                 android:id="@+id/me_username"

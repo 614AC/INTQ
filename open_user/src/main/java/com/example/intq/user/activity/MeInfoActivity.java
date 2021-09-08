@@ -51,6 +51,9 @@ public class MeInfoActivity extends WDActivity<MeInfoViewModel, ActivityMeInfoBi
                     if(head.exists()){
                         binding.meAvatar.setImageURI(FileProvider.getUriForFile(getApplicationContext(), "com.example.intq.fileprovider", head));
                     }
+                    else {
+                        binding.meAvatar.setImageResource(R.drawable.ic___head_pic);
+                    }
                 }
             }
         });
