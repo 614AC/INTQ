@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,23 +14,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/logo"
         android:scaleType="centerCrop">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="36dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*用户名为不长于16位的英文字母、数字和下划线组合"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*密码为6-16位的英文字母、数字和下划线组合"/>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,8 +45,8 @@
                     android:hint="用户名"
                     android:inputType="text"
                     android:text="@={vm.userName}"
-                    android:textColor="@color/colorPrimaryD"
-                    android:textColorHint="@color/colorPrimaryD"
+                    android:textColor="@color/colorPrimaryB"
+                    android:textColorHint="@color/colorPrimaryB"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -83,8 +67,9 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="25dp"
+                    android:layout_width="17dp"
+                    android:layout_height="27dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_____pas" />
 
                 <EditText
@@ -97,8 +82,8 @@
                     android:hint="登录密码"
                     android:inputType="textPassword"
                     android:text="@={vm.pas}"
-                    android:textColor="@color/colorPrimaryD"
-                    android:textColorHint="@color/colorPrimaryD"
+                    android:textColor="@color/colorPrimaryB"
+                    android:textColorHint="@color/colorPrimaryB"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -127,6 +112,7 @@
                 <ImageView
                     android:layout_width="19dp"
                     android:layout_height="25dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_____pas" />
 
                 <EditText
@@ -139,8 +125,8 @@
                     android:hint="确认密码"
                     android:inputType="textPassword"
                     android:text="@={vm.pasRpt}"
-                    android:textColor="@color/colorPrimaryD"
-                    android:textColorHint="@color/colorPrimaryD"
+                    android:textColor="@color/colorPrimaryB"
+                    android:textColorHint="@color/colorPrimaryB"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -170,13 +156,14 @@
                     android:gravity="center_vertical|right"
                     android:onClick="@{()->vm.login()}"
                     android:text="已有账户？立即登录"
-                    android:textColor="@color/colorPrimaryD"
+                    android:textColor="@color/colorPrimaryB"
                     android:textSize="14sp" />
             </RelativeLayout>
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/register_button"
             android:layout_width="280dp"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
@@ -188,5 +175,29 @@
             android:textColor="@color/colorPrimaryA"
             android:textSize="18sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*用户名为不长于16位的英文字母、数字和下划线组合"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*密码为6-16位的英文字母、数字和下划线组合"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+        </LinearLayout>
     </RelativeLayout>
 </layout>

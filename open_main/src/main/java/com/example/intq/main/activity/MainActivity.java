@@ -15,9 +15,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.intq.main.R;
-import com.example.intq.main.databinding.ActivityMainViewPagerBinding;
+import com.example.intq.main.databinding.ActivityMainBinding;
 import com.example.intq.main.fragment.HomeFragment;
-import com.example.intq.main.fragment.TestFragment;
 import com.example.intq.main.vm.MainFromViewPagerViewModel;
 import com.example.intq.common.core.WDActivity;
 import com.example.intq.common.core.WDFragment;
@@ -28,11 +27,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Route(path = Constant.ACTIVITY_URL_MAIN)
-public class MainActivity extends WDActivity<MainFromViewPagerViewModel, ActivityMainViewPagerBinding> {
+public class MainActivity extends WDActivity<MainFromViewPagerViewModel, ActivityMainBinding> {
 
     private HomeFragment homeFragment;
-    private TestFragment testFragment;
-    private TestFragment carFragment;
     private MultiToolFragment multiToolFragment;
     private WDFragment meFragment;
     private Fragment currentFragment;
@@ -40,14 +37,12 @@ public class MainActivity extends WDActivity<MainFromViewPagerViewModel, Activit
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main_view_pager;
+        return R.layout.activity_main;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         homeFragment = new HomeFragment();
-        testFragment = new TestFragment();
-        carFragment = new TestFragment();
         multiToolFragment = new MultiToolFragment();
         meFragment = (WDFragment) ARouter.getInstance().build(Constant.FRAGMENT_URL_ME).navigation();
         if (meFragment != null) {//加载组件之后再赋值
@@ -80,12 +75,6 @@ public class MainActivity extends WDActivity<MainFromViewPagerViewModel, Activit
                     case 0:
                         currentFragment = homeFragment;
                         break;
-//                    case 1:
-//                        currentFragment = testFragment;
-//                        break;
-//                    case 2:
-//                        currentFragment = carFragment;
-//                        break;
                     case 1:
                         currentFragment = multiToolFragment;
                         break;

@@ -10,12 +10,14 @@ import com.alibaba.fastjson.JSON;
 import com.example.intq.common.bean.Course;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.InstSearch;
+import com.example.intq.common.bean.instance.SearchInstList;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
 
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.common.util.logger.Logger;
+import com.example.intq.main.activity.SearchActivity;
 import com.example.intq.main.request.IMainRequest;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ import java.util.Objects;
 public class SearchViewModel extends WDViewModel<IMainRequest> {
     private final Logger logger = Logger.createLogger(getClass());
 
-    public MutableLiveData<InstList> instList = new MutableLiveData<>();
+    public MutableLiveData<SearchInstList> instList = new MutableLiveData<>();
     public MutableLiveData<Boolean> searching = new MutableLiveData<>();
     public MutableLiveData<List<InstSearch>> lastSearches = new MutableLiveData<>();
     public final int MAX_SUGGESTIONS = 5;
@@ -87,9 +89,9 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
 
         searchMillis = System.currentTimeMillis();
         request(iRequest.getInstList(LOGIN_USER.getToken(),
-                query.offset, query.limit, query.sort, query.key, query.course), new DataCall<InstList>() {
+                query.offset, query.limit, query.sort, query.key, query.course), new DataCall<SearchInstList>() {
             @Override
-            public void success(InstList data) {
+            public void success(SearchInstList data) {
                 searching.setValue(false);
                 searchMillis = System.currentTimeMillis() - searchMillis;
                 instList.setValue(data);
