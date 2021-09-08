@@ -53,7 +53,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="30dp"
-                    fresco:roundAsCircle="true" />
+                    fresco:roundAsCircle="true"/>
             </RelativeLayout>
 
             <RelativeLayout

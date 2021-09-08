@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -10,86 +11,134 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryC">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/colorPrimaryC"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp">
+            <Spinner
+                android:id="@+id/course_spinner"
+                android:layout_width="wrap_content"
+                android:minWidth="80dp"
+                android:layout_height="match_parent"
+                android:selectedItemPosition="@={vm.courseId}"
+                android:background="@drawable/spinner_drop_down"
+                />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:layout_gravity="center_horizontal"
+            android:textSize="15sp"
+            android:textStyle="bold"
             android:text="知识链接"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#c2c2c2"
+            android:background="@color/colorPrimaryC"
             android:orientation="vertical"
-            android:layout_marginTop="30dp"
             android:padding="16dp" >
-
-            <TextView
-                android:id="@+id/link_text"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="@drawable/text_view_round"/>
+                android:background="@color/colorPrimaryC"
+                android:orientation="vertical"
+                android:padding="16dp" >
+                <TextView
+                    android:id="@+id/link_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_view_little_round"
+                    android:visibility="gone"
+                    android:padding="8dp"
+                    android:gravity="center"
+                    android:textSize="14sp"/>
 
+                <EditText
+                    android:id="@+id/link_contexte"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/text_view_little_round"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@={vm.context}"
+                    android:textSize="14sp" />
+            </LinearLayout>
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:background="@drawable/text_view_little_round"
-                android:gravity="center_vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/course_spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:selectedItemPosition="@={vm.courseId}" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/btn_choose_hand"
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/icon_pencil"
-                        android:layout_marginEnd="15dp"/>
-
-                    <Button
-                        android:id="@+id/btn_choose_general"
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/icon_word"
-                        android:layout_marginEnd="15dp"/>
 
                     <Button
                         android:id="@+id/btn_chat_message_send"
                         style="?android:attr/buttonStyleSmall"
-                        android:layout_width="32dp"
+                        android:layout_width="150dp"
                         android:layout_height="32dp"
-                        android:background="@drawable/icon_send"
-                        android:onClick="@{() -> vm.link()}"/>
-                </LinearLayout>
+                        android:background="@drawable/send_button_background"
+                        android:onClick="@{() -> vm.link()}"
+                        android:text="点击生成链接文本" />
 
+                </RelativeLayout>
+
+                <com.getbase.floatingactionbutton.FloatingActionsMenu
+                    android:id="@+id/right_labels"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    fab:fab_addButtonColorNormal="@color/white"
+                    fab:fab_addButtonColorPressed="@color/white_pressed"
+                    fab:fab_addButtonPlusIconColor="@color/half_black"
+                    fab:fab_addButtonSize="mini"
+                    fab:fab_labelStyle="@style/menu_labels_style"
+                    fab:fab_labelsPosition="left">
+
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn_choose_hand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fab:fab_colorNormal="@color/white"
+                        fab:fab_colorPressed="@color/white_pressed"
+                        fab:fab_icon="@drawable/icon_pencil"
+                        fab:fab_size="mini"
+                        fab:fab_title="手写识别输入" />
+
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/btn_choose_general"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        fab:fab_colorNormal="@color/white"
+                        fab:fab_colorPressed="@color/white_pressed"
+                        fab:fab_icon="@drawable/icon_word"
+                        fab:fab_size="mini"
+                        fab:fab_title="印刷识别输入" />
+
+                </com.getbase.floatingactionbutton.FloatingActionsMenu>
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/link_contexte"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:padding="8dp"
-                android:text="@={vm.context}"/>
+
 
         </LinearLayout>
 

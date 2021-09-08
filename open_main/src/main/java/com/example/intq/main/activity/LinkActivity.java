@@ -15,6 +15,8 @@ import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -43,6 +45,8 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
     private TextView textView;
+    private EditText editText;
+    private Button chatMessageSend;
 
     BottomSheetDialog mAvatarDialog;
     Bitmap head;
@@ -55,6 +59,8 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
     @Override
     protected void initView(Bundle savedInstanceState) {
         textView = findViewById(R.id.link_text);
+        editText = findViewById(R.id.link_contexte);
+        chatMessageSend = findViewById(R.id.btn_chat_message_send);
 
         spinner = (Spinner) findViewById(R.id.course_spinner);
         //将可选内容与ArrayAdapter连接起来
@@ -77,11 +83,14 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
             @Override
             public void onChanged(List<Link> links) {
                 textView.setText("");
+                textView.setVisibility(View.VISIBLE);
+                editText.setVisibility(View.GONE);
+
                 String context = viewModel.context.get();
                 if(context == null)
                     return;
-                if(links.size() == 0)
-                    return;
+//                if(links.size() == 0)
+//                    return;
 
                 // last end is not included in the last substring
                 int lastEnd = 0;
@@ -108,6 +117,23 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
             }
         });
 
+        viewModel.unchangeable.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    textView.setVisibility(View.VISIBLE);
+                    editText.setVisibility(View.GONE);
+                    chatMessageSend.setText("重新输入文本");
+                }
+                else {
+                    editText.setText("");
+                    editText.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.GONE);
+                    chatMessageSend.setText("点击生成链接文本");
+                }
+            }
+        });
+
         findViewById(R.id.btn_choose_hand).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +153,10 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
         view.findViewById(R.id.link_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editText.setText("");
+                editText.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.GONE);
+                chatMessageSend.setText("点击生成链接文本");
                 File head = new File(getFilesDir(), "link_cache.jpg");
                 if(!head.getParentFile().exists())
                     head.getParentFile().mkdirs();
@@ -141,6 +171,10 @@ public class LinkActivity extends WDActivity<LinkViewModel, ActivityLinkBinding>
         view.findViewById(R.id.link_album).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editText.setText("");
+                editText.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.GONE);
+                chatMessageSend.setText("点击生成链接文本");
                 Intent intent1 = new Intent(Intent.ACTION_PICK, null);
                 intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent1, 1);
