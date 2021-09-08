@@ -1,10 +1,12 @@
 package com.example.intq.main.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -58,5 +60,10 @@ public class QAActivity extends WDActivity<QAViewModel, ActivityQABinding> {
             }
         });
 
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

@@ -102,6 +102,9 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     protected void resume() {
         logger.i("Activity-VM resume");
+        LOGIN_USER = userInfoBox.query()
+                .equal(UserInfo_.status, 1)
+                .build().findUnique();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

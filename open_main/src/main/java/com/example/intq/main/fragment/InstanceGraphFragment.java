@@ -76,7 +76,7 @@ public class InstanceGraphFragment extends WDFragment<InstanceItemViewModel, Fra
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View graph = inflater.inflate(R.layout.frag_graph, container, false);
-        peopleView = graph.findViewById(R.id.layout_cricle_people);
+        peopleView = graph.findViewById(R.id.layout_circle_people);
         viewModel.contentResultMutableLiveData.observe(this, new Observer<List<ContentNode>>() {
             @Override
             public void onChanged(List<ContentNode> contentResult) {

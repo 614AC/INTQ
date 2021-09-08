@@ -21,7 +21,6 @@ public class InstanceListFragment extends WDFragment<InstanceItemViewModel, Frag
 
     private InstanceAdapter adapter;
 
-
     @Override
     protected InstanceItemViewModel initFragViewModel() {
         return new InstanceItemViewModel();

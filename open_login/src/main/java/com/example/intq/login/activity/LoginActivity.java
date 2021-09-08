@@ -1,8 +1,11 @@
 package com.example.intq.login.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -27,10 +30,17 @@ public class LoginActivity extends WDActivity<LoginViewModel, ActivityLoginBindi
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {//密码显示，则隐藏
                     binding.loginPas.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.loginPasEye.setActivated(false);
                 } else {//密码隐藏则显示
                     binding.loginPas.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.loginPasEye.setActivated(true);
                 }
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

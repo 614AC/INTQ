@@ -1,6 +1,7 @@
 package com.example.intq.main.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -325,6 +326,11 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     private void loadSearchToBar(String search, boolean loadCourse) {

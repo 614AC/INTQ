@@ -2,8 +2,11 @@ package com.example.intq.main.activity;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.example.intq.common.core.WDActivity;
@@ -57,5 +60,10 @@ public class TabConfigActivity extends WDActivity<EmptyViewModel, ActivityTabCon
 
     public com.example.intq.main.utils.TabConfigDataProvider getDataProvider() {
         return mDataProvider;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

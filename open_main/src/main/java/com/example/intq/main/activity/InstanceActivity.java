@@ -2,6 +2,7 @@ package com.example.intq.main.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -167,6 +168,7 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         for(int id: checkbox){
             CheckBox b = view.findViewById(id);
             b.setOnCheckedChangeListener(this);
+            b.setEnabled(false);
         }
         view.findViewById(R.id.check_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,6 +204,24 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
                 else
                     textView.setText(shareExer);
                 mExerciseDialog.show();
+            }
+        });
+
+        ListFragment.getFragViewModel().isPropertyReady.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                CheckBox b = view.findViewById(checkbox[0]);
+                b.setEnabled(aBoolean);
+                CheckBox b1 = view.findViewById(checkbox[1]);
+                b1.setEnabled(aBoolean);
+            }
+        });
+
+        ExerciseFragment.getFragViewModel().isExerciseReady.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                CheckBox b = view.findViewById(checkbox[2]);
+                b.setEnabled(aBoolean);
             }
         });
     }
@@ -439,5 +459,10 @@ public class InstanceActivity extends WDActivity<InstanceViewModel, ActivityInst
         DisplayMetrics dm = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }
