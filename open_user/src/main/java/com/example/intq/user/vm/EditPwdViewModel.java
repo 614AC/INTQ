@@ -9,6 +9,7 @@ import com.example.intq.common.core.WDViewModel;
 import com.example.intq.common.core.exception.ApiException;
 import com.example.intq.common.core.http.NetworkManager;
 import com.example.intq.common.util.Constant;
+import com.example.intq.common.util.MD5Utils;
 import com.example.intq.common.util.UIUtils;
 import com.example.intq.user.request.IUserRequest;
 import com.google.gson.internal.LinkedTreeMap;
@@ -53,7 +54,7 @@ public class EditPwdViewModel extends WDViewModel<IUserRequest> {
             UIUtils.showToastSafe("两次输入密码不一致");
             return;
         }
-        RequestBody body = NetworkManager.convertJsonBody(new String[]{"oldPassword", "password"}, new String[]{oldPwd.get(), pwd.get()});
+        RequestBody body = NetworkManager.convertJsonBody(new String[]{"oldPassword", "password"}, new String[]{MD5Utils.md5(oldPwd.get()), MD5Utils.md5(pwd.get())});
         request(iRequest.changeinfo(body, LOGIN_USER.getToken()), new DataCall<LinkedTreeMap>() {
             @Override
             public void success(LinkedTreeMap data) {
@@ -63,7 +64,7 @@ public class EditPwdViewModel extends WDViewModel<IUserRequest> {
 
             @Override
             public void fail(ApiException data) {
-
+                UIUtils.showToastSafe("密码格式错误或网络请求错误");
             }
         });
     }

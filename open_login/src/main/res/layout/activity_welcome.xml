@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.example.intq.login.vm.WelcomeViewModel" />
@@ -12,19 +13,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_bg">
+        android:background="@drawable/logo_central">
 
-        <TextView
-            android:id="@+id/seek_text"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:textSize="16sp"
-            android:gravity="center"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="20dp"
-            android:background="@drawable/seek_text_bg"
-            android:onClick="@{()->vm.seek()}"
-            android:text="@{vm.seekText}" />
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
+            <TextView
+                android:id="@+id/seek_text"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:onClick="@{()->vm.seek()}"
+                android:text="@{vm.seekText}"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </layout>

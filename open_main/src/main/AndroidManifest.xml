@@ -2,12 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.intq.main">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application>
-        <activity android:name="com.example.intq.main.activity.MainFromViewPagerActivity" />
-        <activity android:name="com.example.intq.main.activity.TabConfigActivity" />
-        <activity android:name="com.example.intq.main.activity.SetActivity" />
-        <activity android:name="com.example.intq.main.activity.AddCircleActivity" />
-        <activity android:name=".activity.QAActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.TabConfigActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.QAActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.InstanceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:requestLegacyExternalStorage="true"/>
+        <activity android:name=".activity.SearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.LinkActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:requestLegacyExternalStorage="true"/>
+        <activity android:name=".activity.CustomizedTestActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.CustomizedTestOpeningActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.java.jiangjianxiao.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

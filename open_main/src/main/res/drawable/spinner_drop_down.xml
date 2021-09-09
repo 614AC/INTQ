@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/colorPrimaryC" />
+            <corners android:radius="2dip" />
+            <stroke
+                android:width="1dip"
+                android:color="@color/colorPrimaryC" />
+        </shape>
+    </item>
+
+    <item>
+        <bitmap
+            android:gravity="end"
+            android:src="@drawable/icon_down"/>
+    </item>
+
+</layer-list>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/item_group_icon_iv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_fruit"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:textColor="#000000"
+        android:id="@+id/item_group_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableEnd="@mipmap/icon_right"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="水果"
+        android:textSize="15sp" />
+
+
+</LinearLayout>

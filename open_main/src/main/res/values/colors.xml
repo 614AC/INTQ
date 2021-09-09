@@ -3,6 +3,13 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="transparentBlack">#96000000</color>
+
+    <color name="colorPrimaryA">#0B89CF</color>
+    <color name="colorPrimaryB">#A7647A</color>
+    <color name="colorPrimaryC">#AACFDD</color>
+    <color name="colorPrimaryD">#B4A9BC</color>
+    <color name="colorPrimaryE">#F4EEEE</color>
 
     <color name="bg_item_normal_state">#fff0f0f0</color>
     <color name="bg_item_dragging_state">#ffffdddd</color>
@@ -29,4 +36,22 @@
     <color name="snackbar_action_color_done">#ffccccff</color>
 
     <color name="expandable_item_indicator_color">#42000000</color>
+
+    <color name="bg_search_title_txt">#28120135</color>
+
+    <color name="item_line">#B4A9BC</color>
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#a9aeaa</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="half_half_black">#D0D0D0</color>
+
+
+
 </resources>

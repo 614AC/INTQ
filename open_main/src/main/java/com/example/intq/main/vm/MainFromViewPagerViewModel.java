@@ -25,6 +25,6 @@ public class MainFromViewPagerViewModel extends WDViewModel<IMainRequest> {
     }
 
     public void debug() {
-        intentByRouter(Constant.ACTIVITY_URL_DEBUG);
+        intentByRouter(Constant.ACTIVITY_URL_INSTANCE);
     }
 }

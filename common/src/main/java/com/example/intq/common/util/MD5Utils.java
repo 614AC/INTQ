@@ -1,10 +1,11 @@
 package com.example.intq.common.util;
 
 import java.security.MessageDigest;
+import java.util.Locale;
 
 public class MD5Utils {
     //公盐
-    private static final String PUBLIC_SALT = "w928r982r";
+    private static final String PUBLIC_SALT = "intq";
     //十六进制下数字到字符的映射数组  
     private final static String[] hexDigits = {"0", "1", "2", "3", "4",
         "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
@@ -16,6 +17,10 @@ public class MD5Utils {
      */
     public static String md5(String password){
         return encodeByMD5(PUBLIC_SALT+password);
+    }
+
+    public static String md5Simple(String plain){
+        return encodeByMD5(plain).toLowerCase(Locale.ROOT);
     }
      
     /**

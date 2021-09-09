@@ -36,7 +36,8 @@
                 android:id="@+id/avatar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@drawable/click_view">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,14 +53,15 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="30dp"
-                    fresco:roundAsCircle="true" />
+                    fresco:roundAsCircle="true"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:onClick="@{() -> vm.editUserName()}">
+                android:onClick="@{() -> vm.editUserName()}"
+                android:background="@drawable/click_view">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:onClick="@{() -> vm.editEmail()}">
+                android:onClick="@{() -> vm.editEmail()}"
+                android:background="@drawable/click_view">
 
                 <TextView
                     android:layout_width="wrap_content"

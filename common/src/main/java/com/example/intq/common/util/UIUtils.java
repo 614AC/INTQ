@@ -203,6 +203,7 @@ public class UIUtils {
 
     /**
      * 获取屏幕宽度
+     *
      * @param context
      * @return
      */
@@ -262,7 +263,7 @@ public class UIUtils {
     private static void showToast(String str) {
         WDActivity frontActivity = WDActivity.getForegroundActivity();
         if (frontActivity != null) {
-            Toast.makeText(frontActivity, str, Toast.LENGTH_LONG).show();
+            Toast.makeText(frontActivity, str, Toast.LENGTH_SHORT).show();
         }
     }
 }

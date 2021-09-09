@@ -10,6 +10,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ViewModel;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.intq.common.bean.InstInfo;
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
 import com.example.intq.common.bean.UserInfo_;
@@ -55,8 +56,10 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     //Fragment数据共享，参考https://developer.android.google.cn/topic/libraries/architecture/viewmodel#sharing
     public MutableLiveData<Message> fragDataShare = new MutableLiveData<>();
 
-    protected Box<UserInfo> userInfoBox;
-    protected UserInfo LOGIN_USER;
+    protected static Box<UserInfo> userInfoBox;
+    protected static UserInfo LOGIN_USER;
+
+    protected static Box<InstInfo> instInfoBox;
 
     protected R iRequest;
 
@@ -81,10 +84,14 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     protected void create() {
         logger.i("Activity-VM create");
-        userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
-        LOGIN_USER = userInfoBox.query()
-                .equal(UserInfo_.status, 1)
-                .build().findUnique();
+        if (userInfoBox == null)
+            userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
+        if (LOGIN_USER == null)
+            LOGIN_USER = userInfoBox.query()
+                    .equal(UserInfo_.status, 1)
+                    .build().findUnique();
+        if (instInfoBox == null)
+            instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -95,6 +102,9 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     protected void resume() {
         logger.i("Activity-VM resume");
+        LOGIN_USER = userInfoBox.query()
+                .equal(UserInfo_.status, 1)
+                .build().findUnique();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -207,6 +217,8 @@ public abstract class WDViewModel<R> extends ViewModel implements LifecycleObser
         return new Consumer<Result>() {
             @Override
             public void accept(Result result) throws Exception {
+                logger.d("Result class:" + result.getData().getClass());
+                logger.d("Result data:" + result.getData());
                 if (result.getStatus().equals("200")) {
                     dataCall.success(result.getData());
                 } else {

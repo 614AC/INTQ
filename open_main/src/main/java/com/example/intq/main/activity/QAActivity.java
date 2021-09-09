@@ -1,9 +1,12 @@
 package com.example.intq.main.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -19,7 +22,7 @@ import com.example.intq.main.vm.QAViewModel;
 @Route(path = Constant.ACTIVITY_URL_QA)
 public class QAActivity extends WDActivity<QAViewModel, ActivityQABinding> {
 
-    private static final String[] m={"语文","数学","英语","物理","化学", "生物", "政治", "地理", "生物"};
+    private static final String[] m={"语文","数学","英语","物理","化学", "生物", "政治", "历史", "地理"};
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
     private QAAdapter qaAdapter;
@@ -43,17 +46,24 @@ public class QAActivity extends WDActivity<QAViewModel, ActivityQABinding> {
 
         qaAdapter = new QAAdapter();
 
-        binding.lvChatDialog.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setStackFromEnd(true);
+        binding.lvChatDialog.setLayoutManager(manager);
         binding.lvChatDialog.setAdapter(qaAdapter);
 
         viewModel.qaChat.observe(this, new Observer<QAChat>() {
             @Override
             public void onChanged(QAChat qaChat) {
-                System.out.println("changed!");
                 qaAdapter.add(qaChat);
                 qaAdapter.notifyDataSetChanged();
+                binding.lvChatDialog.smoothScrollToPosition(qaAdapter.getItemCount() - 1);
             }
         });
 
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

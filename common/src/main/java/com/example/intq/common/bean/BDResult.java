@@ -1,11 +1,5 @@
 package com.example.intq.common.bean;
 
-/**
- * desc
- * author VcStrong
- * github VcStrong
- * date 2020/5/28 1:42 PM
- */
 public class BDResult<T> {
     int status;
     T data;

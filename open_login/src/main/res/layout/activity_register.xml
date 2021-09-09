@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
             type="com.example.intq.login.vm.RegisterViewModel" />
@@ -10,7 +12,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_bg">
+        android:background="@drawable/logo"
+        android:scaleType="centerCrop">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +34,7 @@
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="27dp"
-                    android:src="@drawable/login_icon_phone_n" />
+                    android:src="@drawable/ic____username" />
 
                 <EditText
                     android:id="@+id/login_mobile"
@@ -42,8 +45,8 @@
                     android:hint="用户名"
                     android:inputType="text"
                     android:text="@={vm.userName}"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white"
+                    android:textColor="@color/colorPrimaryB"
+                    android:textColorHint="@color/colorPrimaryB"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -64,12 +67,13 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="19dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/login_icon_lock_n" />
+                    android:layout_width="17dp"
+                    android:layout_height="27dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_____pas" />
 
                 <EditText
-                    android:id="@+id/login_pas"
+                    android:id="@+id/reg_pas"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
@@ -78,16 +82,16 @@
                     android:hint="登录密码"
                     android:inputType="textPassword"
                     android:text="@={vm.pas}"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white"
+                    android:textColor="@color/colorPrimaryB"
+                    android:textColorHint="@color/colorPrimaryB"
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/login_pas_eye"
+                    android:id="@+id/reg_pas_eye"
                     android:layout_width="22dp"
                     android:layout_height="13dp"
                     android:onClick="@{() -> vm.pasVisibility()}"
-                    android:src="@drawable/login_icon_eye_n" />
+                    android:src="@drawable/pass_vis_selector" />
             </LinearLayout>
 
             <View
@@ -108,10 +112,11 @@
                 <ImageView
                     android:layout_width="19dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/login_icon_lock_n" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_____pas" />
 
                 <EditText
-                    android:id="@+id/login_pas_rpt"
+                    android:id="@+id/reg_pas_rpt"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
@@ -120,16 +125,16 @@
                     android:hint="确认密码"
                     android:inputType="textPassword"
                     android:text="@={vm.pasRpt}"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white"
+                    android:textColor="@color/colorPrimaryB"
+                    android:textColorHint="@color/colorPrimaryB"
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/login_pas_eye_2"
+                    android:id="@+id/reg_pas_eye_2"
                     android:layout_width="22dp"
                     android:layout_height="13dp"
                     android:onClick="@{() -> vm.pasRptVisibility()}"
-                    android:src="@drawable/login_icon_eye_n" />
+                    android:src="@drawable/pass_vis_selector" />
             </LinearLayout>
 
             <View
@@ -141,6 +146,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
+
                 <TextView
                     android:id="@+id/login_text"
                     android:layout_width="wrap_content"
@@ -148,15 +154,16 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical|right"
+                    android:onClick="@{()->vm.login()}"
                     android:text="已有账户？立即登录"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:onClick="@{()->vm.login()}"/>
+                    android:textColor="@color/colorPrimaryB"
+                    android:textSize="14sp" />
             </RelativeLayout>
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/register_button"
             android:layout_width="280dp"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
@@ -165,8 +172,32 @@
             android:background="@drawable/login_btn_bg"
             android:onClick="@{() -> vm.register()}"
             android:text="注册"
-            android:textColor="@color/login_btn_color"
+            android:textColor="@color/colorPrimaryA"
             android:textSize="18sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*用户名为不长于16位的英文字母、数字和下划线组合"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*密码为6-16位的英文字母、数字和下划线组合"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+        </LinearLayout>
     </RelativeLayout>
 </layout>

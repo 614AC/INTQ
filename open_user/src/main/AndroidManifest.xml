@@ -3,15 +3,20 @@
 
     <application>
         <activity android:name=".activity.MeInfoActivity"
-            android:configChanges="keyboardHidden|orientation"/>
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.EditUserNameActivity" />
         <activity android:name=".activity.EditEmailActivity" />
         <activity android:name=".activity.EditPwdActivity" />
         <activity android:name=".activity.MeSafetyActivity" />
         <activity android:name=".activity.EditMobileActivity" />
+        <activity android:name=".activity.MeStarActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name=".activity.MeHistoryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.intq.fileprovider"
+            android:authorities="com.java.jiangjianxiao.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -19,4 +24,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+
+
 </manifest>

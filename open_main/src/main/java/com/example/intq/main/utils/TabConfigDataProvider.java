@@ -21,18 +21,14 @@ public class TabConfigDataProvider extends AbstractDataProvider {
         HashSet<Integer> set = new HashSet<>();
         for (int i : courseIndices) {
             set.add(i);
-            final Course course = new Course(i);
             final int viewType = 0;
-            final String text = course.getNameChi();
-            mData.add(new TabData(course.getIndex(), viewType, text));
+            mData.add(new TabData(i, viewType, Course.getNameChi(i)));
         }
         mData.add(new TabData(-1, 0, "----- ⬇已删除标签⬇ -----"));
         for (int i = 0; i < Course.getCourseNumber(); ++i)
             if (!set.contains(i)) {
-                final Course course = new Course(i);
                 final int viewType = 0;
-                final String text = course.getNameChi();
-                mData.add(new TabData(course.getIndex(), viewType, text));
+                mData.add(new TabData(i, viewType, Course.getNameChi(i)));
             }
     }
 

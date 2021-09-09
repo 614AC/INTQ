@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.intq.common.bean.InstInfo;
 import com.example.intq.common.bean.Result;
 import com.example.intq.common.bean.UserInfo;
 import com.example.intq.common.bean.UserInfo_;
@@ -54,8 +55,10 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
     //Fragment数据共享，参考https://developer.android.google.cn/topic/libraries/architecture/viewmodel#sharing
     public MutableLiveData<Message> fragDataShare;
 
-    protected Box<UserInfo> userInfoBox;
-    protected UserInfo LOGIN_USER;
+    protected static Box<UserInfo> userInfoBox;
+    protected static UserInfo LOGIN_USER;
+
+    protected static Box<InstInfo> instInfoBox;
 
     protected R iRequest;
 
@@ -77,10 +80,14 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     protected void create() {
         logger.i("Frag-VM create");
-        userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
-        LOGIN_USER = userInfoBox.query()
-                .equal(UserInfo_.status, 1)
-                .build().findUnique();
+        if (userInfoBox == null)
+            userInfoBox = WDApplication.getBoxStore().boxFor(UserInfo.class);
+        if (LOGIN_USER == null)
+            LOGIN_USER = userInfoBox.query()
+                    .equal(UserInfo_.status, 1)
+                    .build().findUnique();
+        if (instInfoBox == null)
+            instInfoBox = WDApplication.getBoxStore().boxFor(InstInfo.class);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -91,6 +98,9 @@ public abstract class WDFragViewModel<R> implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     protected void resume() {
         logger.i("Frag-VM resume");
+        LOGIN_USER = userInfoBox.query()
+                .equal(UserInfo_.status, 1)
+                .build().findUnique();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

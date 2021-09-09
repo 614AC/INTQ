@@ -1,10 +1,35 @@
 <resources>
-    <string name="app_name">JetpackMVVM</string>
-    <string name="search_title_txt">INTQ知清倾情奉献</string>
+    <string name="app_name">知清INTQ</string>
+
+    <string name="search_title_txt">知清INTQ倾情奉献</string>
+    <string name="search_placeholder">立即搜索</string>
+    <string name="search_hint">搜索已光翼展开</string>
 
     <string name="tab_config_title">您的标签编辑</string>
     <string name="tab_config_enabled">拖动排序</string>
     <string name="tab_config_disabled">更多学科</string>
     <string name="tab_config_hint">长按进行拖动</string>
     <string name="tab_config_switch">替换模式</string>
+
+    <string name="title_activity_main2">MaterialSearchBar C.S.A</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="chinese">语文</string>
+    <string name="english">英语</string>
+    <string name="math">数学</string>
+    <string name="physics">物理</string>
+    <string name="chemistry">化学</string>
+    <string name="biology">生物</string>
+    <string name="history">历史</string>
+    <string name="geo">地理</string>
+    <string name="politics">政治</string>
+
+    <string name="sort_hint">搜索排序:</string>
+    <string name="sort_star">收藏量</string>
+    <string name="sort_view">浏览量</string>
+    <string name="sort_down">降序</string>
+    <string name="sort_up">升序</string>
 </resources>

@@ -5,8 +5,8 @@
     <LinearLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@android:color/holo_purple"
+        android:layout_height="130dp"
+        android:background="@color/colorPrimaryE"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="@string/bottom_sheet_behavior"
@@ -15,13 +15,25 @@
         <Button
             android:id="@+id/avatar_camera"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="拍照"/>
-
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimaryE"
+            android:outlineProvider="none"
+            android:text="拍照"
+            />
+        <View
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryD"/>
         <Button
             android:id="@+id/avatar_album"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimaryE"
+            android:outlineProvider="none"
             android:text="从相册选取" />
     </LinearLayout>
 </layout>

@@ -5,6 +5,7 @@ import android.os.Message;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.intq.common.bean.user.AvatarResult;
 import com.example.intq.common.bean.user.UserInfoResult;
 import com.example.intq.common.core.DataCall;
 import com.example.intq.common.core.WDFragViewModel;
@@ -23,10 +24,8 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
         super.create();
         userName.set(LOGIN_USER.getUsername());
         avatar.setValue(LOGIN_USER.getAvatar());
-        if(LOGIN_USER.getUsername() == null){
-            updateInfo();
-        }
-
+        updateInfo();
+        updateAvatar();
     }
 
     public void updateInfo(){
@@ -38,12 +37,27 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
                 LOGIN_USER.setEmail(data.getEmail());
                 userInfoBox.put(LOGIN_USER);
                 userName.set(LOGIN_USER.getUsername());
-                avatar.setValue(LOGIN_USER.getAvatar());
             }
 
             @Override
             public void fail(ApiException e) {
                 UIUtils.showToastSafe(e.getCode() + " " + e.getDisplayMessage());
+            }
+        });
+    }
+
+    public void updateAvatar(){
+        request(iRequest.avatar(LOGIN_USER.getToken()), new DataCall<AvatarResult>() {
+            @Override
+            public void success(AvatarResult data) {
+                LOGIN_USER.setAvatar(data.getUrl());
+                userInfoBox.put(LOGIN_USER);
+                avatar.setValue(LOGIN_USER.getAvatar());
+            }
+
+            @Override
+            public void fail(ApiException data) {
+
             }
         });
     }
@@ -63,6 +77,10 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
         intentByRouter(Constant.ACTIVITY_URL_ME_SAFETY);
     }
 
+    public void meStar(){intentByRouter(Constant.ACTIVITY_URL_ME_STAR);}
+
+    public void meHistory(){intentByRouter(Constant.ACTIVITY_URL_ME_HISTORY);}
+
     public void setting() {
         intentByRouter(Constant.ACTIVITY_URL_SET);
     }
@@ -74,4 +92,7 @@ public class UserViewModel extends WDFragViewModel<IUserRequest> {
         finish();//本页面关闭
     }
 
+    public String getUserId(){
+        return String.valueOf(LOGIN_USER.getUserId());
+    }
 }

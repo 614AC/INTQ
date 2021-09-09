@@ -1,5 +1,6 @@
 package com.example.intq.common.util;
 
+import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,38 @@ public class StringUtils {
     }
 
     /**
+     * 验证用户名
+     * @param username
+     * @return [0-9a-zA-Z_]{1, 16}
+     */
+    public static boolean isUsernameValid(String username){
+        try {
+            Pattern p = Pattern
+                    .compile("^[0-9a-zA-Z_]{1,16}$");
+            Matcher m = p.matcher(username);
+            return m.matches();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    /**
+     * 验证密码
+     * @param password
+     * @return [0-9a-zA-Z_]{1, 16}
+     */
+    public static boolean isPasswordValid(String password){
+        try {
+            Pattern p = Pattern
+                    .compile("^[0-9a-zA-Z_]{6,16}$");
+            Matcher m = p.matcher(password);
+            return m.matches();
+        } catch (Exception e) {
+        }
+        return false;
+    }
+
+    /**
      * 验证手机号码
      *
      * @param mobiles
@@ -36,5 +69,23 @@ public class StringUtils {
         } catch (Exception e) {
         }
         return false;
+    }
+
+    public static String toURLEncoded(String paramString) {
+        if (paramString == null || paramString.equals("")) {
+            return "";
+        }
+
+        try
+        {
+            String str = new String(paramString.getBytes(), "UTF-8");
+            str = URLEncoder.encode(str, "UTF-8");
+            return str;
+        }
+        catch (Exception localException)
+        {
+        }
+
+        return "";
     }
 }

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="login_btn_color">#ff5f71</color>
+
+    <color name="colorPrimaryA">#0B89CF</color>
+    <color name="colorPrimaryB">#A7647A</color>
+    <color name="colorPrimaryC">#AACFDD</color>
+    <color name="colorPrimaryD">#B4A9BC</color>
+    <color name="colorPrimaryE">#F4EEEE</color>
 </resources>
