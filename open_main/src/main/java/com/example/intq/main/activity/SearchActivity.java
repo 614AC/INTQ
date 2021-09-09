@@ -63,7 +63,7 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        mAdapter = new SearchListInstanceAdapter();
+        mAdapter = new SearchListInstanceAdapter(viewModel, this);
         mAdapter.setOnItemClickListener((view, position) -> {
             SearchInstListNode node = mAdapter.getItem(position);
             if (node.getLabel().equals("空空如也") && node.getUri().equals("") && node.getCategory().equals(""))
@@ -341,5 +341,11 @@ public class SearchActivity extends WDActivity<SearchViewModel, ActivitySearchBi
         mSearchEdit.requestFocus();
         mSearchEdit.setText(keyword);
         mSearchEdit.setSelection(keyword.length());
+    }
+
+    @Override
+    protected void onResume() {
+        mAdapter.notifyDataSetChanged();
+        super.onResume();
     }
 }

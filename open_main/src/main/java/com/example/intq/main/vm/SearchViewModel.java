@@ -8,6 +8,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.alibaba.fastjson.JSON;
 import com.example.intq.common.bean.Course;
+import com.example.intq.common.bean.InstInfo;
 import com.example.intq.common.bean.instance.InstList;
 import com.example.intq.common.bean.instance.InstSearch;
 import com.example.intq.common.bean.instance.SearchInstList;
@@ -25,6 +26,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
+import io.objectbox.Box;
+
 public class SearchViewModel extends WDViewModel<IMainRequest> {
     private final Logger logger = Logger.createLogger(getClass());
 
@@ -40,6 +43,10 @@ public class SearchViewModel extends WDViewModel<IMainRequest> {
         super.create();
         if (!initLastSearches)
             loadLastSearches();
+    }
+
+    public Box<InstInfo> getInstInfoBox(){
+        return instInfoBox;
     }
 
     public float getSearchSec() {
