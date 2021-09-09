@@ -20,7 +20,7 @@
             android:layout_marginTop="30dp"
             android:text="修改密码" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -28,16 +28,27 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/old"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
+                android:layout_toStartOf="@+id/edit_pwd_old_eye"
                 android:layout_height="40dp"
                 android:textSize="16sp"
                 android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="原密码"
                 android:text="@={vm.oldPwd}"/>
-        </LinearLayout>
 
-        <LinearLayout
+            <ImageView
+                android:id="@+id/edit_pwd_old_eye"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/pass_vis_selector"
+                android:onClick="@{() -> vm.oldVisibility()}"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -45,16 +56,27 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/pwd"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
+                android:layout_toStartOf="@+id/edit_pwd_pas_eye"
                 android:layout_height="40dp"
                 android:textSize="16sp"
                 android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="新密码"
                 android:text="@={vm.pwd}"/>
-        </LinearLayout>
 
-        <LinearLayout
+            <ImageView
+                android:id="@+id/edit_pwd_pas_eye"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/pass_vis_selector"
+                android:onClick="@{() -> vm.pwdVisibility()}"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="30dp"
@@ -62,14 +84,25 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/pwd_rpt"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
+                android:layout_toStartOf="@+id/edit_pwd_pas_rpt_eye"
                 android:layout_height="40dp"
                 android:textSize="16sp"
                 android:inputType="textPassword"
                 android:layout_marginStart="20dp"
                 android:hint="确认新密码"
                 android:text="@={vm.pwdRpt}"/>
-        </LinearLayout>
+
+            <ImageView
+                android:id="@+id/edit_pwd_pas_rpt_eye"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/pass_vis_selector"
+                android:onClick="@{() -> vm.pwdRptVisibility()}"/>
+        </RelativeLayout>
 
         <Button
             android:id="@+id/user_name_btn"
