@@ -1,5 +1,6 @@
 package com.example.intq.main.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,26 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.intq.common.bean.InstInfo;
+import com.example.intq.common.bean.InstInfo_;
 import com.example.intq.common.bean.instance.InstListNode;
 import com.example.intq.common.bean.instance.SearchInstList;
 import com.example.intq.common.bean.instance.SearchInstListNode;
 import com.example.intq.common.core.WDRecyclerAdapter;
+import com.example.intq.common.util.UIUtils;
 import com.example.intq.main.R;
 import com.example.intq.main.databinding.SearchListInstanceBinding;
+import com.example.intq.main.vm.SearchViewModel;
 
 public class SearchListInstanceAdapter extends WDRecyclerAdapter<SearchInstListNode> {
     private OnItemClickListener mOnItemClickListener;
+    private SearchViewModel mSearchViewModel;
+    private Context mContext;
+
+    public SearchListInstanceAdapter(SearchViewModel viewModel, Context context) {
+        mSearchViewModel = viewModel;
+        mContext = context;
+    }
 
     @Override
     protected int getLayoutId() {
@@ -28,6 +40,15 @@ public class SearchListInstanceAdapter extends WDRecyclerAdapter<SearchInstListN
     protected void bindView(ViewDataBinding binding, SearchInstListNode item, int position) {
         SearchListInstanceBinding viewBinding = (SearchListInstanceBinding) binding;
         viewBinding.instLabel.setText(item.getLabel());
+        try {
+            InstInfo instInfo = mSearchViewModel.getInstInfoBox().query().equal(InstInfo_.uri, item.getUri()).build().findFirst();
+            if (instInfo != null)
+                viewBinding.instLabel.setTextColor(mContext.getColor(R.color.bg_swipe_item_gray));
+            else
+                throw new Exception("");
+        } catch (Exception e) {
+            viewBinding.instLabel.setTextColor(mContext.getColor(R.color.colorPrimaryA));
+        }
         if (!item.getCategory().equals("")) {
             viewBinding.instCategory.setText(String.format("[%s]", item.getCategory()));
             viewBinding.instCategory.setVisibility(View.VISIBLE);
